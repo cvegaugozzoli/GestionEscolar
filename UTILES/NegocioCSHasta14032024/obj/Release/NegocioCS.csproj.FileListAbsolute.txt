@@ -1,0 +1,7 @@
+C:\Aplicativos\GESTIONESCOLAR\NegocioCS\bin\Release\GESTIONESCOLAR.Negocio.dll
+C:\Aplicativos\GESTIONESCOLAR\NegocioCS\bin\Release\GESTIONESCOLAR.Negocio.pdb
+C:\Aplicativos\GESTIONESCOLAR\NegocioCS\bin\Release\GESTIONESCOLAR.Datos.dll
+C:\Aplicativos\GESTIONESCOLAR\NegocioCS\bin\Release\GESTIONESCOLAR.Datos.pdb
+C:\Aplicativos\GESTIONESCOLAR\NegocioCS\obj\Release\NegocioCS.csprojResolveAssemblyReference.cache
+C:\Aplicativos\GESTIONESCOLAR\NegocioCS\obj\Release\GESTIONESCOLAR.Negocio.dll
+C:\Aplicativos\GESTIONESCOLAR\NegocioCS\obj\Release\GESTIONESCOLAR.Negocio.pdb

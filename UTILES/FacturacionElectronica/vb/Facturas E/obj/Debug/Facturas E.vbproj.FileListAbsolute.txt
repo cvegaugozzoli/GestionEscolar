@@ -1,0 +1,20 @@
+C:\Users\amiranda\Documents\Productos full\FEAFIP_VB.NET.2008\Facturas E\bin\Debug\Facturas E.exe
+C:\Users\amiranda\Documents\Productos full\FEAFIP_VB.NET.2008\Facturas E\bin\Debug\Facturas E.pdb
+C:\Users\amiranda\Documents\Productos full\FEAFIP_VB.NET.2008\Facturas E\bin\Debug\Facturas E.xml
+C:\Users\amiranda\Documents\Productos full\FEAFIP_VB.NET.2008\Facturas E\bin\Debug\FEAFIPLib.pdb
+C:\Users\amiranda\Documents\Productos full\FEAFIP_VB.NET.2008\Facturas E\bin\Debug\FEAFIPLib.xml
+C:\Users\amiranda\Documents\Productos full\FEAFIP_VB.NET.2008\Facturas E\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\amiranda\Documents\Productos full\FEAFIP_VB.NET.2008\Facturas E\obj\Debug\Facturas_E.Form1.resources
+C:\Users\amiranda\Documents\Productos full\FEAFIP_VB.NET.2008\Facturas E\obj\Debug\Facturas_E.Resources.resources
+C:\Users\amiranda\Documents\Productos full\FEAFIP_VB.NET.2008\Facturas E\obj\Debug\Facturas E.vbproj.GenerateResource.Cache
+C:\Users\amiranda\Documents\Productos full\FEAFIP_VB.NET.2008\Facturas E\obj\Debug\Facturas E.exe
+C:\Users\amiranda\Documents\Productos full\FEAFIP_VB.NET.2008\Facturas E\obj\Debug\Facturas E.xml
+C:\Users\amiranda\Documents\Productos full\FEAFIP_VB.NET.2008\Facturas E\obj\Debug\Facturas E.pdb
+C:\Users\amiranda\Documents\Productos full\FEAFIP_VB.NET.2008\Facturas E\bin\Debug\FEAFIPLib.exe
+C:\Users\amiranda\Documents\FEAFIPNET_DEMOS\FEAFIP_VB.NET.2008\Facturas E\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\amiranda\Documents\FEAFIPNET_DEMOS\FEAFIP_VB.NET.2008\Facturas E\obj\Debug\Facturas_E.Form1.resources
+C:\Users\amiranda\Documents\FEAFIPNET_DEMOS\FEAFIP_VB.NET.2008\Facturas E\obj\Debug\Facturas_E.Resources.resources
+C:\Users\amiranda\Documents\FEAFIPNET_DEMOS\FEAFIP_VB.NET.2008\Facturas E\obj\Debug\Facturas E.vbproj.GenerateResource.Cache
+C:\Users\amiranda\Documents\FEAFIPNET_DEMOS\FEAFIP_VB.NET.2008\Facturas E\obj\Debug\Facturas E.exe
+C:\Users\amiranda\Documents\FEAFIPNET_DEMOS\FEAFIP_VB.NET.2008\Facturas E\obj\Debug\Facturas E.xml
+C:\Users\amiranda\Documents\FEAFIPNET_DEMOS\FEAFIP_VB.NET.2008\Facturas E\obj\Debug\Facturas E.pdb

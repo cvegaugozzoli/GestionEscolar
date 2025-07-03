@@ -1,0 +1,4 @@
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\FEAFIPLib\Facturas E\Facturas E.ConvertedToC#\obj\x86\Release\Facturas E.csprojResolveAssemblyReference.cache
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\FEAFIPLib\Facturas E\Facturas E.ConvertedToC#\obj\x86\Release\Facturas_E.Form1.resources
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\FEAFIPLib\Facturas E\Facturas E.ConvertedToC#\obj\x86\Release\Facturas_E.My_Project.Resources.resources
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\FEAFIPLib\Facturas E\Facturas E.ConvertedToC#\obj\x86\Release\Facturas E.csproj.GenerateResource.Cache

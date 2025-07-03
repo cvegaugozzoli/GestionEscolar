@@ -1,0 +1,36 @@
+4517721004856075 
+VISA Débito 
+123 
+2030-08
+Compra Exitosa
+
+TIPO DE TARJETA = Crédito 
+NRO DE TARJETA = 4507990000004905
+MARCA DE TARJETA = VISA Crédito
+CVV = 123
+VENCIMIENTO = 2030-08
+OPERACIÓN = Compra Exitosa
+
+siro/listadosproceso
+
+
+1- Como habiito y deshabilito opciones del botón de pago. ?
+
+2- Como hago para que me devuelva: 
+	- Forma de Pago: Tarj.Debito, Crédito, Link Pagos, QR
+	- En caso de ser Tarj. Crédito: VISA, Mastercar, etc
+	- Cant. Cuotas? Importe de las Cuotas..
+
+3- Link Pagos me devuelve error, me envía directamente a la página de URL_ERROR..
+
+4- QR como funciona? Nosotros no vamos a trabajar con vtos en el QR.. Sería QR Estático? 
+Cuando uso la url https://siropagosh.bancoroela.com.ar/Pago/StringQR me devuelve error..
+	- Escanea..
+	- Paga con su billetera virtual en el celular..
+	- Cuando consulto el pago.. debería hacerlo hasta cuando..
+
+5- El estado REGISTRADA es mientras..
+
+6- Si tengo abierta la ventana de SIRO Pagos más de 15 minutos y recién en ese momento comienza a pagar.. sigue funcionando la ventana de SIRO o cae automaticamente? con estado Cancelada?
+
+

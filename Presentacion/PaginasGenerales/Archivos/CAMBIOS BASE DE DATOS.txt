@@ -1,0 +1,881 @@
+
+--------------------------------------------------------------------------
+
+RUPSE - [PROVEEDORESInsertar]-  Agregue: SELECT PRO_ID FROM proveedores WHERE PRO_CUIT=@procuit
+saque return pro_id
+
+ESO AGREGUE PARA QUE ME DEVUELVA EL PRO_ID PARA EL PROCEDIMIENTO  PRO = ocnProveedor.Insertar(); DE PaginasGenerales_RegistroProveedorNuevo
+
+USE [RUPSE]
+GO
+/****** Object:  StoredProcedure [dbo].[PROVEEDORESInsertar]    Script Date: 1/3/2018 9:19:30 a. m. ******/
+SET ANSI_NULLS OFF
+GO
+SET QUOTED_IDENTIFIER OFF
+GO
+ALTER PROCEDURE [dbo].[PROVEEDORESInsertar]
+	(@proId 	[int] output,
+	 @proNom	[varchar](20),
+	 @procuit	[varchar](11),
+	 @proRazSoc [varchar](100),
+	 @proClave	[varchar](8),
+	 @promailcontacto	[varchar](50),
+	 @proDenomi [varchar](120)
+)
+
+As
+INSERT INTO [dbo].[PROVEEDORES]
+	(
+	[PRO_USUARIO], 
+	[PRO_CUIT],
+	[PRO_RAZON_SOCIAL],  
+	[PRO_CLAVE],
+	[PRO_MAIL_CONTACTO],
+	[PRO_DENOMINACION]
+	)
+
+VALUES 
+	(
+	@proNom,
+	@procuit,
+	@proRazSoc,		
+	@proClave,
+	@promailcontacto,
+	@proDenomi
+	)	
+
+
+set @proId=@@identity
+
+declare @desc as varchar(150)
+set @desc='Alta de Proveedor. Id: '+ltrim(@proId)+'-'+ltrim(@proNom)
+exec TRANSACCIONESInsertar @proId,@desc
+SELECT PRO_ID FROM proveedores WHERE PRO_CUIT=@procuit
+
+
+
+--------------------------------------------------------------------------
+
+RUPSE - [EMPRESAS_TIPOS_TraerTodos]-  Agregue: 
+(
+@PrimerItem varchar(500)
+)
+as
+BEGIN
+select '0' as Valor, @PrimerItem as Texto 
+union all
+select convert(varchar(50),EMPT_ID) as Valor, EMPT_DESCRIPCION as Texto
+from dbo.empresas_tipos E
+where 1 = 1
+order by 2
+ESO AGREGUE PARA QUE funcione DropDownList de tipo de empresa en PaginasGenerales_ProveedorRegistrado
+
+
+---------------------------------------------------------------------------------
+
+FORMULARIOS_ACTUALIZAR
+Agregue
+SELECT FOR_ID AS FOR_ID FROM formularios WHERE FOR_ID=@for_id_nuevo
+saque --return(@for_id_nuevo)
+
+----------------------------------------------------------------------------------------
+
+[FORMULARIOS_RENOVACION]
+Agregue
+SELECT FOR_ID AS FOR_ID FROM formularios WHERE FOR_ID=@for_id_nuevo
+saque --return(@for_id_nuevo)
+
+---------------------------------------------------------------------------------------------------
+
+ESTO PUSE
+USE [RUPSE]
+GO
+/****** Object:  StoredProcedure [dbo].[PERSONASTraerporProveedoryFormulario]    Script Date: 20/2/2018 9:54:41 a. m. ******/
+SET ANSI_NULLS OFF
+GO
+SET QUOTED_IDENTIFIER OFF
+GO
+ALTER procedure [dbo].[PERSONASTraerporProveedoryFormulario]
+(
+@pro_id int,
+@for_id int,
+@pert_inscribe as integer
+)
+as
+BEGIN
+select P.PER_ID as [PER_ID],
+isnull(P.PER_DNI,' ') as [DNI],p.PER_APEYNOM as[Persona], p.PER_CUIT as[CUIT], d.DOC_TIPO_NOM as[TipoDocumento], pt.PERT_NOMBRE as[TipoPersona] , r.REL_CARGO AS [Cargo] , pt.PERT_ID AS [PERT_ID] from personas p
+left join relacion_tipo r on p.PER_ID = r.REL_PER_ID
+left join formularios f on r.REL_FOR_ID = f.FOR_ID
+join doctipos d on d.DOC_TIPO_ID = p.PER_DOC_TIPO
+join personas_tipos pt on pt.PERT_ID = R.REL_PERT_ID
+where f.FOR_PRO_ID =@pro_id and r.REL_FOR_ID = @for_id 
+AND pt.PERT_INSCRIBE_EMPT_ID = @pert_inscribe
+
+ESTO ESTABA
+
+USE [RUPSE]
+GO
+/****** Object:  StoredProcedure [dbo].[PERSONASTraerporProveedoryFormulario]    Script Date: 5/2/2018 7:31:41 a. m. ******/
+SET ANSI_NULLS OFF
+GO
+SET QUOTED_IDENTIFIER OFF
+GO
+ALTER procedure [dbo].[PERSONASTraerporProveedoryFormulario]
+(
+@pro_id int,
+@for_id int,
+@pert_inscribe as integer
+)
+as
+BEGIN
+select p.*, d.DOC_TIPO_NOM, pt.PERT_NOMBRE, r.REL_CARGO, pt.PERT_ID from personas p
+left join relacion_tipo r on p.PER_ID = r.REL_PER_ID
+left join formularios f on r.REL_FOR_ID = f.FOR_ID
+join doctipos d on d.DOC_TIPO_ID = p.PER_DOC_TIPO
+join personas_tipos pt on pt.PERT_ID = R.REL_PERT_ID
+where f.FOR_PRO_ID =@pro_id and r.REL_FOR_ID = @for_id 
+AND pt.PERT_INSCRIBE_EMPT_ID = @pert_inscribe
+END
+
+
+----------------------------------------------------------------------------------------------------------
+ESTO MODIFIQUE
+
+USE [RUPSE]
+GO
+/****** Object:  StoredProcedure [dbo].[DocTiposTraerTodos]    Script Date: 5/2/2018 10:20:13 a. m. ******/
+SET ANSI_NULLS OFF
+GO
+SET QUOTED_IDENTIFIER OFF
+GO
+ALTER procedure [dbo].[DocTiposTraerTodos]
+(
+@PrimerItem varchar(500)
+)
+as
+select '0' as Valor, @PrimerItem as Texto 
+union all
+
+select convert(varchar(50),DOC_TIPO_ID) as Valor, DOC_TIPO_NOM as Texto
+from doctipos
+where 1 = 1
+
+aSI ESTABA
+
+USE [RUPSE]
+GO
+/****** Object:  StoredProcedure [dbo].[DocTiposTraerTodos]    Script Date: 5/2/2018 10:20:13 a. m. ******/
+SET ANSI_NULLS OFF
+GO
+SET QUOTED_IDENTIFIER OFF
+GO
+ALTER procedure [dbo].[DocTiposTraerTodos]
+
+as
+BEGIN
+select d.* from dbo.doctipos d
+
+END
+
+-------------------------------------------------------------------------------------
+hICE ESTO
+
+USE [RUPSE]
+GO
+/****** Object:  StoredProcedure [dbo].[PersonasTipos_TraerTodos]    Script Date: 5/2/2018 10:40:27 a. m. ******/
+SET ANSI_NULLS OFF
+GO
+SET QUOTED_IDENTIFIER OFF
+GO
+ALTER procedure [dbo].[PersonasTipos_TraerTodos]
+(
+@PrimerItem varchar(500),
+@empt_id as integer,
+@pert_inscribe as integer
+)
+as
+select '0' as Valor, @PrimerItem as Texto 
+union all
+
+select convert(varchar(50),P.PERT_ID) as Valor, P.PERT_NOMBRE as Texto
+from personas_tipos p
+LEFT JOIN empresas_tipos_personas_tipos E ON E.ETPT_PERT_ID = P.PERT_ID
+where e.etpt_empt_id = @empt_id 
+and p.PERT_INSCRIBE_EMPT_ID = @pert_inscribe
+
+
+
+
+
+Asi estaba 
+USE [RUPSE]
+GO
+/****** Object:  StoredProcedure [dbo].[PersonasTipos_TraerTodos]    Script Date: 5/2/2018 10:40:27 a. m. ******/
+SET ANSI_NULLS OFF
+GO
+SET QUOTED_IDENTIFIER OFF
+GO
+ALTER procedure [dbo].[PersonasTipos_TraerTodos]
+(
+@empt_id as integer,
+@pert_inscribe as integer
+)
+as
+BEGIN
+
+select p.* from personas_tipos p
+LEFT JOIN empresas_tipos_personas_tipos E ON E.ETPT_PERT_ID = P.PERT_ID
+where e.etpt_empt_id = @empt_id 
+and p.PERT_INSCRIBE_EMPT_ID = @pert_inscribe
+
+END
+
+------------------------------------------------------------------------------------------------------------
+
+Crear procedimiento
+USE [RUPSE]
+GO
+/****** Object:  StoredProcedure [dbo].[EMPRESAS_TIPOS_TraerTodosxempt_id]    Script Date: 6/2/2018 7:25:56 a. m. ******/
+SET ANSI_NULLS OFF
+GO
+SET QUOTED_IDENTIFIER OFF
+GO
+ALTER procedure [dbo].[EMPRESAS_TIPOS_TraerTodosxempt_id]
+(
+@empt_id int
+)
+as
+BEGIN
+----select '@empt_id' as Valor, '' as Texto 
+--union all
+select convert(varchar(50),EMPT_ID) as Valor, EMPT_DESCRIPCION as Texto
+from dbo.empresas_tipos E where EMPT_ID=@empt_id
+end
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+USE [RUPSE]
+GO
+/****** Object:  StoredProcedure [dbo].[PERSONASTraerporProveedoryFormularioyTipoPersona]    Script Date: 8/2/2018 12:23:46 p. m. ******/
+SET ANSI_NULLS OFF
+GO
+SET QUOTED_IDENTIFIER OFF
+GO
+ALTER procedure [dbo].[PERSONASTraerporProveedoryFormularioyTipoPersona]
+(
+@pro_id int,
+@for_id int,
+@tipopersona int
+)
+as
+BEGIN
+select p.*, d.DOC_TIPO_NOM, pt.PERT_NOMBRE, r.REL_CARGO, pt.PERT_ID  from personas p
+left join relacion_tipo r on p.PER_ID = r.REL_PER_ID
+left join formularios f on r.REL_FOR_ID = f.FOR_ID
+join doctipos d on d.DOC_TIPO_ID = p.PER_DOC_TIPO
+join personas_tipos pt on pt.PERT_ID = R.REL_PERT_ID
+where f.FOR_PRO_ID =@pro_id and r.REL_FOR_ID = @for_id and pt.PERT_ID = @tipopersona
+
+END
+
+PUSE pt.PERT_ID ESO EN LA CONSULTA
+--------------------------------------------------------------------------------------------------------------------------------------
+
+USE [RUPSE]
+GO
+/****** Object:  StoredProcedure [dbo].[PERSONASInsertar]    Script Date: 8/2/2018 8:51:41 a. m. ******/
+
+Esto agregue:
+select PER_ID FROM PERSONAS WHERE PER_ID= @perId
+
+Esto como comentario
+--return(@perId) 
+
+--------------------------------------------------------------------------------------------------------------------------------
+esto puse
+USE [RUPSE]
+GO
+/****** Object:  StoredProcedure [dbo].[DEPTOS_TraerporPciaId]    Script Date: 23/2/2018 7:37:18 a. m. ******/
+SET ANSI_NULLS OFF
+GO
+SET QUOTED_IDENTIFIER OFF
+GO
+ALTER procedure [dbo].[DEPTOS_TraerporPciaId]
+(
+@pciaid int
+)as
+select '0' as Valor, '' as Texto 
+union all
+select convert(varchar(50), d.DEP_COD) AS Valor,DEP_DESCRIPCION as Texto from departamentos d where d.DEP_PROVI_ID = @pciaid
+order by 2
+
+
+----------------------------------------------------------------------------------------------------
+esto puse
+USE [RUPSE]
+GO
+/****** Object:  StoredProcedure [dbo].[LOCALIDADES_TraeporDeptoId_PciaId]    Script Date: 26/2/2018 8:13:25 a. m. ******/
+SET ANSI_NULLS OFF
+GO
+SET QUOTED_IDENTIFIER OFF
+GO
+ALTER procedure [dbo].[LOCALIDADES_TraeporDeptoId_PciaId]
+(
+@pciaid int,
+@deptoid int)
+as
+select '0' as Valor, '' as Texto 
+union all
+select convert(varchar(50), l.LOC_COD) AS Valor,LOC_DESCRIPCION as Texto FROM localidades l 
+where  l.LOC_DEP_COD = @deptoid and l.LOC_PROVI_ID = @pciaid 
+order by 2
+
+
+
+-------------------------------------------------------------------------------------------------------
+ESTO PUSE 
+USE [RUPSE]
+GO
+/****** Object:  StoredProcedure [dbo].[PROVINCIAS_TraerTodas]    Script Date: 23/2/2018 7:37:08 a. m. ******/
+SET ANSI_NULLS OFF
+GO
+SET QUOTED_IDENTIFIER OFF
+GO
+ALTER procedure [dbo].[PROVINCIAS_TraerTodas]
+(
+@PrimerItem varchar(500))
+as
+select '0' as Valor, @PrimerItem as Texto 
+union all
+select convert(varchar(50), p.PROVI_ID) as Valor, PROVI_DESCRIPCION as Texto from provincias P 
+order by 2
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+Borrar los lugares nulos de provincia deptos y localidad
+---------------------------------------------------------------------------------------------------------------------
+
+USE [RUPSE]
+GO
+/****** Object:  StoredProcedure [dbo].[RUBROSTraerTodosPorTipo]    Script Date: 02/28/2018 08:21:56 ******/
+SET ANSI_NULLS OFF
+GO
+SET QUOTED_IDENTIFIER OFF
+GO
+alter procedure [dbo].[RUBROSTraerTodosPorTipo]
+(@esConvenioMultilateral 	[int] )
+as
+BEGIN
+
+select (RUB_COD + ' - ' + RUB_DESCRIPCION) as Texto, RUB_ID, RUB_COD as Valor 
+from dbo.rubros r
+where RUB_ID = 0
+UNION
+select (RUB_COD + ' - ' + RUB_DESCRIPCION) as RUB_DESCRIPCION, RUB_ID, RUB_COD 
+from dbo.rubros r
+where RUB_ESCONVENIOMULTILATERAL = @esConvenioMultilateral
+order by RUB_COD
+
+END
+------------------------------------------------------------------------
+USE [RUPSE]
+GO
+/****** Object:  StoredProcedure [dbo].[RUBROSTraerTodosPorTipo]    Script Date: 1/3/2018 11:50:19 a. m. ******/
+SET ANSI_NULLS OFF
+GO
+SET QUOTED_IDENTIFIER OFF
+GO
+ALTER procedure [dbo].[RUBROSTraerTodosPorTipo]
+(@esConvenioMultilateral 	[int] )
+as
+BEGIN
+
+select (RUB_COD + ' - ' + RUB_DESCRIPCION) as Texto, RUB_ID as Codigo, RUB_COD as Valor 
+from dbo.rubros r
+where RUB_ID = 0
+UNION
+select (RUB_COD + ' - ' + RUB_DESCRIPCION) as RUB_DESCRIPCION, RUB_ID , RUB_COD 
+from dbo.rubros r
+where RUB_ESCONVENIOMULTILATERAL = @esConvenioMultilateral
+order by RUB_COD
+
+END
+-------------------------------------------------------------------
+
+USE [RUPSE]
+GO
+/****** Object:  StoredProcedure [dbo].[FormularioRubrosBuscar_porForIdyRubId]    Script Date: 1/3/2018 10:54:18 a. m. ******/
+SET ANSI_NULLS OFF
+GO
+SET QUOTED_IDENTIFIER OFF
+GO
+ALTER procedure [dbo].[FormularioRubrosBuscar_porForIdyRubId]
+(
+@forId integer,
+@rubId integer
+)
+as
+select f.*, R.*
+from formularios_rubros f
+inner join rubros R on R.RUB_ID = f.FORU_RUB_ID
+where f.FORU_FOR_ID = @forId and f.FORU_RUB_ID = @rubId
+
+--------------------------------------------------------
+
+USE [RUPSE]
+GO
+/****** Object:  StoredProcedure [dbo].[FormularioRubrosTraer_porId]    Script Date: 1/3/2018 7:21:28 a. m. ******/
+SET ANSI_NULLS OFF
+GO
+SET QUOTED_IDENTIFIER OFF
+GO
+ALTER procedure [dbo].[FormularioRubrosTraer_porId]
+(
+@forId integer
+)
+as
+select convert(varchar(50),RUB_COD) as Valor, RUB_DESCRIPCION as Texto,f.FORU_RUB_ID as Codigo,R.RUB_ID,f.FORU_FOR_ID 
+from formularios_rubros f
+inner join rubros R on R.RUB_ID = f.FORU_RUB_ID
+where f.FORU_FOR_ID = @forId
+
+
+------------------------------------------------------------------------------------
+
+USE [RUPSE]
+GO
+/****** Object:  StoredProcedure [dbo].[FORMULARIOSRUBROSInsertar]    Script Date: 1/3/2018 7:54:14 a. m. ******/
+SET ANSI_NULLS OFF
+GO
+SET QUOTED_IDENTIFIER OFF
+GO
+ALTER PROCEDURE [dbo].[FORMULARIOSRUBROSInsertar]
+	(
+	 @for_id	[int],
+	 @rub_id 	[int],
+	 @pro_id	[int])
+
+As
+INSERT INTO [dbo].[formularios_rubros]
+	(
+	[FORU_FOR_ID], 
+	[FORU_RUB_ID])
+
+VALUES 
+	(
+	@for_id,
+	@rub_id)	
+SELECT FORU_ID FROM formularios_rubros WHERE FORU_FOR_ID= @for_id and FORU_RUB_ID=@rub_id
+declare @desc as varchar(150)
+set @desc='Alta de Formulario Rubros. Id: '+ltrim(@for_id)
+exec TRANSACCIONESInsertar @pro_id,@desc
+
+
+--------------------------------------------------------------------------------------------------------
+USE [RUPSE]
+GO
+/****** Object:  StoredProcedure [dbo].[RUBROSTraerTodosporDescripcionPorTipo]    Script Date: 03/02/2018 07:48:10 ******/
+SET ANSI_NULLS OFF
+GO
+SET QUOTED_IDENTIFIER OFF
+GO
+aLTER procedure [dbo].[RUBROSTraerTodosporDescripcionPorTipo]
+(@esConvenioMultilateral 	[int] )
+as
+BEGIN
+select (RUB_COD + ' - ' + RUB_DESCRIPCION) as Texto, RUB_ID as Codigo, RUB_COD as Valor
+from dbo.rubros r
+where RUB_ID = 0
+UNION
+select (RUB_DESCRIPCION + ' - ' + RUB_COD) as RUB_DESCRIPCION, RUB_ID, RUB_COD 
+from dbo.rubros r
+where RUB_ESCONVENIOMULTILATERAL = @esConvenioMultilateral
+order by RUB_COD
+
+END
+
+---------------------------------------------------------------------------------------------------------
+USE [RUPSE]
+GO
+/****** Object:  StoredProcedure [dbo].[PERSONASTraerporProveedoryFormularioyTipoPersona]    Script Date: 2/3/2018 9:49:15 a. m. ******/
+SET ANSI_NULLS OFF
+GO
+SET QUOTED_IDENTIFIER OFF
+GO
+ALTER procedure [dbo].[PERSONASTraerporProveedoryFormularioyTipoPersona]
+(
+@pro_id int,
+@for_id int,
+@tipopersona int
+)
+as
+BEGIN
+select  p.PER_ID as [PER_ID],p.*, isnull(p.PER_DNI,' ') as [DNI],pt.PERT_ID AS [PERT_ID], r.REL_CARGO AS [Cargo] , p.PER_APEYNOM as[Persona],d.DOC_TIPO_NOM as[TipoDocumento], p.PER_CUIT as[CUIT],d.DOC_TIPO_NOM, pt.PERT_NOMBRE, r.REL_CARGO, pt.PERT_ID AS [TipoId]  from personas p
+left join relacion_tipo r on p.PER_ID = r.REL_PER_ID
+left join formularios f on r.REL_FOR_ID = f.FOR_ID
+join doctipos d on d.DOC_TIPO_ID = p.PER_DOC_TIPO
+join personas_tipos pt on pt.PERT_ID = R.REL_PERT_ID
+where f.FOR_PRO_ID =@pro_id and r.REL_FOR_ID = @for_id and pt.PERT_ID = @tipopersona
+
+END
+
+--------------------------------------------------------------------------------------------------------------------
+USE [RUPSE]
+GO
+/****** Object:  StoredProcedure [dbo].[PERSONASTraerporProveedoryFormularioyTipoPersona]    Script Date: 2/3/2018 11:28:09 a. m. ******/
+SET ANSI_NULLS OFF
+GO
+SET QUOTED_IDENTIFIER OFF
+GO
+ALTER procedure [dbo].[PERSONASTraerporProveedoryFormularioyTipoPersona]
+(
+@pro_id int,
+@for_id int,
+@tipopersona int
+)
+as
+BEGIN
+select  p.PER_ID as [PER_ID],p.*, isnull(p.PER_DNI,' ') as [DNI],pt.PERT_ID AS [PERT_ID], r.REL_CARGO AS [Cargo] , p.PER_APEYNOM as[Persona],d.DOC_TIPO_NOM as[TipoDocumento], p.PER_CUIT as[CUIT],d.DOC_TIPO_NOM, pt.PERT_NOMBRE as[TipoPersona], r.REL_CARGO, pt.PERT_ID AS [TipoId]  from personas p
+left join relacion_tipo r on p.PER_ID = r.REL_PER_ID
+left join formularios f on r.REL_FOR_ID = f.FOR_ID
+join doctipos d on d.DOC_TIPO_ID = p.PER_DOC_TIPO
+join personas_tipos pt on pt.PERT_ID = R.REL_PERT_ID
+where f.FOR_PRO_ID =@pro_id and r.REL_FOR_ID = @for_id and pt.PERT_ID = @tipopersona
+
+END
+
+--------------------------------------------------------------------------
+
+USE [RUPSE]
+GO
+/****** Object:  StoredProcedure [dbo].[FORMULARIOSFIRMASInsertar]    Script Date: 2/3/2018 11:57:43 a. m. ******/
+SET ANSI_NULLS OFF
+GO
+SET QUOTED_IDENTIFIER OFF
+GO
+ALTER PROCEDURE [dbo].[FORMULARIOSFIRMASInsertar]
+	(@fir_id	[int] output,
+	 @fir_for_id	[int],
+	 @fir_deno 	[varchar](50),
+	 @fir_emp_con 	[varchar](1),	 
+	 @pro_id	[int])
+
+As
+INSERT INTO [dbo].[formularios_firmas]
+	(
+	[FIR_FOR_ID], 
+	[FIR_DENOMINACION],
+	[FIR_EMP_CONTRATO])
+
+VALUES 
+	(
+	@fir_for_id,
+	@fir_deno,
+	@fir_emp_con)	
+
+
+set @fir_id=@@identity
+
+declare @desc as varchar(150)
+set @desc='Alta de Formulario Firmas. Id: '+ltrim(@fir_id)
+exec TRANSACCIONESInsertar @pro_id,@desc
+
+--return(@fir_id)
+
+SELECT FIR_FOR_ID FROM formularios_firmas WHERE FIR_ID=@fir_id
+
+----------------------------------------------------------------------------------------------------------------------------
+
+USE [RUPSE]
+GO
+/****** Object:  StoredProcedure [dbo].[FORMULARIOSFIRMASTraerporIdyProId]    Script Date: 2/3/2018 12:10:41 p. m. ******/
+SET ANSI_NULLS OFF
+GO
+SET QUOTED_IDENTIFIER OFF
+GO
+ALTER procedure [dbo].[FORMULARIOSFIRMASTraerporIdyProId]
+(
+@pro_id int,
+@for_id int
+)
+as
+BEGIN
+select fi.FIR_ID AS Id, FI.FIR_FOR_ID, FI.FIR_DENOMINACION as Denominacion,
+'Adjunto' = 
+CASE 
+	when fi.FIR_EMP_CONTRATO = 1 then 'SI'
+	when fi.FIR_EMP_CONTRATO = 0 then 'NO'
+end
+from formularios_firmas fi
+inner join formularios f on f.FOR_ID = fi.FIR_FOR_ID
+where f.FOR_PRO_ID =@pro_id and fi.FIR_FOR_ID = @for_id 
+
+END
+
+---------------------------------------------------------------------------------
+
+USE [RUPSE]
+GO
+/****** Object:  StoredProcedure [dbo].[FORMULARIOSBANCOSInsertar]    Script Date: 02/03/2018 17:32:18 ******/
+SET ANSI_NULLS OFF
+GO
+SET QUOTED_IDENTIFIER OFF
+GO
+ALTER PROCEDURE [dbo].[FORMULARIOSBANCOSInsertar]
+	(@foba_id	[int] output,
+	 @foba_for_id	[int],
+	 @foba_ban_id 	[int],
+	 @foba_tipo_cta [int],	 
+	 @foba_nro_cta [varchar](20),	 
+	 @foba_localidad [varchar](50),
+	 @pro_id	[int])
+
+As
+INSERT INTO [dbo].[formularios_bancos]
+	(
+	[FOBA_FOR_ID], 
+	[FOBA_BAN_ID],
+	[FOBA_TIPO_CUENTA],
+	[FOBA_NRO_CUENTA],
+	[FOBA_LOCALIDAD])
+
+VALUES 
+	(
+	@foba_for_id,
+	@foba_ban_id,
+	@foba_tipo_cta,
+	@foba_nro_cta,
+	@foba_localidad)	
+
+
+set @foba_id=@@identity
+
+declare @desc as varchar(150)
+set @desc='Alta de Formulario Bancos. Id: '+ltrim(@foba_id)
+exec TRANSACCIONESInsertar @pro_id,@desc
+
+return(@foba_id)
+
+-------------------------------------------------------------
+
+USE [RUPSE]
+GO
+/****** Object:  StoredProcedure [dbo].[FORMULARIOSBANCOS_EliminarporForIdyBanId]    Script Date: 02/03/2018 17:04:51 ******/
+SET ANSI_NULLS OFF
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER procedure [dbo].[FORMULARIOSBANCOS_EliminarporForIdyBanId]
+(
+@forId  int,
+@banId	int,
+@pro_id	int
+)
+as
+
+BEGIN TRANSACTION
+
+delete from  dbo.formularios_bancos where 
+FOBA_FOR_ID = @forId and FOBA_BAN_ID = @banId
+
+IF @@ERROR = 0 
+	COMMIT TRANSACTION 
+else
+	ROLLBACK TRAN
+	
+
+declare @desc as varchar(150)
+set @desc='Elimina Formulario Bancos. ForId: '+ltrim(@forId)+'BanId:'+ LTRIM(@banId)
+exec TRANSACCIONESInsertar @pro_id,@desc
+
+----------------------------------------------------------------
+
+USE [RUPSE]
+GO
+/****** Object:  StoredProcedure [dbo].[BANCOS_TraerporFormId]    Script Date: 02/03/2018 16:57:19 ******/
+SET ANSI_NULLS OFF
+GO
+SET QUOTED_IDENTIFIER OFF
+GO
+ALTER procedure [dbo].[BANCOS_TraerporFormId]
+(
+@forid int
+)
+as
+BEGIN
+
+select f.FOBA_NRO_CUENTA as Numero, f.FOBA_LOCALIDAD as Localidad, b.BAN_ID as ID, (b.BAN_NOMBRE + ' ' + b.BAN_SUCURSAL) AS Denominacion,
+'TpoCta' = 
+case 
+WHEN FOBA_TIPO_CUENTA = 0 THEN 'Caja de Ahorro'
+WHEN FOBA_TIPO_CUENTA = 1 THEN 'Cuenta Corriente'
+END
+from formularios_bancos f 
+inner join bancos B on f.FOBA_BAN_ID = b.BAN_ID
+where f.FOBA_FOR_ID =@forid
+
+END
+
+------------------------------------------------------------------------------
+
+USE [RUPSE]
+GO
+/****** Object:  StoredProcedure [dbo].[BANCOS_TraerTodos]    Script Date: 02/03/2018 16:46:25 ******/
+SET ANSI_NULLS OFF
+GO
+SET QUOTED_IDENTIFIER OFF
+GO
+ALTER procedure [dbo].[BANCOS_TraerTodos]
+as
+BEGIN
+
+select B.BAN_ID as Valor, (b.BAN_NOMBRE + ' ' + b.BAN_SUCURSAL) AS Texto 
+from bancos B
+order by Texto
+
+END
+
+---------------------------------------------------------------
+
+USE [RUPSE]
+GO
+/****** Object:  StoredProcedure [dbo].[COMERCIOS_TraerporFormId]    Script Date: 04/03/2018 20:37:28 ******/
+SET ANSI_NULLS OFF
+GO
+SET QUOTED_IDENTIFIER OFF
+GO
+ALTER procedure [dbo].[COMERCIOS_TraerporFormId]
+(
+@forid int
+)
+as
+BEGIN
+
+Select f.FOCO_ID as ID, F.FOCO_DESCRIPCION AS Denominacion, f.FOCO_LOCALIDAD as Localidad, f.* from
+formularios_comercios f
+where f.FOCO_FOR_ID =@forid
+
+END
+
+-----------------------------------------------------
+
+USE [RUPSE]
+GO
+/****** Object:  StoredProcedure [dbo].[FORMULARIOSCOMERCIOSInsertar]    Script Date: 04/03/2018 20:51:24 ******/
+SET ANSI_NULLS OFF
+GO
+SET QUOTED_IDENTIFIER OFF
+GO
+ALTER PROCEDURE [dbo].[FORMULARIOSCOMERCIOSInsertar]
+	(
+	 @foco_descripcion	[varchar](50),
+	 @foco_for_id 	[int],
+	 @foco_localidad [varchar](50),	 	 
+	 @pro_id	[int])
+
+As
+INSERT INTO [dbo].[formularios_comercios]
+	(
+	[FOCO_DESCRIPCION],
+	[FOCO_FOR_ID],
+	[FOCO_LOCALIDAD])
+
+VALUES 
+	(
+	@foco_descripcion,
+	@foco_for_id,
+	@foco_localidad)	
+
+declare @foco_id as int 
+set @foco_id=@@identity
+
+declare @desc as varchar(150)
+set @desc='Alta de Formulario Comercios. Id: '+ltrim(@foco_id)
+exec TRANSACCIONESInsertar @pro_id,@desc
+
+--------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+nuevo
+
+
+USE [RUPSE]
+GO
+/****** Object:  StoredProcedure [dbo].[REPARTICIONES_TraerTodos]    Script Date: 5/3/2018 9:12:29 a. m. ******/
+SET ANSI_NULLS OFF
+GO
+SET QUOTED_IDENTIFIER OFF
+GO
+ALTER procedure [dbo].[REPARTICIONES_TraerTodos]
+
+as
+BEGIN
+select R.REP_ID AS ID, R.REP_DESCRIPCION AS Denominacion from dbo.reparticiones R
+order by REP_DESCRIPCION
+END
+
+----------------------------------------------------------------------------------
+USE [RUPSE]
+GO
+/****** Object:  StoredProcedure [dbo].[REPARTICIONES_TraerporFormId]    Script Date: 6/3/2018 10:32:10 a. m. ******/
+SET ANSI_NULLS OFF
+GO
+SET QUOTED_IDENTIFIER OFF
+GO
+ALTER procedure [dbo].[REPARTICIONES_TraerporFormId]
+(
+@forid int
+)
+as
+BEGIN
+
+Select f.*, r.*,f.FORE_ID as ID,r.REP_DESCRIPCION AS Denominacion, f.FORE_LOCALIDAD as Localidad from formularios_reparticiones f
+INNER JOIN reparticiones r on r.rep_id = f.FORE_REP_ID
+where f.FORE_FOR_ID =@forid
+
+END
+
+
+-----------------------------------------------------------------
+
+Tabla reparticiones le agregue fila 0 (cero) "" ""
+
+
+----------------------------------------------------------------------
+
+USE [RUPSE]
+GO
+/****** Object:  StoredProcedure [dbo].[Formulario_ProveedorTraerporCUIT]    Script Date: 16/3/2018 11:00:46 a. m. ******/
+SET ANSI_NULLS OFF
+GO
+SET QUOTED_IDENTIFIER OFF
+GO
+ALTER procedure [dbo].[Formulario_ProveedorTraerporCUIT]
+(
+@procuit varchar(11)
+)
+as
+BEGIN
+select f.FOR_ID as ID, f.FOR_EXPTE_NUM as NUMEXP, f.FOR_EST_ID as ColEst, f.FOR_FECHA_PRESENTA as PRESENTACION,f.FOR_FECHA_RESOL as FCHARESOLUCION,F.FOR_RESOLUCION AS NRORESOLUCION,f.FOR_FECHAVTO AS FCHVENCIMIENTO, f.*, p.*,e.*
+, 'Estado' =
+	Case  
+		when (FOR_EST_ID = 2 or FOR_EST_ID = 8) and ((cast(F.FOR_FECHAVTO as integer) - cast(GETDATE() as integer))<0) then 'Vencido'		
+		else e.EST_DESCRIPCION
+	End
+, 'estid' = 
+	Case  
+		when (FOR_EST_ID = 2 or FOR_EST_ID = 8) and ((cast(F.FOR_FECHAVTO as integer) - cast(GETDATE() as integer))<0) then 7
+		else e.EST_ID
+	End	
+from formularios f 
+inner join proveedores p on p.PRO_ID = f.FOR_PRO_ID
+inner join estados e on e.EST_ID = f.FOR_EST_ID
+where 
+p.PRO_CUIT = @procuit
+-- and p.PRO_ESTADO <> 8
+order by f.FOR_ID desc
+END
+
+------------------------------------------------------------------------------------------------------------------
+
+lblMensajeError.Text = "<div class=\"alert alert-danger alert-dismissable\">\r\n<button aria-hidden=\"true\" data-dismiss=\"alert\" class=\"close\" type=\"button\">x</button>\r\n<a class=\"alert-link\" href=\"#\">Error de Sistema</a><br/>\r\nSe ha producido el siguiente error:<br...

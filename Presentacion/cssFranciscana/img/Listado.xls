@@ -1,0 +1,267 @@
+<style> td { mso-number-format:\@;} </style><div>
+	<table class="table table-striped" cellspacing="0" border="0" id="ctl00_cph_gridtemp" style="border-collapse:collapse;">
+		<tr align="center" valign="middle" style="background-color:#CCCCFF;">
+			<th scope="col">Nombre</th><th scope="col">DNI</th><th scope="col">Curso</th><th scope="col">Estado</th>
+		</tr><tr>
+			<td>
+                                    <a id="ctl00_cph_gridtemp_ctl02_Nombre" style="color:Black;">ASTEASUAIN TOMAS IKER</a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl02_PlanEstudio" style="color:Black;">54568357</a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl02_Activo" style="color:Black;">1º GRADO A </a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl02_Estado" style="color:Black;"></a>
+                                </td>
+		</tr><tr>
+			<td>
+                                    <a id="ctl00_cph_gridtemp_ctl03_Nombre" style="color:Black;">BAEZ LUCIA ANAHI</a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl03_PlanEstudio" style="color:Black;">54568441</a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl03_Activo" style="color:Black;">1º GRADO A </a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl03_Estado" style="color:Black;"></a>
+                                </td>
+		</tr><tr>
+			<td>
+                                    <a id="ctl00_cph_gridtemp_ctl04_Nombre" style="color:Black;">BALANGIONE FRANCHESCO XAVIER</a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl04_PlanEstudio" style="color:Black;">54195551</a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl04_Activo" style="color:Black;">1º GRADO A </a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl04_Estado" style="color:Black;"></a>
+                                </td>
+		</tr><tr>
+			<td>
+                                    <a id="ctl00_cph_gridtemp_ctl05_Nombre" style="color:Black;">BOBOLI TUMA CONSTANTINO</a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl05_PlanEstudio" style="color:Black;">54196374</a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl05_Activo" style="color:Black;">1º GRADO A </a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl05_Estado" style="color:Black;"></a>
+                                </td>
+		</tr><tr>
+			<td>
+                                    <a id="ctl00_cph_gridtemp_ctl06_Nombre" style="color:Black;">BOBOLI TUMA FAUSTINA</a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl06_PlanEstudio" style="color:Black;">54196373</a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl06_Activo" style="color:Black;">1º GRADO A </a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl06_Estado" style="color:Black;"></a>
+                                </td>
+		</tr><tr>
+			<td>
+                                    <a id="ctl00_cph_gridtemp_ctl07_Nombre" style="color:Black;">BONAHORA ISABELLA SOFIA</a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl07_PlanEstudio" style="color:Black;">54324937</a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl07_Activo" style="color:Black;">1º GRADO A </a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl07_Estado" style="color:Black;"></a>
+                                </td>
+		</tr><tr>
+			<td>
+                                    <a id="ctl00_cph_gridtemp_ctl08_Nombre" style="color:Black;">BRAO INDIRA ISABELA </a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl08_PlanEstudio" style="color:Black;">54195502</a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl08_Activo" style="color:Black;">1º GRADO A </a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl08_Estado" style="color:Black;"></a>
+                                </td>
+		</tr><tr>
+			<td>
+                                    <a id="ctl00_cph_gridtemp_ctl09_Nombre" style="color:Black;">CEJAS BAUTISTA</a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl09_PlanEstudio" style="color:Black;">54569204</a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl09_Activo" style="color:Black;">1º GRADO A </a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl09_Estado" style="color:Black;"></a>
+                                </td>
+		</tr><tr>
+			<td>
+                                    <a id="ctl00_cph_gridtemp_ctl10_Nombre" style="color:Black;">CORONEL ROLDAN FELIPE</a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl10_PlanEstudio" style="color:Black;">54571802</a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl10_Activo" style="color:Black;">1º GRADO A </a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl10_Estado" style="color:Black;"></a>
+                                </td>
+		</tr><tr>
+			<td>
+                                    <a id="ctl00_cph_gridtemp_ctl11_Nombre" style="color:Black;">CORREA SOSA LORENZO </a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl11_PlanEstudio" style="color:Black;">54570990</a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl11_Activo" style="color:Black;">1º GRADO A </a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl11_Estado" style="color:Black;"></a>
+                                </td>
+		</tr><tr>
+			<td>
+                                    <a id="ctl00_cph_gridtemp_ctl12_Nombre" style="color:Black;">DIAZ GOMEZ FRANCISCO GABRIEL</a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl12_PlanEstudio" style="color:Black;">54568365</a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl12_Activo" style="color:Black;">1º GRADO A </a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl12_Estado" style="color:Black;"></a>
+                                </td>
+		</tr><tr>
+			<td>
+                                    <a id="ctl00_cph_gridtemp_ctl13_Nombre" style="color:Black;">FERNANDEZ MARIA ESPERANZA</a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl13_PlanEstudio" style="color:Black;">54570986</a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl13_Activo" style="color:Black;">1º GRADO A </a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl13_Estado" style="color:Black;"></a>
+                                </td>
+		</tr><tr>
+			<td>
+                                    <a id="ctl00_cph_gridtemp_ctl14_Nombre" style="color:Black;">GARCIA GOMEZ IGNACIO</a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl14_PlanEstudio" style="color:Black;">54685863</a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl14_Activo" style="color:Black;">1º GRADO A </a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl14_Estado" style="color:Black;"></a>
+                                </td>
+		</tr><tr>
+			<td>
+                                    <a id="ctl00_cph_gridtemp_ctl15_Nombre" style="color:Black;">GOMEZ BELTRAN MIA PILAR</a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl15_PlanEstudio" style="color:Black;">54872546</a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl15_Activo" style="color:Black;">1º GRADO A </a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl15_Estado" style="color:Black;"></a>
+                                </td>
+		</tr><tr>
+			<td>
+                                    <a id="ctl00_cph_gridtemp_ctl16_Nombre" style="color:Black;">GOMEZ CORONEL MARIANO GABRIEL</a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl16_PlanEstudio" style="color:Black;">54196493</a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl16_Activo" style="color:Black;">1º GRADO A </a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl16_Estado" style="color:Black;"></a>
+                                </td>
+		</tr><tr>
+			<td>
+                                    <a id="ctl00_cph_gridtemp_ctl17_Nombre" style="color:Black;">GUEVARA GRAMAJO VICTORIA ABIGHAIL</a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl17_PlanEstudio" style="color:Black;">54321133</a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl17_Activo" style="color:Black;">1º GRADO A </a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl17_Estado" style="color:Black;"></a>
+                                </td>
+		</tr><tr>
+			<td>
+                                    <a id="ctl00_cph_gridtemp_ctl18_Nombre" style="color:Black;">IREN MAYLEN MARTINA</a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl18_PlanEstudio" style="color:Black;">54685857</a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl18_Activo" style="color:Black;">1º GRADO A </a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl18_Estado" style="color:Black;"></a>
+                                </td>
+		</tr><tr>
+			<td>
+                                    <a id="ctl00_cph_gridtemp_ctl19_Nombre" style="color:Black;">JUAREZ TREJO KAEL DAVID</a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl19_PlanEstudio" style="color:Black;">54873012</a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl19_Activo" style="color:Black;">1º GRADO A </a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl19_Estado" style="color:Black;"></a>
+                                </td>
+		</tr><tr>
+			<td>
+                                    <a id="ctl00_cph_gridtemp_ctl20_Nombre" style="color:Black;">LESCANO IAAN EDUARDO</a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl20_PlanEstudio" style="color:Black;">54196415</a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl20_Activo" style="color:Black;">1º GRADO A </a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl20_Estado" style="color:Black;"></a>
+                                </td>
+		</tr><tr>
+			<td>
+                                    <a id="ctl00_cph_gridtemp_ctl21_Nombre" style="color:Black;">ORTIZ PIA JOSEFINA</a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl21_PlanEstudio" style="color:Black;">54327680</a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl21_Activo" style="color:Black;">1º GRADO A </a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl21_Estado" style="color:Black;"></a>
+                                </td>
+		</tr><tr>
+			<td>
+                                    <a id="ctl00_cph_gridtemp_ctl22_Nombre" style="color:Black;">PEREZ GERONIMO TAYLOR</a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl22_PlanEstudio" style="color:Black;">54013211</a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl22_Activo" style="color:Black;">1º GRADO A </a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl22_Estado" style="color:Black;"></a>
+                                </td>
+		</tr><tr>
+			<td>
+                                    <a id="ctl00_cph_gridtemp_ctl23_Nombre" style="color:Black;">RUIZ MARTIN</a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl23_PlanEstudio" style="color:Black;">54568151</a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl23_Activo" style="color:Black;">1º GRADO A </a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl23_Estado" style="color:Black;"></a>
+                                </td>
+		</tr><tr>
+			<td>
+                                    <a id="ctl00_cph_gridtemp_ctl24_Nombre" style="color:Black;">TABOADA SALVATIERRA SANTIAGO NAHUEL</a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl24_PlanEstudio" style="color:Black;">54196376</a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl24_Activo" style="color:Black;">1º GRADO A </a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl24_Estado" style="color:Black;"></a>
+                                </td>
+		</tr><tr>
+			<td>
+                                    <a id="ctl00_cph_gridtemp_ctl25_Nombre" style="color:Black;">TREJO TABOADA MARIA MANUELA</a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl25_PlanEstudio" style="color:Black;">54324996</a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl25_Activo" style="color:Black;">1º GRADO A </a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl25_Estado" style="color:Black;"></a>
+                                </td>
+		</tr><tr>
+			<td>
+                                    <a id="ctl00_cph_gridtemp_ctl26_Nombre" style="color:Black;">ZANNI NARELLA</a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl26_PlanEstudio" style="color:Black;">54321180</a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl26_Activo" style="color:Black;">1º GRADO A </a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl26_Estado" style="color:Black;"></a>
+                                </td>
+		</tr><tr>
+			<td>
+                                    <a id="ctl00_cph_gridtemp_ctl27_Nombre" style="color:Black;">ZUARES VILLANUEVA ANGELA PILAR</a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl27_PlanEstudio" style="color:Black;">54195986</a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl27_Activo" style="color:Black;">1º GRADO A </a>
+                                </td><td>
+                                    <a id="ctl00_cph_gridtemp_ctl27_Estado" style="color:Black;"></a>
+                                </td>
+		</tr>
+	</table>
+</div>

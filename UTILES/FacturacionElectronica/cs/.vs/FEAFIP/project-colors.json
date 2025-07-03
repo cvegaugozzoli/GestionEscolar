@@ -1,0 +1,16 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "115a7203-b46e-4fa9-9957-cc094608418c": {
+      "ProjectGuid": "115a7203-b46e-4fa9-9957-cc094608418c",
+      "DisplayName": "Facturas ABC",
+      "ColorIndex": 0
+    },
+    "da5db3d8-a4db-4bf9-a4fd-1fdda8cc8212": {
+      "ProjectGuid": "da5db3d8-a4db-4bf9-a4fd-1fdda8cc8212",
+      "DisplayName": "Facturas E",
+      "ColorIndex": 1
+    }
+  },
+  "NextColorIndex": 2
+}

@@ -1,0 +1,59 @@
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIPLib\Facturas ABC\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIPLib\Facturas ABC\obj\Debug\Facturas_ABC.Form1.resources
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIPLib\Facturas ABC\obj\Debug\Facturas_ABC.Resources.resources
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIPLib\Facturas ABC\obj\Debug\Facturas ABC.vbproj.GenerateResource.Cache
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIPLib\Facturas ABC\bin\Debug\Facturas ABC.exe
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIPLib\Facturas ABC\bin\Debug\Facturas ABC.pdb
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIPLib\Facturas ABC\bin\Debug\Facturas ABC.xml
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIPLib\Facturas ABC\bin\Debug\FEAFIPLib.dll
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIPLib\Facturas ABC\bin\Debug\FEAFIPLib.pdb
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIPLib\Facturas ABC\bin\Debug\FEAFIPLib.xml
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIPLib\Facturas ABC\obj\Debug\Facturas ABC.exe
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIPLib\Facturas ABC\obj\Debug\Facturas ABC.xml
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIPLib\Facturas ABC\obj\Debug\Facturas ABC.pdb
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas ABC\obj\Debug\Facturas ABC.exe
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas ABC\obj\Debug\Facturas ABC.xml
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas ABC\obj\Debug\Facturas ABC.pdb
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas ABC\bin\Debug\Facturas ABC.exe
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas ABC\bin\Debug\Facturas ABC.pdb
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas ABC\bin\Debug\Facturas ABC.xml
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas ABC\bin\Debug\FEAFIPLib.dll
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas ABC\bin\Debug\FEAFIPLib.pdb
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas ABC\bin\Debug\FEAFIPLib.xml
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas ABC\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas ABC\obj\Debug\Facturas_ABC.Form1.resources
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas ABC\obj\Debug\Facturas_ABC.Resources.resources
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas ABC\obj\Debug\Facturas ABC.vbproj.GenerateResource.Cache
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas ABC\bin\Release\Facturas ABC.exe
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas ABC\bin\Release\Facturas ABC.pdb
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas ABC\bin\Release\Facturas ABC.xml
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas ABC\bin\Release\FEAFIPLib.dll
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas ABC\bin\Release\FEAFIPLib.pdb
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas ABC\bin\Release\FEAFIPLib.xml
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas ABC\bin\Release\FEAFIPLib.XmlSerializers.dll
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas ABC\obj\Release\ResolveAssemblyReference.cache
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas ABC\obj\Release\Facturas_ABC.Form1.resources
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas ABC\obj\Release\Facturas_ABC.Resources.resources
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas ABC\obj\Release\Facturas ABC.vbproj.GenerateResource.Cache
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas ABC\obj\Release\Facturas ABC.exe
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas ABC\obj\Release\Facturas ABC.xml
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas ABC\obj\Release\Facturas ABC.pdb
+C:\Old\transfer\Documents\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas ABC\obj\Release\Facturas ABC.exe
+C:\Old\transfer\Documents\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas ABC\obj\Release\Facturas ABC.xml
+C:\Old\transfer\Documents\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas ABC\obj\Release\Facturas ABC.pdb
+C:\Users\Abel\Documents\Visual Studio 2008\Projects\FEAFIP_VB.NET\Facturas ABC\obj\Release\Facturas ABC.exe
+C:\Users\Abel\Documents\Visual Studio 2008\Projects\FEAFIP_VB.NET\Facturas ABC\obj\Release\Facturas ABC.xml
+C:\Users\Abel\Documents\Visual Studio 2008\Projects\FEAFIP_VB.NET\Facturas ABC\obj\Release\Facturas ABC.pdb
+C:\Users\Abel\Documents\Visual Studio 2008\Projects\FEAFIP_VB.NET\Facturas ABC\bin\Debug\Facturas ABC.exe
+C:\Users\Abel\Documents\Visual Studio 2008\Projects\FEAFIP_VB.NET\Facturas ABC\bin\Debug\Facturas ABC.pdb
+C:\Users\Abel\Documents\Visual Studio 2008\Projects\FEAFIP_VB.NET\Facturas ABC\bin\Debug\Facturas ABC.xml
+C:\Users\Abel\Documents\Visual Studio 2008\Projects\FEAFIP_VB.NET\Facturas ABC\bin\Debug\FEAFIPLib.dll
+C:\Users\Abel\Documents\Visual Studio 2008\Projects\FEAFIP_VB.NET\Facturas ABC\bin\Debug\FEAFIPLib.pdb
+C:\Users\Abel\Documents\Visual Studio 2008\Projects\FEAFIP_VB.NET\Facturas ABC\bin\Debug\FEAFIPLib.xml
+C:\Users\Abel\Documents\Visual Studio 2008\Projects\FEAFIP_VB.NET\Facturas ABC\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Abel\Documents\Visual Studio 2008\Projects\FEAFIP_VB.NET\Facturas ABC\obj\Debug\Facturas_ABC.Form1.resources
+C:\Users\Abel\Documents\Visual Studio 2008\Projects\FEAFIP_VB.NET\Facturas ABC\obj\Debug\Facturas_ABC.Resources.resources
+C:\Users\Abel\Documents\Visual Studio 2008\Projects\FEAFIP_VB.NET\Facturas ABC\obj\Debug\Facturas ABC.vbproj.GenerateResource.Cache
+C:\Users\Abel\Documents\Visual Studio 2008\Projects\FEAFIP_VB.NET\Facturas ABC\obj\Debug\Facturas ABC.exe
+C:\Users\Abel\Documents\Visual Studio 2008\Projects\FEAFIP_VB.NET\Facturas ABC\obj\Debug\Facturas ABC.xml
+C:\Users\Abel\Documents\Visual Studio 2008\Projects\FEAFIP_VB.NET\Facturas ABC\obj\Debug\Facturas ABC.pdb

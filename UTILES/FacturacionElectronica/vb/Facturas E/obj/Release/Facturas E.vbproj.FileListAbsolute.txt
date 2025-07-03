@@ -1,0 +1,50 @@
+C:\Users\Abel\Documents\Visual Studio 2008\Projects\FEAFIP_VB.NET\Facturas E\bin\Release\Facturas E.exe
+C:\Users\Abel\Documents\Visual Studio 2008\Projects\FEAFIP_VB.NET\Facturas E\bin\Release\Facturas E.pdb
+C:\Users\Abel\Documents\Visual Studio 2008\Projects\FEAFIP_VB.NET\Facturas E\bin\Release\Facturas E.xml
+C:\Users\Abel\Documents\Visual Studio 2008\Projects\FEAFIP_VB.NET\Facturas E\bin\Release\FEAFIPLib.dll
+C:\Users\Abel\Documents\Visual Studio 2008\Projects\FEAFIP_VB.NET\Facturas E\bin\Release\FEAFIPLib.pdb
+C:\Users\Abel\Documents\Visual Studio 2008\Projects\FEAFIP_VB.NET\Facturas E\bin\Release\FEAFIPLib.xml
+C:\Users\Abel\Documents\Visual Studio 2008\Projects\FEAFIP_VB.NET\Facturas E\bin\Release\FEAFIPLib.XmlSerializers.dll
+C:\Users\Abel\Documents\Visual Studio 2008\Projects\FEAFIP_VB.NET\Facturas E\obj\Release\ResolveAssemblyReference.cache
+C:\Users\Abel\Documents\Visual Studio 2008\Projects\FEAFIP_VB.NET\Facturas E\obj\Release\Facturas_E.Form1.resources
+C:\Users\Abel\Documents\Visual Studio 2008\Projects\FEAFIP_VB.NET\Facturas E\obj\Release\Facturas_E.Resources.resources
+C:\Users\Abel\Documents\Visual Studio 2008\Projects\FEAFIP_VB.NET\Facturas E\obj\Release\Facturas E.vbproj.GenerateResource.Cache
+C:\Users\Abel\Documents\Visual Studio 2008\Projects\FEAFIP_VB.NET\Facturas E\obj\Release\Facturas E.exe
+C:\Users\Abel\Documents\Visual Studio 2008\Projects\FEAFIP_VB.NET\Facturas E\obj\Release\Facturas E.xml
+C:\Users\Abel\Documents\Visual Studio 2008\Projects\FEAFIP_VB.NET\Facturas E\obj\Release\Facturas E.pdb
+C:\Users\amiranda\Documents\FEAFIPNET Preparacion demos\FEAFIP_VB.NET\Facturas E\bin\Release\Facturas E.exe
+C:\Users\amiranda\Documents\FEAFIPNET Preparacion demos\FEAFIP_VB.NET\Facturas E\bin\Release\Facturas E.pdb
+C:\Users\amiranda\Documents\FEAFIPNET Preparacion demos\FEAFIP_VB.NET\Facturas E\bin\Release\Facturas E.xml
+C:\Users\amiranda\Documents\FEAFIPNET Preparacion demos\FEAFIP_VB.NET\Facturas E\bin\Release\FEAFIPLib.dll
+C:\Users\amiranda\Documents\FEAFIPNET Preparacion demos\FEAFIP_VB.NET\Facturas E\bin\Release\FEAFIPLib.pdb
+C:\Users\amiranda\Documents\FEAFIPNET Preparacion demos\FEAFIP_VB.NET\Facturas E\bin\Release\FEAFIPLib.xml
+C:\Users\amiranda\Documents\FEAFIPNET Preparacion demos\FEAFIP_VB.NET\Facturas E\bin\Release\FEAFIPLib.XmlSerializers.dll
+C:\Users\amiranda\Documents\FEAFIPNET Preparacion demos\FEAFIP_VB.NET\Facturas E\obj\Release\ResolveAssemblyReference.cache
+C:\Users\amiranda\Documents\FEAFIPNET Preparacion demos\FEAFIP_VB.NET\Facturas E\obj\Release\Facturas_E.Form1.resources
+C:\Users\amiranda\Documents\FEAFIPNET Preparacion demos\FEAFIP_VB.NET\Facturas E\obj\Release\Facturas_E.Resources.resources
+C:\Users\amiranda\Documents\FEAFIPNET Preparacion demos\FEAFIP_VB.NET\Facturas E\obj\Release\Facturas E.vbproj.GenerateResource.Cache
+C:\Users\amiranda\Documents\FEAFIPNET Preparacion demos\FEAFIP_VB.NET\Facturas E\obj\Release\Facturas E.exe
+C:\Users\amiranda\Documents\FEAFIPNET Preparacion demos\FEAFIP_VB.NET\Facturas E\obj\Release\Facturas E.xml
+C:\Users\amiranda\Documents\FEAFIPNET Preparacion demos\FEAFIP_VB.NET\Facturas E\obj\Release\Facturas E.pdb
+C:\xampp\bitingenieria.com.ar\feafip.net_vb\Facturas E\bin\Release\Facturas E.exe
+C:\xampp\bitingenieria.com.ar\feafip.net_vb\Facturas E\bin\Release\Facturas E.pdb
+C:\xampp\bitingenieria.com.ar\feafip.net_vb\Facturas E\bin\Release\Facturas E.xml
+C:\xampp\bitingenieria.com.ar\feafip.net_vb\Facturas E\bin\Release\FEAFIPLib.dll
+C:\xampp\bitingenieria.com.ar\feafip.net_vb\Facturas E\obj\Release\ResolveAssemblyReference.cache
+C:\xampp\bitingenieria.com.ar\feafip.net_vb\Facturas E\obj\Release\Facturas_E.Form1.resources
+C:\xampp\bitingenieria.com.ar\feafip.net_vb\Facturas E\obj\Release\Facturas_E.Resources.resources
+C:\xampp\bitingenieria.com.ar\feafip.net_vb\Facturas E\obj\Release\Facturas E.vbproj.GenerateResource.Cache
+C:\xampp\bitingenieria.com.ar\feafip.net_vb\Facturas E\obj\Release\Facturas E.exe
+C:\xampp\bitingenieria.com.ar\feafip.net_vb\Facturas E\obj\Release\Facturas E.xml
+C:\xampp\bitingenieria.com.ar\feafip.net_vb\Facturas E\obj\Release\Facturas E.pdb
+C:\xampp\bitingenieria.com.ar\feafip_net\vb\Facturas E\obj\Release\Facturas E.exe
+C:\xampp\bitingenieria.com.ar\feafip_net\vb\Facturas E\obj\Release\Facturas E.xml
+C:\xampp\bitingenieria.com.ar\feafip_net\vb\Facturas E\obj\Release\Facturas E.pdb
+C:\xampp\bitingenieria.com.ar\feafip_net\vb\Facturas E\bin\Release\Facturas E.exe
+C:\xampp\bitingenieria.com.ar\feafip_net\vb\Facturas E\bin\Release\Facturas E.pdb
+C:\xampp\bitingenieria.com.ar\feafip_net\vb\Facturas E\bin\Release\Facturas E.xml
+C:\xampp\bitingenieria.com.ar\feafip_net\vb\Facturas E\bin\Release\FEAFIPLib.dll
+C:\xampp\bitingenieria.com.ar\feafip_net\vb\Facturas E\obj\Release\Facturas_E.Form1.resources
+C:\xampp\bitingenieria.com.ar\feafip_net\vb\Facturas E\obj\Release\Facturas_E.Resources.resources
+C:\xampp\bitingenieria.com.ar\feafip_net\vb\Facturas E\obj\Release\Facturas E.vbproj.GenerateResource.Cache
+C:\xampp\bitingenieria.com.ar\feafip_net\vb\Facturas E\bin\Release\Facturas E.exe.config

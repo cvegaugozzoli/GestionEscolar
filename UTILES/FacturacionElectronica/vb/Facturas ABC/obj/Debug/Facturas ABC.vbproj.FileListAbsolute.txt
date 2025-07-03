@@ -1,0 +1,36 @@
+C:\Users\Abel\Documents\Visual Studio 2008\Projects\FEAFIP_VB.NET\Facturas ABC\obj\Debug\Facturas ABC.exe
+C:\Users\Abel\Documents\Visual Studio 2008\Projects\FEAFIP_VB.NET\Facturas ABC\obj\Debug\Facturas ABC.xml
+C:\Users\Abel\Documents\Visual Studio 2008\Projects\FEAFIP_VB.NET\Facturas ABC\obj\Debug\Facturas ABC.pdb
+C:\Users\Abel\Documents\Visual Studio 2008\Projects\FEAFIP_VB.NET\Facturas ABC\bin\Debug\Facturas ABC.exe
+C:\Users\Abel\Documents\Visual Studio 2008\Projects\FEAFIP_VB.NET\Facturas ABC\bin\Debug\Facturas ABC.pdb
+C:\Users\Abel\Documents\Visual Studio 2008\Projects\FEAFIP_VB.NET\Facturas ABC\bin\Debug\Facturas ABC.xml
+C:\Users\Abel\Documents\Visual Studio 2008\Projects\FEAFIP_VB.NET\Facturas ABC\bin\Debug\FEAFIPLib.dll
+C:\Users\Abel\Documents\Visual Studio 2008\Projects\FEAFIP_VB.NET\Facturas ABC\bin\Debug\FEAFIPLib.pdb
+C:\Users\Abel\Documents\Visual Studio 2008\Projects\FEAFIP_VB.NET\Facturas ABC\bin\Debug\FEAFIPLib.xml
+C:\Users\Abel\Documents\Visual Studio 2008\Projects\FEAFIP_VB.NET\Facturas ABC\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Abel\Documents\Visual Studio 2008\Projects\FEAFIP_VB.NET\Facturas ABC\obj\Debug\Facturas_ABC.Form1.resources
+C:\Users\Abel\Documents\Visual Studio 2008\Projects\FEAFIP_VB.NET\Facturas ABC\obj\Debug\Facturas_ABC.Resources.resources
+C:\Users\Abel\Documents\Visual Studio 2008\Projects\FEAFIP_VB.NET\Facturas ABC\obj\Debug\Facturas ABC.vbproj.GenerateResource.Cache
+C:\Users\amiranda\Documents\Productos full\FEAFIP_VB.NET.2008\Facturas ABC\obj\Debug\Facturas ABC.exe
+C:\Users\amiranda\Documents\Productos full\FEAFIP_VB.NET.2008\Facturas ABC\obj\Debug\Facturas ABC.xml
+C:\Users\amiranda\Documents\Productos full\FEAFIP_VB.NET.2008\Facturas ABC\obj\Debug\Facturas ABC.pdb
+C:\Users\amiranda\Documents\Productos full\FEAFIP_VB.NET.2008\Facturas ABC\bin\Debug\Facturas ABC.exe
+C:\Users\amiranda\Documents\Productos full\FEAFIP_VB.NET.2008\Facturas ABC\bin\Debug\Facturas ABC.pdb
+C:\Users\amiranda\Documents\Productos full\FEAFIP_VB.NET.2008\Facturas ABC\bin\Debug\Facturas ABC.xml
+C:\Users\amiranda\Documents\Productos full\FEAFIP_VB.NET.2008\Facturas ABC\bin\Debug\FEAFIPLib.pdb
+C:\Users\amiranda\Documents\Productos full\FEAFIP_VB.NET.2008\Facturas ABC\bin\Debug\FEAFIPLib.xml
+C:\Users\amiranda\Documents\Productos full\FEAFIP_VB.NET.2008\Facturas ABC\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\amiranda\Documents\Productos full\FEAFIP_VB.NET.2008\Facturas ABC\obj\Debug\Facturas_ABC.Form1.resources
+C:\Users\amiranda\Documents\Productos full\FEAFIP_VB.NET.2008\Facturas ABC\obj\Debug\Facturas_ABC.Resources.resources
+C:\Users\amiranda\Documents\Productos full\FEAFIP_VB.NET.2008\Facturas ABC\obj\Debug\Facturas ABC.vbproj.GenerateResource.Cache
+C:\Users\amiranda\Documents\Productos full\FEAFIP_VB.NET.2008\Facturas ABC\bin\Debug\FEAFIPLib.exe
+C:\Users\amiranda\Documents\FEAFIPNET_DEMOS\FEAFIP_VB.NET.2008\Facturas ABC\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\amiranda\Documents\FEAFIPNET_DEMOS\FEAFIP_VB.NET.2008\Facturas ABC\obj\Debug\Facturas_ABC.Form1.resources
+C:\Users\amiranda\Documents\FEAFIPNET_DEMOS\FEAFIP_VB.NET.2008\Facturas ABC\obj\Debug\Facturas_ABC.Resources.resources
+C:\Users\amiranda\Documents\FEAFIPNET_DEMOS\FEAFIP_VB.NET.2008\Facturas ABC\obj\Debug\Facturas ABC.vbproj.GenerateResource.Cache
+C:\Users\amiranda\Documents\FEAFIPNET_DEMOS\FEAFIP_VB.NET.2008\Facturas ABC\obj\Debug\Facturas ABC.exe
+C:\Users\amiranda\Documents\FEAFIPNET_DEMOS\FEAFIP_VB.NET.2008\Facturas ABC\obj\Debug\Facturas ABC.xml
+C:\Users\amiranda\Documents\FEAFIPNET_DEMOS\FEAFIP_VB.NET.2008\Facturas ABC\obj\Debug\Facturas ABC.pdb
+C:\Users\amiranda\Documents\FEAFIPNET Preparacion demos\FEAFIP_VB.NET\Facturas ABC\obj\Debug\Facturas ABC.exe
+C:\Users\amiranda\Documents\FEAFIPNET Preparacion demos\FEAFIP_VB.NET\Facturas ABC\obj\Debug\Facturas ABC.xml
+C:\Users\amiranda\Documents\FEAFIPNET Preparacion demos\FEAFIP_VB.NET\Facturas ABC\obj\Debug\Facturas ABC.pdb

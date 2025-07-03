@@ -1,0 +1,14 @@
+Usuario: PreinscripcionSJ
+Clave: Uno2345678 (para todos de preinscripción) 
+
+* Misericordia.. 
+PreinscripcionM
+
+*Jardín Misericordia
+PreinscripcionJM
+
+*San Vicente
+PreinscripcionSV
+
+*Padre Víctor
+PreinscripcionPV

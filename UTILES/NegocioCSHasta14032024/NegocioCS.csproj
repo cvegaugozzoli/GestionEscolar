@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{862826EE-3D79-44A3-838E-476AD07CFA0C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GESTIONESCOLAR.Negocio</RootNamespace>
+    <AssemblyName>GESTIONESCOLAR.Negocio</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AlumnosDebitos.cs" />
+    <Compile Include="ArchivoBanco.cs" />
+    <Compile Include="ArchivoPatagonia.cs" />
+    <Compile Include="DevPatagoniaImputar.cs" />
+    <Compile Include="GrupoSanguineo.cs" />
+    <Compile Include="InscripcionAnio.cs" />
+    <Compile Include="Basicas\SeguridadAsociacion.cs" />
+    <Compile Include="InstitucionNivel.cs" />
+    <Compile Include="TEMESTADOCUENTA.cs" />
+    <Compile Include="TempImputaPagos.cs" />
+    <Compile Include="TurnoAsignado.cs" />
+    <Compile Include="Tramite.cs" />
+    <Compile Include="Series.cs" />
+    <Compile Include="HorariosTurno.cs" />
+    <Compile Include="TemporalPreinscripcion.cs" />
+    <Compile Include="Empleado.cs" />
+    <Compile Include="CupoCursos.cs" />
+    <Compile Include="PagosTransferenciaElectronica.cs" />
+    <Compile Include="PagosTarjetas.cs" />
+    <Compile Include="PagosCheques.cs" />
+    <Compile Include="ComprobantesDestinos.cs" />
+    <Compile Include="ComprobantesPtosVta.cs" />
+    <Compile Include="Bancos.cs" />
+    <Compile Include="InscripcionConcepto.cs" />
+    <Compile Include="Alumno.cs" />
+    <Compile Include="Basicas\Funciones.cs" />
+    <Compile Include="Basicas\ParametroCustom.cs" />
+    <Compile Include="Basicas\Seguridad.cs" />
+    <Compile Include="Becas.cs" />
+    <Compile Include="Campo.cs" />
+    <Compile Include="Carrera.cs" />
+    <Compile Include="ComprobantesCabecera.cs" />
+    <Compile Include="ComprobantesDetalle.cs" />
+    <Compile Include="ComprobantesFormasPago.cs" />
+    <Compile Include="ComprobantesTipos.cs" />
+    <Compile Include="Conceptos.cs" />
+    <Compile Include="ConceptosDetalle.cs" />
+    <Compile Include="ConceptosIntereses.cs" />
+    <Compile Include="ConceptosTipos.cs" />
+    <Compile Include="Condicion.cs" />
+    <Compile Include="Correlativa.cs" />
+    <Compile Include="AlumnoFamiliar.cs" />
+    <Compile Include="CorrelatividadTipo.cs" />
+    <Compile Include="Curso.cs" />
+    <Compile Include="Departamento.cs" />
+    <Compile Include="Email.cs" />
+    <Compile Include="EspacioCurricular.cs" />
+    <Compile Include="ExamenTipo.cs" />
+    <Compile Include="Docentes.cs" />
+    <Compile Include="FormasPago.cs" />
+    <Compile Include="FormatoDictado.cs" />
+    <Compile Include="InscripcionCursado.cs" />
+    <Compile Include="InscripcionExamen.cs" />
+    <Compile Include="InscripcionExamenTipo.cs" />
+    <Compile Include="Instituciones.cs" />
+    <Compile Include="Localidad.cs" />
+    <Compile Include="LugaresPago.cs" />
+    <Compile Include="Menu.cs" />
+    <Compile Include="LibroDisciplina.cs" />
+    <Compile Include="Tarjetas.cs" />
+    <Compile Include="TarjetasPlanes.cs" />
+    <Compile Include="TipoSancion.cs" />
+    <Compile Include="Parametro.cs" />
+    <Compile Include="Familiar.cs" />
+    <Compile Include="Parentesco.cs" />
+    <Compile Include="Perfil.cs" />
+    <Compile Include="PerfilMenu.cs" />
+    <Compile Include="PlanEstudio.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Provincia.cs" />
+    <Compile Include="Regimen.cs" />
+    <Compile Include="RegistracionNotaPrevia.cs" />
+    <Compile Include="RegistracionNota.cs" />
+    <Compile Include="RegistracionCalificaciones.cs" />
+    <Compile Include="Pais.cs" />
+    <Compile Include="Movimiento.cs" />
+    <Compile Include="TipoCarrera.cs" />
+    <Compile Include="Sexo.cs" />
+    <Compile Include="Turnos.cs" />
+    <Compile Include="UsuarioEspacioCurricular.cs" />
+    <Compile Include="Usuario.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Datos\Datos.csproj">
+      <Project>{227d5284-07f2-486f-99cd-e39ddc9f64c7}</Project>
+      <Name>Datos</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\GESTIONESCOLAR.Negocio.dll" />
+    <Content Include="bin\Debug\GESTIONESCOLAR.Negocio.pdb" />
+    <Content Include="bin\Release\GESTIONESCOLAR.Datos.dll" />
+    <Content Include="bin\Release\GESTIONESCOLAR.Datos.pdb" />
+    <Content Include="bin\Release\GESTIONESCOLAR.Negocio.dll" />
+    <Content Include="bin\Release\GESTIONESCOLAR.Negocio.pdb" />
+    <Content Include="obj\Debug\GESTIONESCOLAR.Negocio.dll" />
+    <Content Include="obj\Debug\GESTIONESCOLAR.Negocio.pdb" />
+    <Content Include="obj\Debug\NegocioCS.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Release\GESTIONESCOLAR.Negocio.dll" />
+    <Content Include="obj\Release\GESTIONESCOLAR.Negocio.pdb" />
+    <Content Include="obj\Release\NegocioCS.csproj.FileListAbsolute.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="obj\Debug\NegocioCS.csprojResolveAssemblyReference.cache" />
+    <None Include="obj\Release\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="obj\Release\NegocioCS.csprojResolveAssemblyReference.cache" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="obj\Debug\TempPE\" />
+    <Folder Include="obj\Release\TempPE\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

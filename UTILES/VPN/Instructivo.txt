@@ -1,0 +1,14 @@
+Hola amigo
+para la casa de la juventud
+ahora hay una pagina para que se logoneen y suban los archivos en lugar de enviarlos por mail
+
+para acceder a la pagina:
+1.  bajar e instalar OpenVpn desde : https://swupdate.openvpn.org/community/releases/OpenVPN-2.5.0-I601-amd64.msi
+
+2. copiar la carpeta "Config" en la carpeta del programa (ya instaldo) Reemplazar ? SI
+3. Ejecutar OpenVpn
+4. acceder a la siguiente pagina para subir los archivos : http://10.0.3.14/clientes/gamlogin_cm.aspx
+
+
+Usuario: 30530322617
+clave: 123456

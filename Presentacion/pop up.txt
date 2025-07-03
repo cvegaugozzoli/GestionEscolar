@@ -1,0 +1,7 @@
+Variable Session con dato a Buscar
+AL presionar BUscar, cargo una variable de sessin que indica que estoy buscando
+Abro ASPX de Buqsqueda
+Busco y muestro en grilla
+selecciono el dato eligido y cargo el ID em variable Session
+En el Load del formulario Origen, controlo varibale que indica que estoy buscando
+Si tiene algo la variable de busqueda, Busco con el Id de Session y mustro los datos del alumno

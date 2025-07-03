@@ -1,0 +1,63 @@
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\FEAFIPLib\Facturas E\Facturas E.ConvertedToC#\obj\Debug\Facturas E.csprojResolveAssemblyReference.cache
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\FEAFIPLib\Facturas E\Facturas E.ConvertedToC#\obj\Debug\Facturas_E.Form1.resources
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\FEAFIPLib\Facturas E\Facturas E.ConvertedToC#\obj\Debug\Facturas_E.My_Project.Resources.resources
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\FEAFIPLib\Facturas E\Facturas E.ConvertedToC#\obj\Debug\Facturas E.csproj.GenerateResource.Cache
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\FEAFIPLib\Facturas E\Facturas E.ConvertedToC#\bin\Release-VersionIncrement\Facturas E.exe.config
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\FEAFIPLib\Facturas E\Facturas E.ConvertedToC#\bin\Release-VersionIncrement\Facturas E.exe
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\FEAFIPLib\Facturas E\Facturas E.ConvertedToC#\bin\Release-VersionIncrement\Facturas E.pdb
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\FEAFIPLib\Facturas E\Facturas E.ConvertedToC#\bin\Release-VersionIncrement\FEAFIPLib.dll
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\FEAFIPLib\Facturas E\Facturas E.ConvertedToC#\bin\Release-VersionIncrement\FEAFIPLib.pdb
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\FEAFIPLib\Facturas E\Facturas E.ConvertedToC#\bin\Release-VersionIncrement\FEAFIPLib.xml
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\FEAFIPLib\Facturas E\Facturas E.ConvertedToC#\obj\Debug\Facturas E.exe
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\FEAFIPLib\Facturas E\Facturas E.ConvertedToC#\obj\Debug\Facturas E.pdb
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\FEAFIPLib\Facturas E.ConvertedToC#\bin\Release-VersionIncrement\Facturas E.exe.config
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\FEAFIPLib\Facturas E.ConvertedToC#\obj\Debug\Facturas E.exe
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\FEAFIPLib\Facturas E.ConvertedToC#\obj\Debug\Facturas E.pdb
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\FEAFIPLib\Facturas E\bin\Release-VersionIncrement\Facturas E.exe.config
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\FEAFIPLib\Facturas E\bin\Release-VersionIncrement\Facturas E.exe
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\FEAFIPLib\Facturas E\bin\Release-VersionIncrement\Facturas E.pdb
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\FEAFIPLib\Facturas E\bin\Release-VersionIncrement\FEAFIPLib.dll
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\FEAFIPLib\Facturas E\bin\Release-VersionIncrement\FEAFIPLib.pdb
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\FEAFIPLib\Facturas E\bin\Release-VersionIncrement\FEAFIPLib.xml
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\FEAFIPLib\Facturas E\obj\Debug\Facturas E.csprojResolveAssemblyReference.cache
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\FEAFIPLib\Facturas E\obj\Debug\Facturas_E.Form1.resources
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\FEAFIPLib\Facturas E\obj\Debug\Facturas_E.My_Project.Resources.resources
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\FEAFIPLib\Facturas E\obj\Debug\Facturas E.csproj.GenerateResource.Cache
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\FEAFIPLib\Facturas E\obj\Debug\Facturas E.exe
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\FEAFIPLib\Facturas E\obj\Debug\Facturas E.pdb
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\Facturas E\bin\Release-VersionIncrement\Facturas E.exe.config
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\Facturas E\bin\Release-VersionIncrement\Facturas E.exe
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\Facturas E\bin\Release-VersionIncrement\Facturas E.pdb
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\Facturas E\bin\Release-VersionIncrement\FEAFIPLib.dll
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\Facturas E\bin\Release-VersionIncrement\FEAFIPLib.pdb
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\Facturas E\bin\Release-VersionIncrement\FEAFIPLib.xml
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\Facturas E\obj\Debug\Facturas E.csprojResolveAssemblyReference.cache
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\Facturas E\obj\Debug\Facturas_E.My_Project.Resources.resources
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\Facturas E\obj\Debug\Facturas E.csproj.GenerateResource.Cache
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\Facturas E\obj\Debug\Facturas E.exe
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\Facturas E\obj\Debug\Facturas E.pdb
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\Facturas E\obj\Debug\Facturas_E.Form2.resources
+C:\Users\amiranda\Documents\Productos full\FEAFIP_CSHARP_2010\Facturas E\bin\Release-VersionIncrement\Facturas E.exe.config
+C:\Users\amiranda\Documents\Productos full\FEAFIP_CSHARP_2010\Facturas E\bin\Release-VersionIncrement\Facturas E.exe
+C:\Users\amiranda\Documents\Productos full\FEAFIP_CSHARP_2010\Facturas E\bin\Release-VersionIncrement\Facturas E.pdb
+C:\Users\amiranda\Documents\Productos full\FEAFIP_CSHARP_2010\Facturas E\bin\Release-VersionIncrement\FEAFIPLib.dll
+C:\Users\amiranda\Documents\Productos full\FEAFIP_CSHARP_2010\Facturas E\bin\Release-VersionIncrement\FEAFIPLib.pdb
+C:\Users\amiranda\Documents\Productos full\FEAFIP_CSHARP_2010\Facturas E\bin\Release-VersionIncrement\FEAFIPLib.xml
+C:\Users\amiranda\Documents\Productos full\FEAFIP_CSHARP_2010\Facturas E\obj\Debug\Facturas E.csprojResolveAssemblyReference.cache
+C:\Users\amiranda\Documents\Productos full\FEAFIP_CSHARP_2010\Facturas E\obj\Debug\Facturas_E.Form2.resources
+C:\Users\amiranda\Documents\Productos full\FEAFIP_CSHARP_2010\Facturas E\obj\Debug\Facturas_E.My_Project.Resources.resources
+C:\Users\amiranda\Documents\Productos full\FEAFIP_CSHARP_2010\Facturas E\obj\Debug\Facturas E.csproj.GenerateResource.Cache
+C:\Users\amiranda\Documents\Productos full\FEAFIP_CSHARP_2010\Facturas E\obj\Debug\Facturas E.exe
+C:\Users\amiranda\Documents\Productos full\FEAFIP_CSHARP_2010\Facturas E\obj\Debug\Facturas E.pdb
+C:\Users\amiranda\Documents\FEAFIPNET Preparacion demos\FEAFIP_CSHARP\Facturas E\bin\Release-VersionIncrement\Facturas E.exe.config
+C:\Users\amiranda\Documents\FEAFIPNET Preparacion demos\FEAFIP_CSHARP\Facturas E\bin\Release-VersionIncrement\Facturas E.exe
+C:\Users\amiranda\Documents\FEAFIPNET Preparacion demos\FEAFIP_CSHARP\Facturas E\bin\Release-VersionIncrement\Facturas E.pdb
+C:\Users\amiranda\Documents\FEAFIPNET Preparacion demos\FEAFIP_CSHARP\Facturas E\bin\Release-VersionIncrement\FEAFIPLib.dll
+C:\Users\amiranda\Documents\FEAFIPNET Preparacion demos\FEAFIP_CSHARP\Facturas E\bin\Release-VersionIncrement\FEAFIPLib.pdb
+C:\Users\amiranda\Documents\FEAFIPNET Preparacion demos\FEAFIP_CSHARP\Facturas E\bin\Release-VersionIncrement\FEAFIPLib.xml
+C:\Users\amiranda\Documents\FEAFIPNET Preparacion demos\FEAFIP_CSHARP\Facturas E\obj\Debug\Facturas_E.Form2.resources
+C:\Users\amiranda\Documents\FEAFIPNET Preparacion demos\FEAFIP_CSHARP\Facturas E\obj\Debug\Facturas_E.My_Project.Resources.resources
+C:\Users\amiranda\Documents\FEAFIPNET Preparacion demos\FEAFIP_CSHARP\Facturas E\obj\Debug\Facturas E.csproj.GenerateResource.Cache
+C:\Users\amiranda\Documents\FEAFIPNET Preparacion demos\FEAFIP_CSHARP\Facturas E\obj\Debug\Facturas E.exe
+C:\Users\amiranda\Documents\FEAFIPNET Preparacion demos\FEAFIP_CSHARP\Facturas E\obj\Debug\Facturas E.pdb
+C:\Users\amiranda\Documents\FEAFIPNET Preparacion demos\FEAFIP_CSHARP\Facturas E\obj\Debug\Facturas E.csprojResolveAssemblyReference.cache

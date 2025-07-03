@@ -1,0 +1,38 @@
+Loguarse en cada Colegio con los siguientes Usuarios:
+
+Usuario: PreinscripcionSJ
+Clave: Uno2345678 (para todos de preinscripción) 
+
+* Misericordia.. 
+PreinscripcionM
+
+*Jardín Misericordia
+PreinscripcionJM
+
+*San Vicente
+PreinscripcionSV
+
+*Padre Víctor
+PreinscripcionPV
+
+
+Acordate q para preinscripcion hay q crear un concepto preinscripcion.
+
+Inserto los Cupos para 2023
+
+insert into CupoCursos (insId, plaid, curid, turId, cupAnioInsc, cupCantidad, cupActivo)
+select insId, plaid, curid, turId, 2023, cupCantidad, cupActivo from CupoCursos where cupAnioInsc = 2022
+
+Inserto los conceptos PreInscripciones 2023
+
+insert into Conceptos(conNombre, insId, cntid, conAnioLectivo, conImporte, conCantCuotas, conCantVtos, conMesInicio, conValorSeleccionado, conRecargoVtoAbierto,
+conTieneVtoAbierto, conInteresMensual, conActivo) 
+select 'Preinscripcion 2023', insId, cntid, 2023, conImporte, conCantCuotas, conCantVtos, conMesInicio, conValorSeleccionado, conRecargoVtoAbierto,
+conTieneVtoAbierto, conInteresMensual, conActivo from Conceptos where conNombre = 'Preinscripcio 2022'
+
+En el programa queda hardocodeado la cantidad de cuotas que se van a controlar tener pagadas, además de la matricula obviamente. (PreInscripcion.aspx.cs)
+Para 2023 queda determinado tener pagado hasta 6 cuotas, o sea Agosto pagado incluido.
+ 
+La búsqueda es por Hermano (donde se controla la cantidad de cuotas pagadas del año actual) o por dni empleado o en forma generica con 12345678
+
+Controlar los datos de los reportes (constancia de preinscripción)

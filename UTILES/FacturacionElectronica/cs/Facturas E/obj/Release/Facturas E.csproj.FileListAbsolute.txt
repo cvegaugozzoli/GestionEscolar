@@ -1,0 +1,58 @@
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\Facturas E\bin\Release-VersionIncrement\Facturas E.exe.config
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\Facturas E\bin\Release-VersionIncrement\Facturas E.exe
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\Facturas E\bin\Release-VersionIncrement\FEAFIPLib.dll
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\Facturas E\bin\Release-VersionIncrement\FEAFIPLib.pdb
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\Facturas E\bin\Release-VersionIncrement\FEAFIPLib.xml
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\Facturas E\obj\Release\Facturas E.csprojResolveAssemblyReference.cache
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\Facturas E\obj\Release\Facturas_E.My_Project.Resources.resources
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\Facturas E\obj\Release\Facturas E.csproj.GenerateResource.Cache
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\Facturas E\obj\Release\Facturas E.exe
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\Facturas E\obj\Release\Facturas_E.Form2.resources
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP1\FEAFIPLib_CSHARP\Facturas E\bin\Release-VersionIncrement\Facturas E.exe.config
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP1\FEAFIPLib_CSHARP\Facturas E\bin\Release-VersionIncrement\Facturas E.exe
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP1\FEAFIPLib_CSHARP\Facturas E\bin\Release-VersionIncrement\FEAFIPLib.dll
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP1\FEAFIPLib_CSHARP\Facturas E\bin\Release-VersionIncrement\FEAFIPLib.pdb
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP1\FEAFIPLib_CSHARP\Facturas E\bin\Release-VersionIncrement\FEAFIPLib.xml
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP1\FEAFIPLib_CSHARP\Facturas E\obj\Release\Facturas E.csprojResolveAssemblyReference.cache
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP1\FEAFIPLib_CSHARP\Facturas E\obj\Release\Facturas_E.Form2.resources
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP1\FEAFIPLib_CSHARP\Facturas E\obj\Release\Facturas_E.My_Project.Resources.resources
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP1\FEAFIPLib_CSHARP\Facturas E\obj\Release\Facturas E.csproj.GenerateResource.Cache
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP1\FEAFIPLib_CSHARP\Facturas E\obj\Release\Facturas E.exe
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\FEAFIPLib_CSHARP\Facturas E\bin\Release-VersionIncrement\Facturas E.exe.config
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\FEAFIPLib_CSHARP\Facturas E\bin\Release-VersionIncrement\Facturas E.exe
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\FEAFIPLib_CSHARP\Facturas E\bin\Release-VersionIncrement\FEAFIPLib.dll
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\FEAFIPLib_CSHARP\Facturas E\bin\Release-VersionIncrement\FEAFIPLib.pdb
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\FEAFIPLib_CSHARP\Facturas E\bin\Release-VersionIncrement\FEAFIPLib.xml
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\FEAFIPLib_CSHARP\Facturas E\obj\Release\Facturas E.csprojResolveAssemblyReference.cache
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\FEAFIPLib_CSHARP\Facturas E\obj\Release\Facturas_E.Form2.resources
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\FEAFIPLib_CSHARP\Facturas E\obj\Release\Facturas_E.My_Project.Resources.resources
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\FEAFIPLib_CSHARP\Facturas E\obj\Release\Facturas E.csproj.GenerateResource.Cache
+C:\Users\Abel\Documents\Projects\FEAFIPLib_CSHARP\FEAFIPLib_CSHARP\Facturas E\obj\Release\Facturas E.exe
+C:\Users\amiranda\Documents\FEAFIPNET Preparacion demos\FEAFIP_CSHARP\Facturas E\bin\Release-VersionIncrement\Facturas E.exe.config
+C:\Users\amiranda\Documents\FEAFIPNET Preparacion demos\FEAFIP_CSHARP\Facturas E\obj\Release\Facturas E.exe
+C:\Users\amiranda\Documents\FEAFIPNET Preparacion demos\FEAFIP_CSHARP\Facturas E\obj\Release\Facturas E.csprojResolveAssemblyReference.cache
+C:\Users\amiranda\Documents\FEAFIPNET Preparacion demos\FEAFIP_CSHARP\Facturas E\obj\Release\Facturas_E.Form2.resources
+C:\Users\amiranda\Documents\FEAFIPNET Preparacion demos\FEAFIP_CSHARP\Facturas E\obj\Release\Facturas_E.My_Project.Resources.resources
+C:\Users\amiranda\Documents\FEAFIPNET Preparacion demos\FEAFIP_CSHARP\Facturas E\obj\Release\Facturas E.csproj.GenerateResource.Cache
+C:\Users\amiranda\Documents\FEAFIPNET Preparacion demos\FEAFIP_CSHARP\Facturas E\bin\Release-VersionIncrement\Facturas E.exe
+C:\Users\amiranda\Documents\FEAFIPNET Preparacion demos\FEAFIP_CSHARP\Facturas E\bin\Release-VersionIncrement\FEAFIPLib.dll
+C:\Users\amiranda\Documents\FEAFIPNET Preparacion demos\FEAFIP_CSHARP\Facturas E\bin\Release-VersionIncrement\FEAFIPLib.pdb
+C:\Users\amiranda\Documents\FEAFIPNET Preparacion demos\FEAFIP_CSHARP\Facturas E\bin\Release-VersionIncrement\FEAFIPLib.xml
+C:\xampp\bitingenieria.com.ar\feafip.net_cs\Facturas E\bin\Release-VersionIncrement\Facturas E.exe.config
+C:\xampp\bitingenieria.com.ar\feafip.net_cs\Facturas E\bin\Release-VersionIncrement\Facturas E.exe
+C:\xampp\bitingenieria.com.ar\feafip.net_cs\Facturas E\bin\Release-VersionIncrement\FEAFIPLib.dll
+C:\xampp\bitingenieria.com.ar\feafip.net_cs\Facturas E\obj\Release\Facturas E.csprojResolveAssemblyReference.cache
+C:\xampp\bitingenieria.com.ar\feafip.net_cs\Facturas E\obj\Release\Facturas_E.Form2.resources
+C:\xampp\bitingenieria.com.ar\feafip.net_cs\Facturas E\obj\Release\Facturas_E.My_Project.Resources.resources
+C:\xampp\bitingenieria.com.ar\feafip.net_cs\Facturas E\obj\Release\Facturas E.csproj.GenerateResource.Cache
+C:\xampp\bitingenieria.com.ar\feafip.net_cs\Facturas E\obj\Release\Facturas E.exe
+C:\xampp\bitingenieria.com.ar\feafip_net\cs\Facturas E\bin\Release-VersionIncrement\Facturas E.exe.config
+C:\xampp\bitingenieria.com.ar\feafip_net\cs\Facturas E\bin\Release-VersionIncrement\Facturas E.exe
+C:\xampp\bitingenieria.com.ar\feafip_net\cs\Facturas E\bin\Release-VersionIncrement\FEAFIPLib.dll
+C:\xampp\bitingenieria.com.ar\feafip_net\cs\Facturas E\obj\Release\Facturas E.csproj.AssemblyReference.cache
+C:\xampp\bitingenieria.com.ar\feafip_net\cs\Facturas E\obj\Release\Facturas_E.Form2.resources
+C:\xampp\bitingenieria.com.ar\feafip_net\cs\Facturas E\obj\Release\Facturas_E.My_Project.Resources.resources
+C:\xampp\bitingenieria.com.ar\feafip_net\cs\Facturas E\obj\Release\Facturas E.csproj.GenerateResource.cache
+C:\xampp\bitingenieria.com.ar\feafip_net\cs\Facturas E\obj\Release\Facturas E.csproj.CoreCompileInputs.cache
+C:\xampp\bitingenieria.com.ar\feafip_net\cs\Facturas E\obj\Release\Facturas E.csproj.CopyComplete
+C:\xampp\bitingenieria.com.ar\feafip_net\cs\Facturas E\obj\Release\Facturas E.exe

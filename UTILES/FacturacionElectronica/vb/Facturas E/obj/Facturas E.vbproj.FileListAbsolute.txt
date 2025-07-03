@@ -1,0 +1,40 @@
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIPLib\Facturas E\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIPLib\Facturas E\obj\Debug\Facturas_E.Form1.resources
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIPLib\Facturas E\obj\Debug\Facturas_E.Resources.resources
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIPLib\Facturas E\obj\Debug\Facturas E.vbproj.GenerateResource.Cache
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIPLib\Facturas E\bin\Debug\Facturas E.exe
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIPLib\Facturas E\bin\Debug\Facturas E.pdb
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIPLib\Facturas E\bin\Debug\Facturas E.xml
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIPLib\Facturas E\bin\Debug\FEAFIPLib.dll
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIPLib\Facturas E\bin\Debug\FEAFIPLib.pdb
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIPLib\Facturas E\bin\Debug\FEAFIPLib.xml
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIPLib\Facturas E\obj\Debug\Facturas E.exe
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIPLib\Facturas E\obj\Debug\Facturas E.xml
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIPLib\Facturas E\obj\Debug\Facturas E.pdb
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas E\obj\Debug\Facturas E.exe
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas E\obj\Debug\Facturas E.xml
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas E\obj\Debug\Facturas E.pdb
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas E\bin\Debug\Facturas E.exe
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas E\bin\Debug\Facturas E.pdb
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas E\bin\Debug\Facturas E.xml
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas E\bin\Debug\FEAFIPLib.dll
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas E\bin\Debug\FEAFIPLib.pdb
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas E\bin\Debug\FEAFIPLib.xml
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas E\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas E\obj\Debug\Facturas_E.Form1.resources
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas E\obj\Debug\Facturas_E.Resources.resources
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas E\obj\Debug\Facturas E.vbproj.GenerateResource.Cache
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas E\bin\Release\Facturas E.exe
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas E\bin\Release\Facturas E.pdb
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas E\bin\Release\Facturas E.xml
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas E\bin\Release\FEAFIPLib.dll
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas E\bin\Release\FEAFIPLib.pdb
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas E\bin\Release\FEAFIPLib.xml
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas E\bin\Release\FEAFIPLib.XmlSerializers.dll
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas E\obj\Release\ResolveAssemblyReference.cache
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas E\obj\Release\Facturas_E.Form1.resources
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas E\obj\Release\Facturas_E.Resources.resources
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas E\obj\Release\Facturas E.vbproj.GenerateResource.Cache
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas E\obj\Release\Facturas E.exe
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas E\obj\Release\Facturas E.xml
+C:\Users\Abel\Documents\Visual Studio 2005\Projects\FEAFIP_VB.NET\Facturas E\obj\Release\Facturas E.pdb
