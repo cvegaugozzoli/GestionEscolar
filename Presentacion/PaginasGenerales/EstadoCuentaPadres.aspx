@@ -109,6 +109,16 @@
                             </EmptyDataTemplate>
 
                             <Columns>
+
+                                  <asp:TemplateField HeaderText="" ItemStyle-Width="50" FooterStyle-HorizontalAlign="Center">
+                                        <ItemTemplate>
+                                            <asp:CheckBox ID="chkSeleccion" runat="server" Width="50" />
+                                        </ItemTemplate>
+
+                                        <FooterStyle HorizontalAlign="Center"></FooterStyle>
+
+                                        <ItemStyle Width="50px" HorizontalAlign="Center"></ItemStyle>
+                                    </asp:TemplateField>
                                 <asp:BoundField DataField="icoId" HeaderText="icoId" Visible="false" />
                                 <asp:BoundField DataField="conId" HeaderText="conId" Visible="false" />
                                 <asp:BoundField DataField="cntId" HeaderText="cntId" Visible="false" />
@@ -271,58 +281,59 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 
-    <script>
-        $(document).ready(function () {
-            console.log("jQuery ready y script personalizado cargado.");
+<script>
+    $(document).ready(function () {
+        console.log("jQuery ready y script personalizado cargado.");
 
-            var gridviewId = '<%= GrillaHistorial.ClientID %>';
-            console.log("ID del GridView en JavaScript: " + gridviewId);
-      
-            $('#' + gridviewId).on('click', 'tbody tr', function (event) {
-                console.log("Click detectado en fila de GridView.");
+        var gridviewId = '<%= GrillaHistorial.ClientID %>';
+        console.log("ID del GridView en JavaScript: " + gridviewId);
 
-                if ($(event.target).is('a, button, input[type="button"], input[type="submit"]')) {
-                    console.log("Click en botón o enlace, ignorando.");
-                    return;
-                }
-                   var nombreAlumno = $('#<%= hfNombreAlumno.ClientID %>').val();
+        $('#' + gridviewId).on('click', 'tbody tr', function (event) {
+            console.log("Click detectado en fila de GridView.");
 
-                var concepto = $(this).data('concepto');
-                var importe = $(this).data('importe');
-                var intereses = $(this).data('intereses');
-                var importeTotal = $(this).data('importetotal');
-                var beca = $(this).data('beca');
-                var nroCuota = $(this).data('nrocuota');
-                var fechaVto = $(this).data('fechavto');
-                var dcto = $(this).data('dcto');
-                var impPagado = $(this).data('imppagado');
-                var fechaPago = $(this).data('fechapago');
-                var colegio = $(this).data('colegio');
-                var curso = $(this).data('curso');
-                var conId = $(this).data('conid');
-                //var FP = $(this).data('FP');
-                var FP = $(this).data('fp');
-                console.log("Datos de la fila: ", { concepto: concepto, importe: importe, conId: conId });
-                
-                $('#modalAlumnoNombre').text(nombreAlumno);
-                $('#modalConcepto').text(concepto);
-                $('#modalImporte').text(importe);
-                $('#modalIntereses').text(intereses);
-                $('#modalImporteTotal').text(importeTotal);
-                $('#modalBeca').text(beca);
-                $('#modalNroCuota').text(nroCuota);
-                $('#modalFechaVto').text(fechaVto);
-                $('#modalDcto').text(dcto);
-                $('#modalImpPagado').text(impPagado);
-                $('#modalFechaPago').text(fechaPago);
-                $('#modalColegio').text(colegio);
-                $('#modalCurso').text(curso);
-                $('#modalFP').text(FP);
-                $('#detalleModal').modal('show');
-                console.log("Intentando mostrar el modal.");
-            });
+            if ($(event.target).is('a, button, input[type="button"], input[type="submit"], input[type="checkbox"]')) {
+                console.log("Click en botón, enlace o checkbox, ignorando.");
+                return;
+            }
+
+            var nombreAlumno = $('#<%= hfNombreAlumno.ClientID %>').val();
+
+            var concepto = $(this).data('concepto');
+            var importe = $(this).data('importe');
+            var intereses = $(this).data('intereses');
+            var importeTotal = $(this).data('importetotal');
+            var beca = $(this).data('beca');
+            var nroCuota = $(this).data('nrocuota');
+            var fechaVto = $(this).data('fechavto');
+            var dcto = $(this).data('dcto');
+            var impPagado = $(this).data('imppagado');
+            var fechaPago = $(this).data('fechapago');
+            var colegio = $(this).data('colegio');
+            var curso = $(this).data('curso');
+            var conId = $(this).data('conid');
+            var FP = $(this).data('fp');
+
+            console.log("Datos de la fila: ", { concepto: concepto, importe: importe, conId: conId });
+
+            $('#modalAlumnoNombre').text(nombreAlumno);
+            $('#modalConcepto').text(concepto);
+            $('#modalImporte').text(importe);
+            $('#modalIntereses').text(intereses);
+            $('#modalImporteTotal').text(importeTotal);
+            $('#modalBeca').text(beca);
+            $('#modalNroCuota').text(nroCuota);
+            $('#modalFechaVto').text(fechaVto);
+            $('#modalDcto').text(dcto);
+            $('#modalImpPagado').text(impPagado);
+            $('#modalFechaPago').text(fechaPago);
+            $('#modalColegio').text(colegio);
+            $('#modalCurso').text(curso);
+            $('#modalFP').text(FP);
+            $('#detalleModal').modal('show');
+            console.log("Intentando mostrar el modal.");
         });
-    </script>
+    });
+</script>
 
     <script>
         function ajustarColumnasGridView() {

@@ -1555,7 +1555,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                         {
                             row.BackColor = System.Drawing.Color.LightBlue;
                             CuotaUltPagada = Convert.ToInt32(GrillaHistorial.DataKeys[row.RowIndex].Values["NroCuota"]);
-                            ((CheckBox)row.FindControl("chkSeleccion")).Enabled = false;
+                            //((CheckBox)row.FindControl("chkSeleccion")).Enabled = false;
 
                         }
 
@@ -1948,7 +1948,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                         }
                         Session["FechaPago"] = FechaFormateada;
 
-                        //((CheckBox)row.FindControl("chkSeleccion")).Enabled = false;
+                        ((CheckBox)row.FindControl("chkSeleccion")).Enabled = false;
                     }
 
                     else
