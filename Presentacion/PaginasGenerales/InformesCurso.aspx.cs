@@ -10,7 +10,7 @@ using CrystalDecisions.CrystalReports.Engine;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using CrystalDecisions.Shared;
-
+using System.Linq;
 
 public partial class InformesCurso : System.Web.UI.Page
 {
@@ -120,7 +120,14 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                         int anio = Convert.ToInt32(AnioCursado.Text);
                         int aluId = Convert.ToInt32(Grilla.DataKeys[row.RowIndex].Values["aluId"]);
 
-                        string NomRep = (tipoCarrera == 2) ? "InformePrimariaPT.rpt" : "InformeSecundaria1C.rpt";
+                        // Cursos excluidos
+                        int[] cursosExcluidos = { 88, 89, 90, 91, 92, 132 };
+
+                        // Asignar el nombre del reporte según condiciones
+                        string NomRep = (tipoCarrera == 2 && !cursosExcluidos.Contains(curso))
+                            ? "InformePrimariaPT.rpt"
+                            : "InformeSecundaria1C.rpt";
+
                         ReportDocument tempDoc = new ReportDocument();
 
                         if (string.IsNullOrEmpty(NomRep))
@@ -203,7 +210,11 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                             int anio = Convert.ToInt32(AnioCursado.Text);
                             int aluId = Convert.ToInt32(Grilla.DataKeys[row.RowIndex].Values["aluId"]);
 
-                            string NomRep = (tipoCarrera == 2) ? "InformePrimariaST.rpt" : "InformeSecundaria2C.rpt";
+                            // Cursos excluidos
+                            int[] cursosExcluidos = { 88, 89, 90, 91, 92, 132 };
+
+                            // Asignar el nombre del reporte según condiciones
+                            string NomRep = (tipoCarrera == 2 && !cursosExcluidos.Contains(curso))? "InformePrimariaST.rpt" : "InformeSecundaria2C.rpt";
                             ReportDocument tempDoc = new ReportDocument();
 
                             if (string.IsNullOrEmpty(NomRep))
@@ -286,7 +297,11 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                 int anio = Convert.ToInt32(AnioCursado.Text);
                                 int aluId = Convert.ToInt32(Grilla.DataKeys[row.RowIndex].Values["aluId"]);
 
-                                string NomRep = (tipoCarrera == 2) ? "InformePrimariaTT.rpt" : "";
+                                // Cursos excluidos
+                                int[] cursosExcluidos = { 88, 89, 90, 91, 92, 132 };
+
+                                // Asignar el nombre del reporte según condiciones
+                                string NomRep = (tipoCarrera == 2 && !cursosExcluidos.Contains(curso)) ? "InformePrimariaTT.rpt" : "";
                                 ReportDocument tempDoc = new ReportDocument();
 
                                 if (string.IsNullOrEmpty(NomRep))
@@ -310,7 +325,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                 tempDoc.SetParameterValue("@anio", anio);
 
 
-                                // 🔒 Configurar conexión manual a la base de datos
+                                 //🔒 Configurar conexión manual a la base de datos
                                 //ConnectionInfo connectionInfo = new ConnectionInfo();
                                 //connectionInfo.ServerName = "DESKTOP-DR5HH6H";
                                 //connectionInfo.DatabaseName = "GESTIONESCOLAR";
@@ -369,7 +384,11 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                     int anio = Convert.ToInt32(AnioCursado.Text);
                                     int aluId = Convert.ToInt32(Grilla.DataKeys[row.RowIndex].Values["aluId"]);
 
-                                    string NomRep = (tipoCarrera == 2) ? "InformePortadaPrimaria.rpt" : "InformePortadaSecundaria.rpt";
+                                    // Cursos excluidos
+                                    int[] cursosExcluidos = { 88, 89, 90, 91, 92, 132 };
+
+                                    // Asignar el nombre del reporte según condiciones
+                                    string NomRep = (tipoCarrera == 2 && !cursosExcluidos.Contains(curso)) ? "InformePortadaPrimaria.rpt" : "InformePortadaSecundaria.rpt";
                                     ReportDocument tempDoc = new ReportDocument();
 
                                     if (string.IsNullOrEmpty(NomRep))
@@ -772,10 +791,9 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
     {
         try
         {
-            //GridViewRow row = Grilla.SelectedRow;
-            //            var ddl = (DropDownList)sender;
-
-            //string itemSelected = ddl.SelectedValue;
+            int curso = Convert.ToInt32(curId.SelectedValue.ToString());
+            // Cursos excluidos para TC = 2 (no deben ver el periodo 3)
+            int[] cursosExcluidos = { 88, 89, 90, 91, 92, 132 };
 
             if (Convert.ToInt32(TipoInformeId.SelectedValue) == 1)
             {
@@ -784,19 +802,22 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
             }
             else
             {
-                String TC = lblTC.Text;
+                string TC = lblTC.Text;
+
                 if (Convert.ToInt32(TipoInformeId.SelectedValue) == 2)
                 {
                     PeriodoId.Enabled = true;
                     BtnImprimir.Enabled = true;
 
-                    if (TC == "3")
-                    {
-                        PeriodoId.Items.FindByValue("3").Enabled = false;
-                        //.Items.FindByValue("3° Informe").Attributes.Add("Disabled", "Disabled");
-                    }
                     if (TC == "2")
                     {
+                        // Solo se habilita el periodo 3 si el curso NO está en la lista excluida
+                        PeriodoId.Items.FindByValue("3").Enabled = !cursosExcluidos.Contains(curso);
+                    }
+
+                    if (TC == "3")
+                    {
+                        // Siempre se habilita el periodo 3 para TC = 3
                         PeriodoId.Items.FindByValue("3").Enabled = true;
                     }
                 }

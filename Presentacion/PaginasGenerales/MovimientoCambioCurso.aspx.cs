@@ -56,10 +56,10 @@ public partial class MovimientoCambioCurso : System.Web.UI.Page
                 lblCurso.Visible = false;
                 lblPlan.Visible = false;
                 lblAnio2.Visible = false;
-                lblTipoConcepto2.Visible = false;
-                lblConcepto2.Visible = false;
-                ConTipoId2.Visible = false;
-                ConceptoId2.Visible = false;
+                //lblTipoConcepto2.Visible = false;
+                //lblConcepto2.Visible = false;
+                //ConTipoId2.Visible = false;
+                //ConceptoId2.Visible = false;
                 NivelID2.Visible = false;
                 lblCursoD.Visible = false;
                 btnSeleccionarTodo.Visible = false;
@@ -68,7 +68,7 @@ public partial class MovimientoCambioCurso : System.Web.UI.Page
                 //MovimientoId.Visible = false;
                 BtnGrabar.Visible = false;
                 ConTipoId.DataValueField = "Valor"; ConTipoId.DataTextField = "Texto"; ConTipoId.DataSource = (new GESTIONESCOLAR.Negocio.ConceptosTipos()).ObtenerLista("[Seleccionar...]"); ConTipoId.DataBind();
-                ConTipoId2.DataValueField = "Valor"; ConTipoId2.DataTextField = "Texto"; ConTipoId2.DataSource = (new GESTIONESCOLAR.Negocio.ConceptosTipos()).ObtenerLista("[Seleccionar...]"); ConTipoId2.DataBind();
+                //ConTipoId2.DataValueField = "Valor"; ConTipoId2.DataTextField = "Texto"; ConTipoId2.DataSource = (new GESTIONESCOLAR.Negocio.ConceptosTipos()).ObtenerLista("[Seleccionar...]"); ConTipoId2.DataBind();
                 DataTable dt = new DataTable();
 
                 dt.Columns.Add("conId", typeof(Int32));
@@ -220,7 +220,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
             alerErrorP1.Visible = false;
             alerExito.Visible = false;
             alerError.Visible = false;
-
+            lblMensajeError.Text= "";
             Session["CursoListadoAlumnos.PageIndex"] = PageIndex;
 
             #region Variables de sesion para filtros
@@ -320,6 +320,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
 
             if (dt.Rows.Count > 0)
             {
+                alerMje.Visible = true;
                 this.GrillaAlumnos.DataSource = dt;
                 this.GrillaAlumnos.PageIndex = PageIndex;
                 this.GrillaAlumnos.DataBind();
@@ -335,11 +336,11 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                 lblNivel.Visible = true;
                 lblCurso.Visible = true;
                 lblAnio2.Visible = true;
-                lblTipoConcepto2.Visible = true;
-                lblConcepto2.Visible = true;
+                //lblTipoConcepto2.Visible = true;
+                //lblConcepto2.Visible = true;
                 lblPlan.Visible = true;
-                ConTipoId2.Visible = true;
-                ConceptoId2.Visible = true;
+                //ConTipoId2.Visible = true;
+                //ConceptoId2.Visible = true;
                 lblCantidadRegistros2.Text = "";
                 lblCantidadRegistros.Text = "Cantidad de registros: " + dt.Rows.Count.ToString();
                 btnSeleccionar.Visible = true;
@@ -363,10 +364,10 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                 lblCurso.Visible = false;
                 lblPlan.Visible = false;
                 lblAnio2.Visible = false;
-                lblTipoConcepto2.Visible = false;
-                lblConcepto2.Visible = false;
-                ConTipoId2.Visible = false;
-                ConceptoId2.Visible = false;
+                //lblTipoConcepto2.Visible = false;
+                //lblConcepto2.Visible = false;
+                //ConTipoId2.Visible = false;
+                //ConceptoId2.Visible = false;
                 NivelID2.Visible = false;
                 lblCursoD.Visible = false;
                 btnSeleccionarTodo.Visible = false;
@@ -375,6 +376,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                 lblCantidadRegistros.Text = "Cantidad de registros: 0";
                 btnSeleccionar.Visible = false;
                 BtnGrabar.Visible = false;
+                alerMje.Visible = false;
 
 
             }
@@ -709,24 +711,24 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
             alerExito.Visible = false;
             alerError.Visible = false;
             insId = Convert.ToInt32(Session["_Institucion"]);
-            if (ConTipoId2.SelectedIndex != 0)
-            {
+            //if (ConTipoId2.SelectedIndex != 0)
+            //{
 
-                int TipoConc = Convert.ToInt32(ConTipoId2.SelectedValue);
-                DataTable dt = new DataTable();
-                dt = ocnConceptos.ObtenerListaPorUnTipoConcepto("[Seleccionar...]", insId, Convert.ToInt32(ConTipoId2.SelectedValue), Convert.ToInt32(AnioCursado2.Text));
-                if (dt.Rows.Count > 0)
-                {
-                    ConceptoId2.DataValueField = "Valor";
-                    ConceptoId2.DataTextField = "Texto";
-                    ConceptoId2.DataSource = (new GESTIONESCOLAR.Negocio.Conceptos()).ObtenerListaPorUnTipoConcepto("[Seleccionar...]", insId, Convert.ToInt32(ConTipoId2.SelectedValue), Convert.ToInt32(AnioCursado2.Text));
-                    ConceptoId2.DataBind();
-                }
-                else
-                {
-                    lblMensajeError.Text = "No existe Concepto para ese Año Lectivo..";
-                }
-            }
+            //    int TipoConc = Convert.ToInt32(ConTipoId2.SelectedValue);
+            //    DataTable dt = new DataTable();
+            //    dt = ocnConceptos.ObtenerListaPorUnTipoConcepto("[Seleccionar...]", insId, Convert.ToInt32(ConTipoId2.SelectedValue), Convert.ToInt32(AnioCursado2.Text));
+            //    if (dt.Rows.Count > 0)
+            //    {
+            //        ConceptoId2.DataValueField = "Valor";
+            //        ConceptoId2.DataTextField = "Texto";
+            //        ConceptoId2.DataSource = (new GESTIONESCOLAR.Negocio.Conceptos()).ObtenerListaPorUnTipoConcepto("[Seleccionar...]", insId, Convert.ToInt32(ConTipoId2.SelectedValue), Convert.ToInt32(AnioCursado2.Text));
+            //        ConceptoId2.DataBind();
+            //    }
+            //    else
+            //    {
+            //        lblMensajeError.Text = "No existe Concepto para ese Año Lectivo..";
+            //    }
+            //}
         }
         catch (Exception oError)
         {
@@ -920,32 +922,32 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                         return;
                     }
 
-                    if (ConTipoId2.Text.Trim() == "")
-                    {
-                        alerErrorP2.Visible = true;
-                        LBLalerErrorP2.Text = "Seleccione Tipo de Concepto en Curso Destino..";
-                        return;
-                    }
-                    if (ConceptoId2.Text.Trim() == "")
-                    {
-                        alerErrorP2.Visible = true;
-                        LBLalerErrorP2.Text = "Seleccione Concepto en Curso Destino..";
-                        return;
-                    }
-                    else
-                    {
-                        if (AnioCursado2.Text.Trim() == AnioCursado.Text.Trim())
-                        {
-                            //if (ConceptoId2.Text.Trim() != ConceptoId.Text.Trim())
-                            //{
-                            //    alerErrorP2.Visible = true;
-                            //    LBLalerErrorP2.Text = "Para Cambio de Curso el Concepto en Curso Destino debe coincidir con el de Origen..";
+                    //if (ConTipoId2.Text.Trim() == "")
+                    //{
+                    //    alerErrorP2.Visible = true;
+                    //    LBLalerErrorP2.Text = "Seleccione Tipo de Concepto en Curso Destino..";
+                    //    return;
+                    //}
+                    //if (ConceptoId2.Text.Trim() == "")
+                    //{
+                    //    alerErrorP2.Visible = true;
+                    //    LBLalerErrorP2.Text = "Seleccione Concepto en Curso Destino..";
+                    //    return;
+                    //}
+                    //else
+                    //{
+                    //    if (AnioCursado2.Text.Trim() == AnioCursado.Text.Trim())
+                    //    {
+                    //        //if (ConceptoId2.Text.Trim() != ConceptoId.Text.Trim())
+                    //        //{
+                    //        //    alerErrorP2.Visible = true;
+                    //        //    LBLalerErrorP2.Text = "Para Cambio de Curso el Concepto en Curso Destino debe coincidir con el de Origen..";
 
-                            //    return;
+                    //        //    return;
 
-                            //}
-                        }
-                    }
+                    //        //}
+                    //    }
+                    //}
 
                     dt = Session["Datos"] as DataTable;
                     //int proxanio = Convert.ToInt32(AnioCursado.Text) + 1;
@@ -987,8 +989,8 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                         int UsuIdUltimaModificacion = this.Master.usuId;
 
                         int proxanio = Convert.ToInt32(AnioCursado.Text) + 1;
-                        DataTable dt6 = ocnConceptos.ObtenerUno(Convert.ToInt32(ConceptoId2.SelectedValue));
-                        DataTable dt7 = ocnConceptosTipos.ObtenerUno(Convert.ToInt32(ConTipoId2.SelectedValue));
+                        //DataTable dt6 = ocnConceptos.ObtenerUno(Convert.ToInt32(ConceptoId2.SelectedValue));
+                        //DataTable dt7 = ocnConceptosTipos.ObtenerUno(Convert.ToInt32(ConTipoId2.SelectedValue));
 
                         if (AnioCursado2.Text.Trim() == AnioCursado.Text.Trim())//Cambio de Curso
                         {
@@ -1016,211 +1018,12 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                     ocnRegistracionNota.Insertar(icuId, escId2, 1, this.Master.usuId, this.Master.usuId, DateTime.Now, DateTime.Now);
                                 }
                             }
-
-                            dt2 = new DataTable();
-                            if (ConTipoId2.SelectedValue == "1")//Matricula
-                            {
-                                int cuota = 1;
-                                dt2 = ocnInscripcionConcepto.ObtenerUnoxIcuIdxConIdxNroCuota(icuId, Convert.ToInt32(ConceptoId2.SelectedValue), cuota);
-                                if (dt2.Rows.Count == 0)
-                                {
-                                    ocnInscripcionConcepto.Insertar(icuId, Convert.ToInt32(dt6.Rows[0]["Id"].ToString()), Convert.ToDecimal(dt6.Rows[0]["Importe"].ToString()), DateTime.Now, cuota, 1, 0, true, this.Master.usuId, this.Master.usuId, DateTime.Now, DateTime.Now);
-                                }
-                                else
-                                {
-                                    alerError.Visible = true;
-                                    lblError.Text = "El concepto Matricula ya existe para el curso Destino..";
-                                }
-                            }
-                            else
-                            {
-                                if (ConTipoId2.SelectedValue == "2")//Cuota
-                                {
-
-                                    int cantCuotas = Convert.ToInt32(dt6.Rows[0]["CantCuotas"].ToString());
-                                    int cuota = 0;
-                                    for (int i = 0; i < cantCuotas; i++) //Para cada cuota
-                                    {
-                                        cuota = cuota + 1;
-                                        DataRow row1 = dt.NewRow();
-                                        row1["conId"] = Convert.ToInt32(dt6.Rows[0]["Id"].ToString());
-                                        row1["cntId"] = Convert.ToInt32(dt6.Rows[0]["cntId"].ToString());
-                                        row1["AnioLectivo"] = Convert.ToDecimal(dt6.Rows[0]["AnioLectivo"].ToString());
-                                        row1["Importe"] = Convert.ToDecimal(dt6.Rows[0]["Importe"].ToString());
-                                        row1["FchInscripcion"] = Convert.ToString(DateTime.Now);
-                                        row1["NroCuota"] = cuota;
-                                        dt.Rows.Add(row1);
-                                    }
-
-                                    Session.Add("Datos", dt);
-                                    dt4 = Session["Datos"] as DataTable;
-                                    if (dt4.Rows.Count > 0)
-                                    {
-                                        foreach (DataRow row2 in dt4.Rows)
-                                        {
-                                            int conId = Convert.ToInt32(row2["conId"].ToString());
-                                            Decimal Importe = Convert.ToDecimal(row2["Importe"].ToString());
-                                            DateTime FchaInscripcion = Convert.ToDateTime(row2["FchInscripcion"].ToString());
-                                            Int32 NroCuota = Convert.ToInt32(row2["NroCuota"].ToString());
-                                            Int32 bcaId = 1;
-                                            dt1 = ocnInscripcionConcepto.ObtenerUnoxIcuIdxConIdxNroCuota(icuId, conId, NroCuota);
-                                            if (dt1.Rows.Count == 0)
-                                            {
-                                                ocnInscripcionConcepto.Insertar(icuId, conId, Importe, FchaInscripcion, NroCuota, bcaId, 0, true, this.Master.usuId, this.Master.usuId, DateTime.Now, DateTime.Now);
-                                            }
-                                            else
-                                            {
-                                                alerError.Visible = true;
-                                                lblError.Text = "Se encontraron cuotas registradas para ese movimiento..";
-                                            }
-                                        }
-                                        dt.Clear();
-                                        Session.Add("Datos", dt);
-                                    }
-                                }
-                            }
                         }
-                    
-                        else
+
+                        else ////
                         {
-                            if (AnioCursado2.Text == Convert.ToString(proxanio) && (Convert.ToInt32(curId.SelectedValue) == Convert.ToInt32(curId2.SelectedValue)))//Repite
-                            {
-                                dt2 = ocnInscripcionCursado.ObtenerUnoControlExisteNoTerciario(insId, aluId, Convert.ToInt32(curId2.SelectedValue), Convert.ToInt32(AnioCursado2.Text.Trim().ToString()));
-                                if (dt2.Rows.Count == 0) // No Existe alumno en ese curso
-                                {
-                                    int icuId2 = ocnInscripcionCursado.InsertarTrarId(insId, aluId, carIdD, plaIdD, curIdDestino, 0, 0, AnioCursadoD, FechaInscripcion, 1, true, "", usuIdCreacion, UsuIdUltimaModificacion, icuFechaHoraCreacion, icuFechaHoraUltimaModificacion,1); //Lo agrego en ese curso o Materia
-
-                                    if (ConTipoId2.SelectedValue == "1")//Matricula
-                                    {
-                                        int cuota = 1;
-                                        ocnInscripcionConcepto.Insertar(icuId2, Convert.ToInt32(dt6.Rows[0]["Id"].ToString()), Convert.ToDecimal(dt6.Rows[0]["Importe"].ToString()), DateTime.Now, cuota, 1, 0, true, this.Master.usuId, this.Master.usuId, DateTime.Now, DateTime.Now);
-                                    }
-                                    else
-                                    {
-                                        if (ConTipoId2.SelectedValue == "2")//Cuota
-                                        {
-
-                                            int cantCuotas = Convert.ToInt32(dt6.Rows[0]["CantCuotas"].ToString());
-                                            int cuota = 0;
-                                            for (int i = 0; i < cantCuotas; i++) //Para cada cuota
-                                            {
-                                                cuota = cuota + 1;
-                                                DataRow row1 = dt.NewRow();
-                                                row1["conId"] = Convert.ToInt32(dt6.Rows[0]["Id"].ToString());
-                                                row1["cntId"] = Convert.ToInt32(dt6.Rows[0]["cntId"].ToString());
-                                                row1["AnioLectivo"] = Convert.ToDecimal(dt6.Rows[0]["AnioLectivo"].ToString());
-                                                row1["Importe"] = Convert.ToDecimal(dt6.Rows[0]["Importe"].ToString());
-                                                row1["FchInscripcion"] = Convert.ToString(DateTime.Now);
-                                                row1["NroCuota"] = cuota;
-                                                dt.Rows.Add(row1);
-                                            }
-
-                                            Session.Add("Datos", dt);
-                                            dt4 = Session["Datos"] as DataTable;
-                                            if (dt4.Rows.Count > 0)
-                                            {
-                                                foreach (DataRow row2 in dt4.Rows)
-                                                {
-                                                    int conId = Convert.ToInt32(row2["conId"].ToString());
-                                                    Decimal Importe = Convert.ToDecimal(row2["Importe"].ToString());
-                                                    DateTime FchaInscripcion = Convert.ToDateTime(row2["FchInscripcion"].ToString());
-                                                    Int32 NroCuota = Convert.ToInt32(row2["NroCuota"].ToString());
-                                                    Int32 bcaId = 1;
-                                                    dt1 = ocnInscripcionConcepto.ObtenerUnoxIcuIdxConIdxNroCuota(icuId2, conId, NroCuota);
-                                                    if (dt1.Rows.Count == 0)
-                                                    {
-                                                        ocnInscripcionConcepto.Insertar(icuId2, conId, Importe, FchaInscripcion, NroCuota, bcaId, 0, true, this.Master.usuId, this.Master.usuId, DateTime.Now, DateTime.Now);
-                                                    }
-                                                    else
-                                                    {
-
-                                                    }
-                                                }
-                                                dt.Clear();
-                                                Session.Add("Datos", dt);
-                                            }
-                                        }
-                                    }
-                                    DataTable dt5 = new DataTable();
-
-                                    dt5 = ocnEspacioCurricular.ObtenerListaPorUnCurso(Convert.ToInt32(curId2.SelectedValue), insId);
-                                    if (dt5.Rows.Count > 0)
-                                    {
-
-                                        // Por Cada Materia inserto un registro Nota para ese alumno.
-                                        foreach (DataRow row2 in dt5.Rows)
-                                        {
-                                            int escId2 = Convert.ToInt32(row2["Id"].ToString());
-                                            ocnRegistracionNota.Insertar(icuId2, escId2,1, this.Master.usuId, this.Master.usuId, DateTime.Now, DateTime.Now);
-                                        }
-                                    }
-                                }
-                                else// exister alumno en ese curso
-                                {
-                                    dt2 = new DataTable();
-                                    if (ConTipoId2.SelectedValue == "1")//Matricula
-                                    {
-                                        int cuota = 1;
-                                        dt2 = ocnInscripcionConcepto.ObtenerUnoxIcuIdxConIdxNroCuota(icuId, Convert.ToInt32(ConceptoId2.SelectedValue), cuota);
-                                        if (dt2.Rows.Count == 0)
-                                        {
-                                            ocnInscripcionConcepto.Insertar(icuId, Convert.ToInt32(dt6.Rows[0]["Id"].ToString()), Convert.ToDecimal(dt6.Rows[0]["Importe"].ToString()), DateTime.Now, cuota, 1, 0, true, this.Master.usuId, this.Master.usuId, DateTime.Now, DateTime.Now);
-                                        }
-                                        else
-                                        {
-                                            alerError.Visible = true;
-                                            lblError.Text = "El concepto Matricula ya existe para el curso Destino..";
-                                        }
-                                    }
-                                    else
-                                    {
-                                        if (ConTipoId2.SelectedValue == "2")//Cuota
-                                        {
-
-                                            int cantCuotas = Convert.ToInt32(dt6.Rows[0]["CantCuotas"].ToString());
-                                            int cuota = 0;
-                                            for (int i = 0; i < cantCuotas; i++) //Para cada cuota
-                                            {
-                                                cuota = cuota + 1;
-                                                DataRow row1 = dt.NewRow();
-                                                row1["conId"] = Convert.ToInt32(dt6.Rows[0]["Id"].ToString());
-                                                row1["cntId"] = Convert.ToInt32(dt6.Rows[0]["cntId"].ToString());
-                                                row1["AnioLectivo"] = Convert.ToDecimal(dt6.Rows[0]["AnioLectivo"].ToString());
-                                                row1["Importe"] = Convert.ToDecimal(dt6.Rows[0]["Importe"].ToString());
-                                                row1["FchInscripcion"] = Convert.ToString(DateTime.Now);
-                                                row1["NroCuota"] = cuota;
-                                                dt.Rows.Add(row1);
-                                            }
-
-                                            Session.Add("Datos", dt);
-                                            dt4 = Session["Datos"] as DataTable;
-                                            if (dt4.Rows.Count > 0)
-                                            {
-                                                foreach (DataRow row2 in dt4.Rows)
-                                                {
-                                                    int conId = Convert.ToInt32(row2["conId"].ToString());
-                                                    Decimal Importe = Convert.ToDecimal(row2["Importe"].ToString());
-                                                    DateTime FchaInscripcion = Convert.ToDateTime(row2["FchInscripcion"].ToString());
-                                                    Int32 NroCuota = Convert.ToInt32(row2["NroCuota"].ToString());
-                                                    Int32 bcaId = 1;
-                                                    dt1 = ocnInscripcionConcepto.ObtenerUnoxIcuIdxConIdxNroCuota(icuId, conId, NroCuota);
-                                                    if (dt1.Rows.Count == 0)
-                                                    {
-                                                        ocnInscripcionConcepto.Insertar(icuId, conId, Importe, FchaInscripcion, NroCuota, bcaId, 0, true, this.Master.usuId, this.Master.usuId, DateTime.Now, DateTime.Now);
-                                                    }
-                                                    else
-                                                    {
-                                                        alerError.Visible = true;
-                                                        lblError.Text = "Se encontraron cuotas registradas para ese movimiento..";
-                                                    }
-                                                }
-                                                dt.Clear();
-                                                Session.Add("Datos", dt);
-                                            }
-                                        }
-                                    }
-                                }
-                            }
+                            alerError.Visible = true;
+                            lblError.Text = "Para el cambio de curso los Años Lectivos deben ser iguales..";
                         }
                     }
 
@@ -1376,8 +1179,8 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
     {
         alerErrorP1.Visible = false;
         alerErrorP2.Visible = false;
-        ConTipoId2.DataValueField = "Valor"; ConTipoId2.DataTextField = "Texto"; ConTipoId2.DataSource = (new GESTIONESCOLAR.Negocio.ConceptosTipos()).ObtenerLista("[Seleccionar...]"); ConTipoId2.DataBind();
-        ConceptoId2.ClearSelection();
+        //ConTipoId2.DataValueField = "Valor"; ConTipoId2.DataTextField = "Texto"; ConTipoId2.DataSource = (new GESTIONESCOLAR.Negocio.ConceptosTipos()).ObtenerLista("[Seleccionar...]"); ConTipoId2.DataBind();
+        //ConceptoId2.ClearSelection();
     }
 
     protected void curId_SelectedIndexChanged(object sender, EventArgs e)
@@ -1407,7 +1210,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
     {
         alerErrorP1.Visible = false;
         alerErrorP2.Visible = false;
-        ConTipoId2.DataValueField = "Valor"; ConTipoId2.DataTextField = "Texto"; ConTipoId2.DataSource = (new GESTIONESCOLAR.Negocio.ConceptosTipos()).ObtenerLista("[Seleccionar...]"); ConTipoId2.DataBind();
-        ConceptoId2.ClearSelection();
+        //ConTipoId2.DataValueField = "Valor"; ConTipoId2.DataTextField = "Texto"; ConTipoId2.DataSource = (new GESTIONESCOLAR.Negocio.ConceptosTipos()).ObtenerLista("[Seleccionar...]"); ConTipoId2.DataBind();
+        //ConceptoId2.ClearSelection();
     }
 }

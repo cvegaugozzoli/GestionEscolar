@@ -1,4 +1,4 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/PaginasBasicas/Principal.master" AutoEventWireup="true" CodeFile="MovimientoCambioCurso.aspx.cs" Inherits="MovimientoCambioCurso" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/PaginasBasicas/Principal.master" AutoEventWireup="true" CodeFile="MovimientoCambioCurso.aspx.cs" Inherits="MovimientoCambioCurso" %>
 
 <%@ Register Src="../Controles/Particulares/cuFecha.ascx" TagName="cuFecha" TagPrefix="tpDatePicker" %>
 <%@ MasterType TypeName="PaginasBasicas_Principal" %>
@@ -36,36 +36,37 @@
             <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
                 <ContentTemplate>
                     <div class="form-row">
-                          <div class="form-group col-md-4">
+                        <div runat="server" class="form-group col-md-4" visible="false">
                             <label runat="server" class="control-label">Carrera</label>
                             <asp:DropDownList ID="carId" placeholder="Carrera" runat="server" BorderColor="Silver" class="form-control" Enabled="false" AutoPostBack="true" OnSelectedIndexChanged="carId_SelectedIndexChanged"></asp:DropDownList>
                         </div>
-                        <div class="form-group col-md-4">
+                        <div runat="server" class="form-group col-md-4" visible="false">
                             <label runat="server" class="control-label">Plan</label>
                             <asp:DropDownList ID="plaId" placeholder="Plan" runat="server" BorderColor="Silver" class="form-control" Enabled="false" AutoPostBack="true" OnSelectedIndexChanged="plaId_SelectedIndexChanged"></asp:DropDownList>
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-3">
                             <label runat="server" class="control-label">Curso</label>
                             <asp:DropDownList ID="curId" runat="server" BorderColor="Silver" class="form-control" Enabled="true" AutoPostBack="true" OnSelectedIndexChanged="curId_SelectedIndexChanged"></asp:DropDownList>
                         </div>
                     </div>
                     <div class="form-row">
-                         <div class="form-group col-md-4">
-                            <label runat="server" class="control-label">A�o</label>
+                        <div class="form-group col-md-3">
+                            <label runat="server" class="control-label">Año</label>
                             <asp:TextBox ID="AnioCursado" type="text" class="form-control" BorderColor="Silver" runat="server" placeholder="" AutoPostBack="true" OnTextChanged="AnioCursado_TextChanged1"></asp:TextBox>
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-3">
                             <label runat="server" class="control-label">Tipo Conc.</label>
                             <asp:DropDownList ID="ConTipoId" runat="server" BorderColor="Silver" class="form-control m-b" AutoPostBack="True" OnSelectedIndexChanged="ConTipoId_SelectedIndexChanged"></asp:DropDownList>
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-3">
                             <label runat="server" class="control-label">Conceptos</label>
                             <asp:DropDownList ID="ConceptoId" runat="server" BorderColor="Silver" class="form-control m-b" Enabled="True" AutoPostBack="True"></asp:DropDownList>
                         </div>
                         <div class="form-group col-md-12">
-                         <div id="alerErrorP1" visible="false" runat="server" class="alert alert-danger  alert-dismissable">
-        <asp:Label ID="LBLalerErrorP1" runat="server" Font-Bold="True" Font-Size="Medium"></asp:Label>
-    </div>   </div>
+                            <div id="alerErrorP1" visible="false" runat="server" class="alert alert-danger  alert-dismissable">
+                                <asp:Label ID="LBLalerErrorP1" runat="server" Font-Bold="True" Font-Size="Medium"></asp:Label>
+                            </div>
+                        </div>
                     </div>
                     <hr class="hr-line-dashed" />
                 </ContentTemplate>
@@ -78,11 +79,11 @@
             <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Conditional">
                 <ContentTemplate>
                     <div class="form-row">
-                        <div class="form-group col-md-4">
+                        <div runat="server" class="form-group col-md-4" visible="false">
                             <label runat="server" id="lblNivel" class="control-label">Carrera</label>
                             <asp:DropDownList ID="carId2" placeholder="Nivel" runat="server" BorderColor="Silver" class="form-control" Enabled="false" AutoPostBack="true" OnSelectedIndexChanged="carId2_SelectedIndexChanged"></asp:DropDownList>
                         </div>
-                        <div class="form-group col-md-4">
+                        <div runat="server" class="form-group col-md-4" visible="false">
                             <label runat="server" id="lblPlan" class="control-label">Plan</label>
                             <asp:DropDownList ID="plaId2" placeholder="Plan" runat="server" BorderColor="Silver" class="form-control" Enabled="false" AutoPostBack="true" OnSelectedIndexChanged="plaId2_SelectedIndexChanged"></asp:DropDownList>
                         </div>
@@ -93,23 +94,24 @@
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-4">
-                            <label runat="server" id="lblAnio2" class="control-label">A�o</label>
+                            <label runat="server" id="lblAnio2" class="control-label">Año</label>
                             <asp:TextBox ID="AnioCursado2" type="text" class="form-control" BorderColor="Silver" runat="server" placeholder="" AutoPostBack="true" OnTextChanged="AnioCursado2_TextChanged1"></asp:TextBox>
                         </div>
-                        <div class="form-group col-md-4">
+                        <%--         <div class="form-group col-md-4">
                             <label runat="server" id="lblTipoConcepto2" class="control-label">Tipo Conc.</label>
                             <asp:DropDownList ID="ConTipoId2" runat="server" BorderColor="Silver" class="form-control m-b" AutoPostBack="True" OnSelectedIndexChanged="ConTipoId2_SelectedIndexChanged"></asp:DropDownList>
                         </div>
                         <div class="form-group col-md-4">
                             <label runat="server" id="lblConcepto2" class="control-label">Conceptos</label>
                             <asp:DropDownList ID="ConceptoId2" runat="server" BorderColor="Silver" class="form-control m-b" Enabled="True" AutoPostBack="True"></asp:DropDownList>
+                        </div>--%>
+                        <div class="form-group col-md-12">
+
+
+                            <div id="alerErrorP2" visible="false" runat="server" class="alert alert-danger  alert-dismissable">
+                                <asp:Label ID="LBLalerErrorP2" runat="server" Font-Bold="True" Font-Size="Medium"></asp:Label>
+                            </div>
                         </div>
-                         <div class="form-group col-md-12">                    
-
-
-                        <div id="alerErrorP2" visible="false" runat="server" class="alert alert-danger  alert-dismissable">
-        <asp:Label ID="LBLalerErrorP2" runat="server" Font-Bold="True" Font-Size="Medium"></asp:Label>
-    </div>   </div>
                     </div>
                     <hr class="hr-line-dashed" />
                 </ContentTemplate>
@@ -121,8 +123,9 @@
             <div class="form-group">
                 <asp:Button ID="btnAplicar" class="btn btn-w-m btn-warning" runat="server" Text="Aplicar" OnClick="btnAplicar_Click" />
             </div>
+           
         </div>
-
+ 
         <div class="col-md-6">
             <div class="form-inline">
                 <div class="form-group">
@@ -132,9 +135,14 @@
             </div>
         </div>
     </div>
+<div id="alerMje" visible="false" runat="server" class="alert alert-dismissible  alert-dismissable">
 
+                <div style="margin-bottom: 10px; color: #333; background-color: #e8f4ff; padding: 8px; border-left: 5px solid #2196F3;">
+                    📌 Seleccione uno o más alumnos de la lista y presione el botón <strong>&gt;&gt;</strong> para asignarles el curso destino.
+                </div>
+            </div>
     <div id="alerCambioCurso" visible="false" runat="server" class="alert alert-info  alert-dismissable">
-        <h5 style="font-weight: bold; font-size: medium">"Se registr� con exito la acci�n.."</h5>
+        <h5 style="font-weight: bold; font-size: medium">"Se registró con exito la acción.."</h5>
     </div>
     <asp:Label ID="lblMensajeError2" runat="server" Text="" Font-Bold="True" Font-Size="Medium" ForeColor="#000066"></asp:Label>
     <div id="alerExito" visible="false" runat="server" class="alert alert-info  alert-dismissable">
@@ -165,7 +173,7 @@
                 <Columns>
 
                     <asp:TemplateField HeaderText="" ItemStyle-Width="50" FooterStyle-HorizontalAlign="Center">
-                       <ItemTemplate>
+                        <ItemTemplate>
                             <asp:CheckBox ID="chkSeleccion" runat="server" Width="50" />
                         </ItemTemplate>
                         <FooterStyle HorizontalAlign="Center"></FooterStyle>
@@ -213,11 +221,17 @@
         </div>
 
 
+       
+
+
         <div class="col-sm-1" style="vertical-align: middle" align="center">
             <br />
             <br />
-            <asp:Button ID="btnSeleccionar" runat="server" Text=">>"
-                OnClick="btnSeleccionar_Click" />
+
+             <asp:Button ID="btnSeleccionar" runat="server" Text=">>"
+    CssClass="btn btn-primary btn-lg" OnClick="btnSeleccionar_Click" />
+           <%-- <asp:Button ID="" runat="server" Text=">>"
+                OnClick="btnSeleccionar_Click" />--%>
             <br />
             <br />
         </div>
@@ -258,7 +272,7 @@
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                                <asp:Button ID="btnSeleccionarTodo" class="btn btn-w-m btn-warning" runat="server" Text="Seleccionar Todo" OnClick="btnSeleccionarTodo_Click" />
+                <asp:Button ID="btnSeleccionarTodo" class="btn btn-w-m btn-warning" runat="server" Text="Seleccionar Todo" OnClick="btnSeleccionarTodo_Click" />
             </div>
         </div>
 
