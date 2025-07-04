@@ -1,7 +1,7 @@
 USE [GestionEscolar]
 GO
 
-/****** Object:  Table [dbo].[IntencionPagos]    Script Date: 02/07/2025 9:09:10 ******/
+/****** Object:  Table [dbo].[IntencionPagos]    Script Date: 03/07/2025 20:59:31 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -22,6 +22,7 @@ CREATE TABLE [dbo].[IntencionPagos](
 	[inp_comprobantenro] [varchar](50) NULL,
 	[aluid] [int] NULL,
 	[inp_FechaExpiracion] [datetime] NULL,
+	[inp_bearerToken] [varchar](200) NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[inpId] ASC

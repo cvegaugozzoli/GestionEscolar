@@ -46,6 +46,9 @@ namespace GESTIONESCOLAR
             private DateTime _inp_FechaExpiracion;
             public DateTime inp_FechaExpiracion { get { return _inp_FechaExpiracion; } set { _inp_FechaExpiracion = value; } }
 
+            private String _inp_bearerToken;
+            public String inp_bearerToken { get { return _inp_bearerToken; } set { _inp_bearerToken = value; } }
+
             #endregion
 
             #region Constructores
@@ -144,8 +147,16 @@ namespace GESTIONESCOLAR
                         {
                             this.inp_FechaExpiracion = DateTime.Now;
                         }
-
+                        if (Fila.Rows[0]["inp_bearerToken"].ToString().Trim().Length > 0)
+                        {
+                            this.inp_bearerToken = Convert.ToString(Fila.Rows[0]["inp_bearerToken"]);
+                        }
+                        else
+                        {
+                            this.inp_bearerToken = "";
+                        }
                         
+
                     }
                 }
 				catch (Exception oError)
@@ -154,7 +165,7 @@ namespace GESTIONESCOLAR
                 }
             }
 
-            public IntencionPagos(Int32 inpId, String inp_IdReferenciaOperacion, String inp_Hash, DateTime inp_FechaCreacion, String inp_Estado, Decimal _inp_Monto, Int32 inp_UsuId, String inp_comprobantenro, Int32 aluid, DateTime inp_FechaExpiracion)
+            public IntencionPagos(Int32 inpId, String inp_IdReferenciaOperacion, String inp_Hash, DateTime inp_FechaCreacion, String inp_Estado, Decimal _inp_Monto, Int32 inp_UsuId, String inp_comprobantenro, Int32 aluid, DateTime inp_FechaExpiracion, String inp_bearerToken)
 			{
                 try
                 {
@@ -168,6 +179,7 @@ namespace GESTIONESCOLAR
                     this.inp_comprobantenro = inp_comprobantenro;
                     this.aluid = aluid;
                     this.inp_FechaExpiracion = inp_FechaExpiracion;
+                    this.inp_bearerToken = inp_bearerToken;
                 }
 			    catch (Exception oError)
                 {
@@ -230,22 +242,22 @@ namespace GESTIONESCOLAR
             //    return Tabla;
             //}
 
-            //public DataTable ObtenerTodoBuscarxNombre(String Nombre)
-            //{
-            //    ocdGestor = new Datos.Gestor();
-            //    Tabla = new DataTable();
+            public DataTable ObtenerTodoBuscarxNombre(String Nombre)
+            {
+                ocdGestor = new Datos.Gestor();
+                Tabla = new DataTable();
 
-            //    try
-            //    {
-            //    	Tabla = ocdGestor.EjecutarReader("[Becas.ObtenerTodoBuscarxNombre]", new object[,] {{"@Nombre", Nombre}});
-            //    }
-            //    catch (Exception oError)
-            //    {
-            //    	throw oError;
-            //    }
+                try
+                {
+                    Tabla = ocdGestor.EjecutarReader("[IntencionPagos.ObtenerTodoBuscarxNombre]", new object[,] { { "@Nombre", Nombre } });
+                }
+                catch (Exception oError)
+                {
+                    throw oError;
+                }
 
-            //    return Tabla;
-            //}
+                return Tabla;
+            }
 
             //public DataTable ObtenerUno(Int32 becId)
             //{
@@ -267,11 +279,11 @@ namespace GESTIONESCOLAR
 
             //  public IntencionPagos(Int32 inpId, String inp_IdReferenciaOperacion, String inp_Hash, DateTime inp_FechaCreacion, String inp_Estado, Decimal _inp_Monto, Int32 inp_UsuId)
 
-            public void Actualizar(Int32 inpId, String inp_IdReferenciaOperacion, String inp_Hash, DateTime inp_FechaCreacion, String inp_Estado, Decimal _inp_Monto, Int32 inp_UsuId, String inp_comprobantenro, Int32 aluid, DateTime inp_FechaExpiracion)
+            public void Actualizar(Int32 inpId, String inp_IdReferenciaOperacion, String inp_Hash, DateTime inp_FechaCreacion, String inp_Estado, Decimal _inp_Monto, Int32 inp_UsuId, String inp_comprobantenro, Int32 aluid, DateTime inp_FechaExpiracion, String inp_bearerToken)
             {
                 try
                 {
-                    ocdGestor.EjecutarNonQuery("[IntencionPagos.Actualizar]", new object[,] {{ "@inpId", inpId}, { "@inp_IdReferenciaOperacion", inp_IdReferenciaOperacion}, {"@inp_Hash", inp_Hash}, { "@inp_FechaCreacion", inp_FechaCreacion }, { "@inp_Estado", inp_Estado }, {"@_inp_Monto", _inp_Monto}, {"@inp_UsuId", inp_UsuId}, { "@inp_comprobantenro", inp_comprobantenro }, { "@aluid", aluid }, { "@inp_FechaExpiracion", inp_FechaExpiracion } }); 
+                    ocdGestor.EjecutarNonQuery("[IntencionPagos.Actualizar]", new object[,] {{ "@inpId", inpId}, { "@inp_IdReferenciaOperacion", inp_IdReferenciaOperacion}, {"@inp_Hash", inp_Hash}, { "@inp_FechaCreacion", inp_FechaCreacion }, { "@inp_Estado", inp_Estado }, {"@_inp_Monto", _inp_Monto}, {"@inp_UsuId", inp_UsuId}, { "@inp_comprobantenro", inp_comprobantenro }, { "@aluid", aluid }, { "@inp_FechaExpiracion", inp_FechaExpiracion }, { "@inp_bearerToken", inp_bearerToken } }); 
                 }
                 catch (Exception oError)
                 {
@@ -297,7 +309,7 @@ namespace GESTIONESCOLAR
                 Int32 IdMax;
                 try
                 {
-                    IdMax =  ocdGestor.EjecutarNonQueryRetornaId("[IntencionPagos.Insertar]", new object[,] { { "@inp_IdReferenciaOperacion", inp_IdReferenciaOperacion }, { "@inp_Hash", inp_Hash }, { "@inp_FechaCreacion", inp_FechaCreacion }, { "@inp_Estado", inp_Estado }, { "@_inp_Monto", _inp_Monto }, { "@inp_UsuId", inp_UsuId }, { "@inp_comprobantenro", inp_comprobantenro }, { "@aluid", aluid }, { "@inp_FechaExpiracion", inp_FechaExpiracion } });
+                    IdMax =  ocdGestor.EjecutarNonQueryRetornaId("[IntencionPagos.Insertar]", new object[,] { { "@inp_IdReferenciaOperacion", inp_IdReferenciaOperacion }, { "@inp_Hash", inp_Hash }, { "@inp_FechaCreacion", inp_FechaCreacion }, { "@inp_Estado", inp_Estado }, { "@_inp_Monto", _inp_Monto }, { "@inp_UsuId", inp_UsuId }, { "@inp_comprobantenro", inp_comprobantenro }, { "@aluid", aluid }, { "@inp_FechaExpiracion", inp_FechaExpiracion }, { "@inp_bearerToken", inp_bearerToken } });
                 }
                 catch (Exception oError)
                 {

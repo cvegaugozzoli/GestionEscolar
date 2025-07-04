@@ -62,6 +62,14 @@ public partial class FacturacionPadres : System.Web.UI.Page
                 {
                     //Label4.Text = "IdReferenciaOperacion: "+ IdReferenciaOperacion + " Fin";
                     //Label5.Text = "IdResultado: " + IdResultado + " Fin";
+
+                    //ocnIntencionPagos = new GESTIONESCOLAR.Negocio. (Id);
+                    //this.banCodigo.Text = ocnBancos.banCodigo;
+
+                    dt = new DataTable();
+                    dt = ocnIntencionPagos.;
+
+
                     string hash_ = Session["Hash_"] as string;
                     //Label7.Text = "hash: " + hash_ + " Fin";
                     string bearerToken_ = Session["bearerToken_"] as string;
@@ -2147,7 +2155,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
         ocnIntencionPagos.inp_comprobantenro = "";
         ocnIntencionPagos.aluid = 0;
         ocnIntencionPagos.inp_FechaExpiracion = FechaExp;
-
+        ocnIntencionPagos.inp_bearerToken = bearerToken;
         //Nuevo
         Id = ocnIntencionPagos.Insertar();
 
