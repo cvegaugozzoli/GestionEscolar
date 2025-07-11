@@ -1,0 +1,13 @@
+Intencion de Pago
+Se genera el idreferenciaoperacion (fechahoraminss+aluid) y se envía a SIRO
+Además se graba en la tabla de IntencionPagos e InscripciónConcepto por cada icoid seleccionado
+
+Grabado de Pago
+Al recibir el pago ralizado, se toma del request el idreferenciaop y:
+Se genera CompbteCabecera, Detalle y en Forma de pago se coloca "Siro Pagos"
+Además se tomas del request el idresultadopago y se lo graba en IntencionPagos asociado a ese idreferenciaop
+
+Registración de Pago
+Se lista los pagos por fecha (desde y hasta) seelccioanda consumiendo la API.
+Con las fechas ingresadas filtrar de ComprobantesCabecera los registros que en ComprobantesFormasdePago se igual a "SiroPagos"
+Al Confirmar se actualiza esa Forma de Pago con la real (Tarj. Credito, Débito o QR)

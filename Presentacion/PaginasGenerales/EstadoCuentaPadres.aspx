@@ -3,7 +3,7 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <%@ Register Src="../Controles/Particulares/cuFecha.ascx" TagName="cuFecha" TagPrefix="tpDatePicker" %>
 <%@ MasterType TypeName="PrincipalPadres" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="cph" runat="Server">
+<asp:content id="Content1" contentplaceholderid="cph" runat="Server">
     <div class="form-group">
         <asp:Label ID="lblMensajeError" runat="server" Text=""></asp:Label>
         <asp:Label ID="lblaluId" runat="server" Visible="false" Text=""></asp:Label>
@@ -263,6 +263,8 @@
                 <div class="form-group col-md-2">
                     <asp:Button ID="btnFacturar" class="btn btn-w-m btn-warning" runat="server" Text="Pagar" Visible="false" OnClick="btnFacturarClick" Width="100%" />
                 </div>
+
+
             </div>
 
             <%--   <div class="row">
@@ -349,5 +351,5 @@
         window.addEventListener("load", ajustarColumnasGridView);
         window.addEventListener("resize", ajustarColumnasGridView);
     </script>
-</asp:Content>
+</asp:content>
 

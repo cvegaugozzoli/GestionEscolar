@@ -22,6 +22,9 @@ namespace GESTIONESCOLAR
             private String _inp_Hash; 
 			public String inp_Hash { get { return _inp_Hash; } set { _inp_Hash = value; } }
 
+            private String _inp_ResultadoPago;
+            public String inp_ResultadoPago { get { return _inp_ResultadoPago; } set { _inp_ResultadoPago = value; } }
+            
             private DateTime _inp_FechaCreacion;
             public DateTime inp_FechaCreacion { get { return _inp_FechaCreacion; } set { _inp_FechaCreacion = value; } }
 
@@ -48,6 +51,34 @@ namespace GESTIONESCOLAR
 
             private String _inp_bearerToken;
             public String inp_bearerToken { get { return _inp_bearerToken; } set { _inp_bearerToken = value; } }
+
+            private String _inp_CanalCobro;
+            public String inp_CanalCobro { get { return _inp_CanalCobro; } set { _inp_CanalCobro = value; } }
+
+            private String _inp_CodRechazo;
+            public String inp_CodRechazo { get { return _inp_CodRechazo; } set { _inp_CodRechazo = value; } }
+
+            private String _inp_DescripcionRechazo;
+            public String inp_DescripcionRechazo { get { return _inp_DescripcionRechazo; } set { _inp_DescripcionRechazo = value; } }
+
+            private Int32 _inp_Cuotas;
+            public Int32 inp_Cuotas { get { return _inp_Cuotas; } set { _inp_Cuotas = value; } }
+
+            private String _inp_Tarjetas;
+            public String inp_Tarjetas { get { return _inp_Tarjetas; } set { _inp_Tarjetas = value; } }
+
+            private Int32 _inp_idPagosSiro;
+            public Int32 inp_idPagosSiro { get { return _inp_idPagosSiro; } set { _inp_idPagosSiro = value; } }
+
+            private Decimal _inp_ImportePagado;
+            public Decimal inp_ImportePagado { get { return _inp_ImportePagado; } set { _inp_ImportePagado = value; } }
+
+            private DateTime _inp_fechaacreditacion;
+            public DateTime inp_fechaacreditacion { get { return _inp_fechaacreditacion; } set { _inp_fechaacreditacion = value; } }
+
+            private DateTime _inp_fechapago;
+            public DateTime inp_fechapago { get { return _inp_fechapago; } set { _inp_fechapago = value; } }
+            
 
             #endregion
 
@@ -108,11 +139,11 @@ namespace GESTIONESCOLAR
 
 					    if(Fila.Rows[0]["inp_Monto"].ToString().Trim().Length > 0)
                         {
-                            this._inp_Monto = Convert.ToDecimal(Fila.Rows[0]["inp_Monto"]);
+                            this.inp_Monto = Convert.ToDecimal(Fila.Rows[0]["inp_Monto"]);
                         }
                         else
                         {
-						    this._inp_Monto = 0;
+						    this.inp_Monto = 0;
                         }
                         
 					    if(Fila.Rows[0]["inp_UsuId"].ToString().Trim().Length > 0)
@@ -155,7 +186,80 @@ namespace GESTIONESCOLAR
                         {
                             this.inp_bearerToken = "";
                         }
-                        
+
+
+                        if (Fila.Rows[0]["inp_CanalCobro"].ToString().Trim().Length > 0)
+                        {
+                            this.inp_CanalCobro = Convert.ToString(Fila.Rows[0]["inp_CanalCobro"]);
+                        }
+                        else
+                        {
+                            this.inp_CanalCobro = "";
+                        }
+                        if (Fila.Rows[0]["inp_CodRechazo"].ToString().Trim().Length > 0)
+                        {
+                            this.inp_CodRechazo = Convert.ToString(Fila.Rows[0]["inp_CodRechazo"]);
+                        }
+                        else
+                        {
+                            this.inp_CodRechazo = "";
+                        }
+                        if (Fila.Rows[0]["inp_DescripcionRechazo"].ToString().Trim().Length > 0)
+                        {
+                            this.inp_DescripcionRechazo = Convert.ToString(Fila.Rows[0]["inp_DescripcionRechazo"]);
+                        }
+                        else
+                        {
+                            this.inp_DescripcionRechazo = "";
+                        }
+                        if (Fila.Rows[0]["inp_Cuotas"].ToString().Trim().Length > 0)
+                        {
+                            this.inp_Cuotas = Convert.ToInt32(Fila.Rows[0]["inp_Cuotas"]);
+                        }
+                        else
+                        {
+                            this.inp_Cuotas = 0;
+                        }
+                        if (Fila.Rows[0]["inp_Tarjetas"].ToString().Trim().Length > 0)
+                        {
+                            this.inp_Tarjetas = Convert.ToString(Fila.Rows[0]["inp_Tarjetas"]);
+                        }
+                        else
+                        {
+                            this.inp_Tarjetas = "";
+                        }
+                        if (Fila.Rows[0]["inp_idPagosSiro"].ToString().Trim().Length > 0)
+                        {
+                            this.inp_idPagosSiro = Convert.ToInt32(Fila.Rows[0]["inp_idPagosSiro"]);
+                        }
+                        else
+                        {
+                            this.inp_idPagosSiro = 0;
+                        }
+                        if (Fila.Rows[0]["inp_ImportePagado"].ToString().Trim().Length > 0)
+                        {
+                            this.inp_ImportePagado = Convert.ToDecimal(Fila.Rows[0]["inp_ImportePagado"]);
+                        }
+                        else
+                        {
+                            this.inp_ImportePagado = 0;
+                        }
+                        if (Fila.Rows[0]["inp_fechaacreditacion"].ToString().Trim().Length > 0)
+                        {
+                            this.inp_fechaacreditacion = Convert.ToDateTime(Fila.Rows[0]["inp_fechaacreditacion"]);
+                        }
+                        else
+                        {
+                            this.inp_fechaacreditacion = DateTime.Now;
+                        }
+                        if (Fila.Rows[0]["inp_fechapago"].ToString().Trim().Length > 0)
+                        {
+                            this.inp_fechapago = Convert.ToDateTime(Fila.Rows[0]["inp_fechapago"]);
+                        }
+                        else
+                        {
+                            this.inp_fechapago = DateTime.Now;
+                        }
 
                     }
                 }
@@ -242,14 +346,14 @@ namespace GESTIONESCOLAR
             //    return Tabla;
             //}
 
-            public DataTable ObtenerTodoBuscarxNombre(String Nombre)
+            public DataTable ObtenerTodoBuscarxVarios(String inp_hash, Int32 inp_aluid)
             {
                 ocdGestor = new Datos.Gestor();
                 Tabla = new DataTable();
 
                 try
                 {
-                    Tabla = ocdGestor.EjecutarReader("[IntencionPagos.ObtenerTodoBuscarxNombre]", new object[,] { { "@Nombre", Nombre } });
+                    Tabla = ocdGestor.EjecutarReader("[IntencionPagos.ObtenerTodoBuscarxVarios]", new object[,] { { "@inp_hash", inp_hash }, { "@inp_aluid", inp_aluid } });
                 }
                 catch (Exception oError)
                 {
@@ -279,19 +383,34 @@ namespace GESTIONESCOLAR
 
             //  public IntencionPagos(Int32 inpId, String inp_IdReferenciaOperacion, String inp_Hash, DateTime inp_FechaCreacion, String inp_Estado, Decimal _inp_Monto, Int32 inp_UsuId)
 
-            public void Actualizar(Int32 inpId, String inp_IdReferenciaOperacion, String inp_Hash, DateTime inp_FechaCreacion, String inp_Estado, Decimal _inp_Monto, Int32 inp_UsuId, String inp_comprobantenro, Int32 aluid, DateTime inp_FechaExpiracion, String inp_bearerToken)
+            public void Actualizar(Int32 aluid, String inp_bearerToken, String inp_hash, String inp_ResultadoPago)
             {
                 try
                 {
-                    ocdGestor.EjecutarNonQuery("[IntencionPagos.Actualizar]", new object[,] {{ "@inpId", inpId}, { "@inp_IdReferenciaOperacion", inp_IdReferenciaOperacion}, {"@inp_Hash", inp_Hash}, { "@inp_FechaCreacion", inp_FechaCreacion }, { "@inp_Estado", inp_Estado }, {"@_inp_Monto", _inp_Monto}, {"@inp_UsuId", inp_UsuId}, { "@inp_comprobantenro", inp_comprobantenro }, { "@aluid", aluid }, { "@inp_FechaExpiracion", inp_FechaExpiracion }, { "@inp_bearerToken", inp_bearerToken } }); 
+                    ocdGestor.EjecutarNonQuery("[IntencionPagos.Actualizar]", new object[,] {{ "@aluid", aluid }, { "@inp_bearerToken", inp_bearerToken }, { "@inp_hash", inp_hash }, { "@inp_ResultadoPago", inp_ResultadoPago } }); 
                 }
                 catch (Exception oError)
                 {
                 	throw oError;
                 }
             }
-                			
-		
+
+            //public void ActualizarResultado_pago(String resultado_pago)
+            //{
+            //    try
+            //    {
+            //        if (this.becId != 0)
+            //        {
+            //            ocdGestor.EjecutarNonQuery("[IntencionPagos.Actualizar]", new object[,] { { "@resultado_pago", resultado_pago }, { "@resultado_pago", resultado_pago } });
+            //        }
+            //    }
+            //    catch (Exception oError)
+            //    {
+            //        throw oError;
+            //    }
+            //}
+
+
             //public void Eliminar(Int32 becId)
             //{
             //    try
@@ -303,7 +422,7 @@ namespace GESTIONESCOLAR
             //    	throw oError;
             //    }
             //}
-                			
+
             public Int32 Insertar()
             {
                 Int32 IdMax;

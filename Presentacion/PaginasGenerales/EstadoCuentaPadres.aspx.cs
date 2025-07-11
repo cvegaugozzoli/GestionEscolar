@@ -46,7 +46,7 @@ public partial class EstadoCuentaPadres : System.Web.UI.Page
             
                 int Anio = DateTime.Now.Year;
                 txtAnioLectivo.Text = Convert.ToString(Anio);
-
+//                lblMensajeError.visible = false;
 
                 alerError2.Visible = false;
                 lblMjerror2.Text = "";
@@ -2800,12 +2800,109 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
 
     protected void btnFacturarClick(object sender, EventArgs e)
     {
-        Response.Redirect("FacturacionPadres.aspx?Id=" + icuId2, false);
+        try
+        {
+            //alerError2.Visible = false;
+            //alerError.Visible = false;
+            //alerExito.Visible = false;
 
+            //insId = Convert.ToInt32(Session["_Institucion"]);
+            lblMensajeError.Text = "";
+            int BanChk = 0;
+            foreach (GridViewRow row in GrillaHistorial.Rows)
+            {
+                CheckBox check = row.FindControl("chkSeleccion") as CheckBox;
+                if ((check.Checked)) // Si esta seleccionado..
+                {
+                    BanChk = 1;
+                }
+            }
+            if (BanChk == 1)
+            {
+                DataTable dt = new DataTable();
+                DataTable dt9 = new DataTable();
+                DataTable dt4 = new DataTable();
+                DataTable dt3 = new DataTable();
+                DataTable dt1 = new DataTable();
+                dt.Columns.Add("icuId", typeof(int));
+                dt.Columns.Add("icoId", typeof(int));
+                dt.Columns.Add("cntId", typeof(int));
+                dt.Columns.Add("conId", typeof(Int32));
+                dt.Columns.Add("TipoConcepto", typeof(String));
+                dt.Columns.Add("Concepto", typeof(String));
+                dt.Columns.Add("Importe", typeof(Decimal));
+                dt.Columns.Add("AnioLectivo", typeof(Decimal));
+                dt.Columns.Add("Beca", typeof(String));
+                dt.Columns.Add("BecId", typeof(Int32));
+                dt.Columns.Add("NroCuota", typeof(Int32));
+                dt.Columns.Add("FchInscripcion", typeof(String));
+
+                String FchaInscripcionCon;
+                Int32 NroCuotaCon;
+                Int32 bcaIdCon;
+                Int32 AnioCursado;
+
+                foreach (GridViewRow row in GrillaHistorial.Rows)
+                {
+                    CheckBox check = row.FindControl("chkSeleccion") as CheckBox;
+                    //Int32 EstIC = Convert.ToInt32(GrillaAlumnos.DataKeys[row.RowIndex].Values["Estado"]);
+
+                    if ((check.Checked)) // Si esta seleccionado..
+                    {
+                        AnioCursado = Convert.ToInt32(GrillaHistorial.DataKeys[row.RowIndex].Values["AnioLectivo"]);
+                        insId = Convert.ToInt32(GrillaHistorial.DataKeys[row.RowIndex].Values["insId"]);
+                        dt3 = ocnInscripcionCursado.ObtenerTodoxInsIdxaluIdxAnioCursado(insId, AnioCursado, Convert.ToInt32(lblaluId.Text));
+                        icuId2 = Convert.ToInt32(dt3.Rows[0]["Id"].ToString());
+                        FchaInscripcionCon = Convert.ToString(GrillaHistorial.DataKeys[row.RowIndex].Values["FchInscripcion"]);
+                        NroCuotaCon = Convert.ToInt32(GrillaHistorial.DataKeys[row.RowIndex].Values["NroCuota"]);
+                        bcaIdCon = Convert.ToInt32(GrillaHistorial.DataKeys[row.RowIndex].Values["BecasId"]);
+                        DataRow row1 = dt.NewRow();
+                        row1["icuId"] = icuId2;
+                        row1["icoId"] = Convert.ToInt32(GrillaHistorial.DataKeys[row.RowIndex].Values["icoId"]);
+                        row1["cntId"] = Convert.ToInt32(GrillaHistorial.DataKeys[row.RowIndex].Values["cntId"]);
+                        row1["conId"] = Convert.ToInt32(GrillaHistorial.DataKeys[row.RowIndex].Values["conId"]);
+                        row1["TipoConcepto"] = Convert.ToString(GrillaHistorial.DataKeys[row.RowIndex].Values["TipoConcepto"]);
+                        row1["Concepto"] = Convert.ToString(GrillaHistorial.DataKeys[row.RowIndex].Values["Concepto"]);
+                        row1["Importe"] = Convert.ToDecimal(GrillaHistorial.DataKeys[row.RowIndex].Values["Importe"]);
+                        row1["AnioLectivo"] = Convert.ToInt32(GrillaHistorial.DataKeys[row.RowIndex].Values["AnioLectivo"]);
+                        row1["Beca"] = Convert.ToString(GrillaHistorial.DataKeys[row.RowIndex].Values["Beca"]);
+                        row1["BecId"] = Convert.ToInt32(GrillaHistorial.DataKeys[row.RowIndex].Values["BecId"]);
+                        row1["NroCuota"] = Convert.ToInt32(GrillaHistorial.DataKeys[row.RowIndex].Values["NroCuota"]);
+
+                        row1["FchInscripcion"] = Convert.ToString(GrillaHistorial.DataKeys[row.RowIndex].Values["FchInscripcion"]);
+                        dt.Rows.Add(row1);
+                    }
+                    Session.Add("TablaPagar", dt);
+
+
+                }
+                //Response.Redirect("Facturacion.aspx?Id=" + icuId2, false);
+                Response.Redirect("FacturacionPadres.aspx?Id=" + icuId2, false);
+            }
+            else
+            {
+                int PageIndex = 0;
+                PageIndex = Convert.ToInt32(Session["CuentaCorriente.PageIndex"]);
+
+                GrillaCargar(PageIndex);
+                //GrillaBuscar.DataSource = null;
+                //GrillaBuscar.DataBind();
+                alerError2.Visible = true;
+                lblError2.Text = "Debe seleccionar al menos un item a pagar..";
+            }
+        }
+        catch (Exception oError)
+        {
+            lblMensajeError.Text = @"<div class=""alert alert-danger alert-dismissable"">
+<button aria-hidden=""true"" data-dismiss=""alert"" class=""close"" type=""button"">x</button>
+<a class=""alert-link"" href=""#"">Error de Sistema</a><br/>
+Se ha producido el siguiente error:<br/>
+MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerException + "<br><br>TRACE:<br>" + oError.StackTrace + "<br><br>TARGET:<br>" + oError.TargetSite +
+    "</div>";
+        }
     }
 
 
-
-}
+    }
 
 
