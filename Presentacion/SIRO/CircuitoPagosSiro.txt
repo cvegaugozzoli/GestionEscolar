@@ -11,3 +11,24 @@ Registración de Pago
 Se lista los pagos por fecha (desde y hasta) seelccioanda consumiendo la API.
 Con las fechas ingresadas filtrar de ComprobantesCabecera los registros que en ComprobantesFormasdePago se igual a "SiroPagos"
 Al Confirmar se actualiza esa Forma de Pago con la real (Tarj. Credito, Débito o QR)
+
+
+1- Se listan los registros de Comprobante Pagos cuya Forma de Pago sea "Siro Pagos" (trae idreferenciaop de Inscripción Concepto Generado en la Intención de Pago )
+2- Traigo los Pagos de la API
+3 - Comparo idreferenciaop de Siro con idreferenciaop de Inscripcion Concepto
+4 - Si Coincide Actualizo Forma de Pago según registro de la Api
+5- Actualizar Intención Pago.. Null
+6- Insertar CuponesTrjeta
+
+
+CuponesTarjetas
+-cupid int
+-tarid int
+-cupCanCuotas int
+-cfpId int
+
+Tarjetas
+-tarid int
+-tarNombre varchar(100)
+
+
