@@ -23,7 +23,7 @@
                                 <label for="txtAnioLectivo" class="form-label">Año Lectivo:</label>
                                 <asp:TextBox ID="anioCur" runat="server" CssClass="form-control" />
                                 <div class="form-check mt-2">
-                                    <asp:CheckBox ID="chkAplicarAnio" runat="server" CssClass="form-check-input" />
+                                    <asp:CheckBox ID="chkAplicarAnio" AutoPostBack="true" runat="server" CssClass="form-check-input" OnCheckedChanged="chkAplicarAnio_CheckedChanged" />
                                     <label class="form-check-label" for="chkAplicarAnio">Aplicar Año</label>
                                 </div>
                             </div>
@@ -32,11 +32,11 @@
                             <div class="col-md-2">
                                 <label class="form-label">Buscar por:</label>
                                 <div class="form-check form-check-inline">
-                                    <asp:RadioButton ID="rbNombre" Checked="true" runat="server" GroupName="BuscarPor" CssClass="form-check-input" />
+                                    <asp:RadioButton ID="rbNombre" AutoPostBack="true" Checked="true" runat="server" GroupName="BuscarPor" CssClass="form-check-input" OnCheckedChanged="rbNombre_CheckedChanged" />
                                     <label class="form-check-label" for="rbNombre">Nombre</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <asp:RadioButton ID="rbDni" runat="server" GroupName="BuscarPor" CssClass="form-check-input" />
+                                    <asp:RadioButton ID="rbDni" AutoPostBack="true" runat="server" GroupName="BuscarPor" CssClass="form-check-input" OnCheckedChanged="rbDni_CheckedChanged" />
                                     <label class="form-check-label" for="rbDNI">DNI</label>
                                 </div>
                             </div>

@@ -644,11 +644,11 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
         }
         else
         {
-            alerExito.Visible = true;
-            lblExito.Text = "Las notas fueron guardadas con éxito..";
+          
             PeriodoId.SelectedValue = "0";
             Int32 PageIndex = Convert.ToInt32(Session["CargaCalifxEspCSec.PageIndex"]);
-            GrillaCargar(PageIndex);
+            GrillaCargar(PageIndex);  alerExito.Visible = true;
+            lblExito.Text = "Las notas fueron guardadas con éxito..";
         }
     }
 
@@ -689,6 +689,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
 
     protected void plaId_SelectedIndexChanged(object sender, EventArgs e)
     {
+        alerExito.Visible = false;
         plaIdCargar();
     }
 
@@ -714,6 +715,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
 
     protected void PeriodoId_SelectedIndexChanged(object sender, EventArgs e)
     {
+        alerExito.Visible = false;
         ErrorIngreso.Visible = false;
         pnlAsignarNota.Visible = false;
         lblMsjeErrorAsignar.Text = "";
@@ -735,12 +737,19 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
     {
         insId = Convert.ToInt32(Session["_Institucion"]);
         int usuario = Convert.ToInt32(Session["_usuId"].ToString());
-
+        alerExito.Visible = false;
         //dt = ocnUsuarioEspacioCurricular.ObtenerxUsuId(usuario);
 
         if ((Session["_perId"].ToString() == "1") || (Session["_perId"].ToString() == "25") || (Session["_perId"].ToString() == "2") || (Session["_perId"].ToString() == "5")) // Si es administrador o Director veo todo
         {
             escId.DataValueField = "Id"; escId.DataTextField = "Nombre"; escId.DataSource = (new GESTIONESCOLAR.Negocio.EspacioCurricular()).ObtenerListaPorUnCurso(Convert.ToInt32(curId.SelectedValue), insId); escId.DataBind();
+            this.GrillaNota.DataSource = null;
+            this.GrillaNota.DataBind();
+            btnGuardar1.Visible = false;
+            btnGuardar.Visible = false;
+            alerMje.Visible = false;
+            btnImprimir.Visible = false;
+            pnlAsignarNota.Visible = false;
         }
         else
         {
@@ -1132,6 +1141,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
 
     protected void escId_SelectedIndexChanged(object sender, EventArgs e)
     {
+        alerExito.Visible = false;
         pnlAsignarNota.Visible = false;
         lblMsjeErrorAsignar.Text = "";
         //btnGuardar.Visible = true;

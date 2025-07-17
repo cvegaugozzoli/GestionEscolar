@@ -1229,7 +1229,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
 
             dt = new DataTable();
 
-            if (Convert.ToInt32(Session["Bandera"]) == 0)
+            if (rbNombre.Checked==true)
             {
                 dt = ocnInscripcionCursado.ObtenerTodoporAlumnoxAnioxInst(txtBusqueda.Text.Trim(), Convert.ToInt32(anioCur.Text), insId);
 
@@ -1465,6 +1465,73 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
             PageIndex = Convert.ToInt32(Session["CargaCalificacionesPorAlumnoPri.PageIndex"]);
         }
         #endregion
+        GrillaCargar(PageIndex);
+    }
+
+    protected void rbDni_CheckedChanged(object sender, EventArgs e)
+    {
+        alerError.Visible = false;
+        alerExito.Visible = false;
+        rbNombre.Checked = false;
+        aludni.Text = "";
+        aluNombre.Text = "";
+        txtBusqueda.Text = "";
+        txtCurso.Text = "";
+        pnelAlumnoSeleccionado.Visible = false;
+        this.GrillaBuscar.DataSource = null;
+        this.GrillaBuscar.PageIndex = 0;
+        this.GrillaBuscar.DataBind();
+        panelCalif.Visible = false;
+        pnelAlumnoSeleccionado.Visible = false;
+        pnlAsignarNota.Visible = false;
+        this.GrillaNota.DataSource = null;
+        this.GrillaNota.DataBind();
+        this.GrillaPrevia.DataSource = null;
+        this.GrillaPrevia.DataBind();
+        lblCantidadPrevias.Text = "";
+    }
+
+    protected void rbNombre_CheckedChanged(object sender, EventArgs e)
+    {
+        alerError.Visible = false;
+        alerExito.Visible = false;
+        int ban = rbNombre.Checked ? 1 : 0;
+        rbDni.Checked = false;
+        Session["Bandera"] = ban;
+        aludni.Text = "";
+        aluNombre.Text = "";
+        txtBusqueda.Text = "";
+        pnelAlumnoSeleccionado.Visible = false;
+        this.GrillaBuscar.DataSource = null;
+        this.GrillaBuscar.PageIndex = 0;
+        this.GrillaBuscar.DataBind();
+        panelCalif.Visible = false;
+        pnelAlumnoSeleccionado.Visible = false;
+        pnlAsignarNota.Visible = false;
+        this.GrillaNota.DataSource = null;
+        this.GrillaNota.DataBind();
+        this.GrillaPrevia.DataSource = null;
+        this.GrillaPrevia.DataBind();
+        lblCantidadPrevias.Text = "";
+    }
+
+    protected void chkAplicarAnio_CheckedChanged(object sender, EventArgs e)
+    {
+        #region PageIndex
+        int PageIndex = 0;
+        if (this.Session["CargaCalificacionesPorAlumnoSec.PageIndex"] == null)
+        {
+            Session.Add("CargaCalificacionesPorAlumnoSec.PageIndex", 0);
+        }
+        else
+        {
+            PageIndex = Convert.ToInt32(Session["CargaCalificacionesPorAlumnoSec.PageIndex"]);
+        }
+        #endregion
+        chkAplicarAnio.Checked = false;
+        pnelAlumnoSeleccionado.Visible = false;
+        this.GrillaBuscar.DataSource = null;
+        this.GrillaBuscar.DataBind();
         GrillaCargar(PageIndex);
     }
 }

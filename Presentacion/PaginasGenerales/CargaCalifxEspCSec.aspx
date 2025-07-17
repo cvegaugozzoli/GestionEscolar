@@ -73,7 +73,9 @@
                                 </div>
                             </div>
                         </fieldset>
-
+   <div id="alerExito" visible="false" runat="server" class="alert alert-info  alert-dismissable">
+        <asp:Label ID="lblExito" runat="server" Font-Bold="True" Font-Size="Medium"></asp:Label>
+    </div>
                     </ContentTemplate>
                 </asp:UpdatePanel>
 
@@ -82,9 +84,7 @@
         </div>
     </div>
 
-    <div id="alerExito" visible="false" runat="server" class="alert alert-info  alert-dismissable">
-        <asp:Label ID="lblExito" runat="server" Font-Bold="True" Font-Size="Medium" Text="Atención: Una vez cargadas las nota debe confirmar las mismas con el botón Guardar Notas"></asp:Label>
-    </div>
+ 
 
     <div class="ibox-content">
 
