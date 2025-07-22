@@ -1,4 +1,4 @@
-using System;
+Ôªøusing System;
 using System.Collections.Generic;
 using System.Web;
 using System.Web.UI;
@@ -7,7 +7,7 @@ using System.Data;
 using System.IO;
 using System.Text;
 using System.Data.OleDb;
-
+using System.Linq;
 
 
 
@@ -15,7 +15,7 @@ public partial class IngresoPagosArchivo : System.Web.UI.Page
 {
     GESTIONESCOLAR.Negocio.Usuario ocnUsuario = new GESTIONESCOLAR.Negocio.Usuario();
     GESTIONESCOLAR.Negocio.DevPatagoniaImputar ocnDevPatagoniaImputar = new GESTIONESCOLAR.Negocio.DevPatagoniaImputar();
-    
+
     GESTIONESCOLAR.Negocio.Alumno ocnAlumno = new GESTIONESCOLAR.Negocio.Alumno();
     GESTIONESCOLAR.Negocio.Familiar ocnFamiliar = new GESTIONESCOLAR.Negocio.Familiar();
     GESTIONESCOLAR.Negocio.ConceptosTipos ocnConceptosTipos = new GESTIONESCOLAR.Negocio.ConceptosTipos();
@@ -30,6 +30,13 @@ public partial class IngresoPagosArchivo : System.Web.UI.Page
     GESTIONESCOLAR.Negocio.ConceptosIntereses ocnConceptosIntereses = new GESTIONESCOLAR.Negocio.ConceptosIntereses();
     GESTIONESCOLAR.Negocio.TempImputaPagos ocnTempImputaPagos = new GESTIONESCOLAR.Negocio.TempImputaPagos();
     GESTIONESCOLAR.Negocio.Instituciones ocnInstituciones = new GESTIONESCOLAR.Negocio.Instituciones();
+    GESTIONESCOLAR.Negocio.IntencionPagos ocnIntencionPagos = new GESTIONESCOLAR.Negocio.IntencionPagos();
+    GESTIONESCOLAR.Negocio.Tarjetas ocnTarjetas = new GESTIONESCOLAR.Negocio.Tarjetas();
+    GESTIONESCOLAR.Negocio.TarjetasPlanes ocnTarjetasPlanes = new GESTIONESCOLAR.Negocio.TarjetasPlanes();
+    GESTIONESCOLAR.Negocio.PagosTarjetas ocnPagosTarjetas = new GESTIONESCOLAR.Negocio.PagosTarjetas();
+    GESTIONESCOLAR.Negocio.PagosTransferenciaElectronica ocnPagosTransferenciaElectronica = new GESTIONESCOLAR.Negocio.PagosTransferenciaElectronica();
+
+
     int insId;
     DataTable dt = new DataTable();
     DataTable dt1 = new DataTable();
@@ -82,7 +89,6 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
 
         try
         {
-            AlerInfo.Visible = true;
             int usuIdCreacion = this.Master.usuId;
             Int32 IdNew;
             String Concepto, Nombre, CodAlumno, Imputa, InstNombre, Curso, Observaciones;
@@ -90,11 +96,12 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
             Int32 NroCuota;
             DateTime FechaPago;
 
-            //Elimina todo el archivo si hubiera anteriormente una impresiÛn
+            //Elimina todo el archivo si hubiera anteriormente una impresi√≥n
             ocnTempImputaPagos.EliminarTodo();
 
             if (BcoAdhId.SelectedValue == "1")
             {
+                AlerInfo.Visible = true;
                 foreach (GridViewRow row1 in GrillaCaja.Rows)
                 {
                     CodAlumno = Convert.ToString(GrillaCaja.DataKeys[row1.RowIndex].Values["aluId"]);
@@ -115,23 +122,34 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
             }
             else
             {
-
-                foreach (GridViewRow row1 in GridView1.Rows)
+                if (BcoAdhId.SelectedValue == "2")
                 {
-                    CodAlumno = Convert.ToString(GridView1.DataKeys[row1.RowIndex].Values["aluId"]);
-                    Nombre = Convert.ToString(GridView1.DataKeys[row1.RowIndex].Values["Nombre"]);
-                    Concepto = Convert.ToString(GridView1.DataKeys[row1.RowIndex].Values["Concepto"]);
-                    NroCuota = Convert.ToInt32(GridView1.DataKeys[row1.RowIndex].Values["NroCuota"]);
-                    Importe = Convert.ToDecimal(GridView1.DataKeys[row1.RowIndex].Values["Importe"]);
-                    FechaPago = Convert.ToDateTime(GridView1.DataKeys[row1.RowIndex].Values["FechaPago"]);
-                    Imputa = Convert.ToString(GridView1.DataKeys[row1.RowIndex].Values["Imputa"]);
-                    Curso = Convert.ToString(GridView1.DataKeys[row1.RowIndex].Values["Curso"]);
-                    Observaciones = Convert.ToString(GridView1.DataKeys[row1.RowIndex].Values["Observaciones"]);
+                    AlerInfo.Visible = true;
+                    foreach (GridViewRow row1 in GridView1.Rows)
+                    {
+                        CodAlumno = Convert.ToString(GridView1.DataKeys[row1.RowIndex].Values["aluId"]);
+                        Nombre = Convert.ToString(GridView1.DataKeys[row1.RowIndex].Values["Nombre"]);
+                        Concepto = Convert.ToString(GridView1.DataKeys[row1.RowIndex].Values["Concepto"]);
+                        NroCuota = Convert.ToInt32(GridView1.DataKeys[row1.RowIndex].Values["NroCuota"]);
+                        Importe = Convert.ToDecimal(GridView1.DataKeys[row1.RowIndex].Values["Importe"]);
+                        FechaPago = Convert.ToDateTime(GridView1.DataKeys[row1.RowIndex].Values["FechaPago"]);
+                        Imputa = Convert.ToString(GridView1.DataKeys[row1.RowIndex].Values["Imputa"]);
+                        Curso = Convert.ToString(GridView1.DataKeys[row1.RowIndex].Values["Curso"]);
+                        Observaciones = Convert.ToString(GridView1.DataKeys[row1.RowIndex].Values["Observaciones"]);
 
-                    InstNombre = lblColegio.Text;
+                        InstNombre = lblColegio.Text;
 
-                    //Insertar tabla temporal
-                    IdNew = ocnTempImputaPagos.Insertar(Nombre, Concepto, Importe, NroCuota, FechaPago, Imputa, InstNombre, Curso, Observaciones);
+                        //Insertar tabla temporal
+                        IdNew = ocnTempImputaPagos.Insertar(Nombre, Concepto, Importe, NroCuota, FechaPago, Imputa, InstNombre, Curso, Observaciones);
+                    }
+                }
+                else
+                {
+                    AlerInfo.Visible = false;
+                    foreach (GridViewRow row1 in GrillaSiro.Rows)
+                    {
+
+                    }
                 }
             }
             String NomRep;
@@ -149,53 +167,76 @@ Se ha producido el siguiente error:<br/>
 MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerException + "<br><br>TRACE:<br>" + oError.StackTrace + "<br><br>TARGET:<br>" + oError.TargetSite +
     "</div>";
         }
-
-
-
     }
+
     protected void Listar_Click(object sender, EventArgs e)
     {
-        btnImprimir.Visible = false;
-        DataTable dt1 = new DataTable();
-        alerError.Visible = false;
-        //Verificar si el FileUpload con tiene un Archivo
-        if (FileUpload1.HasFile)
+        try
         {
+            AlerExito.Visible = false;
+            btnImprimir.Visible = false;
+            btnImprimirSiro.Visible = false;
+            DataTable dt1 = new DataTable();
             alerError.Visible = false;
-            //Colocar el nombre del Archivo en una Variable String
-            string filename = FileUpload1.FileName;
 
-            //Enviar el Archivo a un Directorio de forma Temporal
-            FileUpload1.SaveAs(Server.MapPath("/Uploads/" + filename));
-            String extArchivo = Path.GetExtension(Server.MapPath("/Uploads/" + filename));
-
-            if (BcoAdhId.SelectedValue == "1" & (extArchivo == ".xls" || extArchivo == ".xlsx"))
+            if (BcoAdhId.SelectedValue == "3")
             {
-                ExportToGrid(Server.MapPath("/Uploads/" + filename), Path.GetExtension(Server.MapPath("/Uploads/" + filename)), filename);
-
+                Siro();
             }
             else
             {
-                if (BcoAdhId.SelectedValue == "2") // & (extArchivo == ".txt")
+                if (FileUpload1.HasFile)    //Verificar si el FileUpload con tiene un Archivo
                 {
-                    ExportToGrid(Server.MapPath("/Uploads/" + filename), Path.GetExtension(Server.MapPath("/Uploads/" + filename)), filename);
+                    alerError.Visible = false;
+                    //Colocar el nombre del Archivo en una Variable String
+                    string filename = FileUpload1.FileName;
+
+                    //Enviar el Archivo a un Directorio de forma Temporal
+                    FileUpload1.SaveAs(Server.MapPath("/Uploads/" + filename));
+                    String extArchivo = Path.GetExtension(Server.MapPath("/Uploads/" + filename));
+
+                    if (BcoAdhId.SelectedValue == "1" & (extArchivo == ".xls" || extArchivo == ".xlsx"))
+                    {
+                        ExportToGrid(Server.MapPath("/Uploads/" + filename), Path.GetExtension(Server.MapPath("/Uploads/" + filename)), filename);
+                    }
+                    else
+                    {
+                        if (BcoAdhId.SelectedValue == "2") // & (extArchivo == ".txt")
+                        {
+                            ExportToGrid(Server.MapPath("/Uploads/" + filename), Path.GetExtension(Server.MapPath("/Uploads/" + filename)), filename);
+                        }
+                        else
+                        {
+                            alerError.Visible = true;
+                            lblError.Text = "No coincide el Banco con la extenxi√≥n del archivo";
+                            return;
+                        }
+                    }
                 }
+
                 else
                 {
                     alerError.Visible = true;
-                    lblError.Text = "No coincide el Banco con la extenxiÛn del archivo";
+                    lblError.Text = "Debe seleccionar un archivo..";
                     return;
                 }
             }
-
-
-            //Importar el Archivo Excel a un Gridview con el Metodo ExportToGrid
-            //ExportToGrid(Server.MapPath("/Uploads/" + filename), Path.GetExtension(Server.MapPath("/Uploads/" + filename)), filename);
-
+        }
+        catch (Exception oError)
+        {
+            lblMensajeError.Text = "Aluid: " + Session["aluid"] + @"<div class=""alert alert-danger alert-dismissable"">
+<button aria-hidden=""true"" data-dismiss=""alert"" class=""close"" type=""button"">x</button>
+<a class=""alert-link"" href=""#"">Error de Sistema</a><br/>
+Se ha producido el siguiente error:<br/>
+MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerException + "<br><br>TRACE:<br>" + oError.StackTrace + "<br><br>TARGET:<br>" + oError.TargetSite +
+    "</div>";
         }
     }
 
     void ExportToGrid(String path, String Extension, String filename)
+
+
+
     {
         lblMensajeError.Text = "";
         listado.Visible = false;
@@ -226,7 +267,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                 MiConexion = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source='" + path + "';Extended Properties=Excel 12.0 Xml;");
             }
 
-            // Busco el id de instituciÛn
+            // Busco el id de instituci√≥n
             //dtI = ocnInstituciones.ObtenerUnoPorCodigo(numCta);
             //if (dtI.Rows.Count > 0)
             //{
@@ -293,7 +334,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                     //insId = Convert.ToInt32(Session["_Institucion"]);
                     CodBarra = Convert.ToString(row["Cod# Barra"].ToString());
 
-                    //string descripcion = Convert.ToString(row["DescripciÛn"].ToString());
+                    //string descripcion = Convert.ToString(row["Descripci√≥n"].ToString());
                     //int pos20 = descripcion.LastIndexOf("20");
                     //int Anoacademico = descripcion.Substring(10, 4);
 
@@ -302,11 +343,11 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
 
                     string ImporteReal = "";
                     ImporteReal = CodBarra.Substring(18, 8).Trim();
-                    
-                    //Single ImpReal = Convert.ToSingle(ImporteReal)/100;
-                    Single ImpReal = Convert.ToSingle(ImporteReal)/10; // Cambiar desde el 27/11/2024
 
-                    //Cambiado desde 21-11-2024 para poder leer importes de m·s de 5 dÌgitos, eje 150.000
+                    //Single ImpReal = Convert.ToSingle(ImporteReal)/100;
+                    Single ImpReal = Convert.ToSingle(ImporteReal) / 10; // Cambiar desde el 27/11/2024
+
+                    //Cambiado desde 21-11-2024 para poder leer importes de m√°s de 5 d√≠gitos, eje 150.000
                     //string ImporteReal = CodBarra.Substring(18, 8).Trim();
 
                     DateTime FechaPago = Convert.ToDateTime(row["Fecha"].ToString());
@@ -335,7 +376,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                             row1["FechaPago"] = Convert.ToDateTime(row["Fecha"].ToString());
                             row1["NroCuota"] = Int32.Parse(nroCuota);
                             row1["Importe"] = Convert.ToDecimal(row["Importe"].ToString());
-                            row1["NroComprobante"] = Convert.ToString(row["Cpbte#N∞"].ToString());
+                            row1["NroComprobante"] = Convert.ToString(row["Cpbte#N¬∞"].ToString());
                             row1["Imputa"] = "";
                             row1["Observaciones"] = "";
                             String pp;
@@ -363,7 +404,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                 row1["FechaPago"] = Convert.ToDateTime(row["Fecha"].ToString());
                                 row1["NroCuota"] = Int32.Parse(nroCuota);
                                 row1["Importe"] = Convert.ToDecimal(row["Importe"].ToString());
-                                row1["NroComprobante"] = Convert.ToString(row["Cpbte#N∞"].ToString());
+                                row1["NroComprobante"] = Convert.ToString(row["Cpbte#N¬∞"].ToString());
                                 row1["Imputa"] = "";
                                 row1["Observaciones"] = "";
                                 String pp;
@@ -386,7 +427,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                             row1["FechaPago"] = Convert.ToDateTime(row["Fecha"].ToString());
                             row1["NroCuota"] = Int32.Parse(nroCuota);
                             row1["Importe"] = Convert.ToDecimal(row["Importe"].ToString());
-                            row1["NroComprobante"] = Convert.ToString(row["Cpbte#N∞"].ToString());
+                            row1["NroComprobante"] = Convert.ToString(row["Cpbte#N¬∞"].ToString());
                             row1["Imputa"] = "NE";
                             row1["Observaciones"] = "NE";
                             dt2.Rows.Add(row1);
@@ -419,447 +460,109 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
 
             //}
         }
-        else //Patagonia
+        else //Patagonia o Siro
         {
-            string insid = "0";
-            lblLugarPago.Text = "3";
-            string FileToRead = @path;
-            using (StreamReader ReaderObject = new StreamReader(FileToRead))
+            if (BcoAdhId.SelectedValue == "2")
             {
-                DataTable dt2 = new DataTable();
-                DataTable dt3 = new DataTable();
-                DataTable dt4 = new DataTable();
-                DataTable dt5 = new DataTable();
-                DataTable dt6 = new DataTable();
-                DataTable dt7 = new DataTable();
-                dt2.Columns.Add("aluId", typeof(int));
-                dt2.Columns.Add("icoId", typeof(Int32));
-                dt2.Columns.Add("Nombre", typeof(String));
-                dt2.Columns.Add("Concepto", typeof(String));
-                dt2.Columns.Add("FechaPago", typeof(DateTime));
-                dt2.Columns.Add("NroCuota", typeof(Int32));
-                dt2.Columns.Add("Importe", typeof(Decimal));
-                dt2.Columns.Add("NroComprobante", typeof(String));
-                dt2.Columns.Add("Imputa", typeof(String));
-                dt2.Columns.Add("Curso", typeof(String));
-                dt2.Columns.Add("adeCBU", typeof(String));
-                dt2.Columns.Add("Observaciones", typeof(String));
-                dt2.Columns.Add("insid", typeof(Int32));
-                string Line;
-
-                String FechaPago = "";
-                DateTime fecha = DateTime.Now;
-                String FechaPagofinal = "";
-                // ReaderObject reads a single line, stores it in Line string variable and then displays it on
-                // console
-                while ((Line = ReaderObject.ReadLine()) != null)
+                string insid = "0";
+                lblLugarPago.Text = "3";
+                string FileToRead = @path;
+                using (StreamReader ReaderObject = new StreamReader(FileToRead))
                 {
-                    Char PL = Line[0];
+                    DataTable dt2 = new DataTable();
+                    DataTable dt3 = new DataTable();
+                    DataTable dt4 = new DataTable();
+                    DataTable dt5 = new DataTable();
+                    DataTable dt6 = new DataTable();
+                    DataTable dt7 = new DataTable();
+                    dt2.Columns.Add("aluId", typeof(int));
+                    dt2.Columns.Add("icoId", typeof(Int32));
+                    dt2.Columns.Add("Nombre", typeof(String));
+                    dt2.Columns.Add("Concepto", typeof(String));
+                    dt2.Columns.Add("FechaPago", typeof(DateTime));
+                    dt2.Columns.Add("NroCuota", typeof(Int32));
+                    dt2.Columns.Add("Importe", typeof(Decimal));
+                    dt2.Columns.Add("NroComprobante", typeof(String));
+                    dt2.Columns.Add("Imputa", typeof(String));
+                    dt2.Columns.Add("Curso", typeof(String));
+                    dt2.Columns.Add("adeCBU", typeof(String));
+                    dt2.Columns.Add("Observaciones", typeof(String));
+                    dt2.Columns.Add("insid", typeof(Int32));
+                    string Line;
 
-                    if (PL == 'H')
+                    String FechaPago = "";
+                    DateTime fecha = DateTime.Now;
+                    String FechaPagofinal = "";
+                    // ReaderObject reads a single line, stores it in Line string variable and then displays it on
+                    // console
+                    while ((Line = ReaderObject.ReadLine()) != null)
                     {
-                        FechaPago = Line.Substring(25, 8);
-                        fecha = DateTime.ParseExact(FechaPago, "ddMMyyyy", System.Globalization.CultureInfo.CurrentCulture);
-                        FechaPagofinal = fecha.ToString("dd/MM/yyyy");
-                    }
-                    if (PL == 'D')
-                    {
-                        String aluIdS = Line.Substring(34, 7);
-                        int aluIdNum = Convert.ToInt32(aluIdS.TrimStart(new Char[] { '0' }));
-                        if (aluIdNum == 8987)
+                        Char PL = Line[0];
+
+                        if (PL == 'H')
                         {
-                            int wwww = 0;
+                            FechaPago = Line.Substring(25, 8);
+                            fecha = DateTime.ParseExact(FechaPago, "ddMMyyyy", System.Globalization.CultureInfo.CurrentCulture);
+                            FechaPagofinal = fecha.ToString("dd/MM/yyyy");
                         }
-                        String numCuotaS = Line.Substring(89, 2);
-                        int numCuotaNum = Convert.ToInt32(numCuotaS.TrimEnd(new Char[] { ' ' }));
-
-                        int AnioCursado = DateTime.Now.Year;
-
-                        DataTable dtConcepto = new DataTable();
-                        Decimal ImporteReal = 0;
-                        dtConcepto = ocnInscripcionConcepto.ObtenerImporteRealPat(aluIdNum, numCuotaNum, 2, AnioCursado); // 2 es el tipo de concepto (CUOTA)
-                        if (dtConcepto.Rows.Count > 0)
+                        if (PL == 'D')
                         {
-                            ImporteReal = Convert.ToDecimal(dtConcepto.Rows[0]["Importe"].ToString());
-                        }
-
-                        //dtConcepto = ocnConceptos.ob(aluIdNum, numCuotaNum, Convert.ToDecimal(ImporteRealNum), AnioCursado);// obtengo inscripcion Cocepto que no exista en comprobante detalle
-
-
-                        string ImporteDebitado = Line.Substring(104, 10);
-                        Decimal ImporteRealNum = Convert.ToDecimal(ImporteDebitado.TrimStart(new Char[] { '0' })) / 100;
-
-                        //dt4 = ocnInscripcionConcepto.ObtenerUnoxaluxcuotaximportePat(aluIdNum, numCuotaNum, Convert.ToDecimal(ImporteRealNum), AnioCursado);// obtengo inscripcion Cocepto que no exista en comprobante detalle
-                        dt4 = ocnInscripcionConcepto.ObtenerUnoxaluxcuotaximportePat(aluIdNum, numCuotaNum, Convert.ToDecimal(ImporteReal), AnioCursado);// obtengo inscripcion Cocepto que no exista en comprobante detalle
-
-                        //dt3 = ocnConceptos.ObtenerUno(Convert.ToInt32(dt4.Rows[0]["conId"].ToString()));
-                        DataRow row1 = dt2.NewRow();
-                        if (dt4.Rows.Count > 0)
-                        {
-                            insid = Convert.ToString(dt4.Rows[0]["insId"].ToString());
-                            //lblColegioId.Text = Convert.ToString(dt4.Rows[0]["insId"].ToString());
-                            dt3 = ocnAlumno.ObtenerUno(Convert.ToInt32(aluIdNum));
-
-                            if (dt3.Rows.Count > 0)
+                            String aluIdS = Line.Substring(34, 7);
+                            int aluIdNum = Convert.ToInt32(aluIdS.TrimStart(new Char[] { '0' }));
+                            if (aluIdNum == 8987)
                             {
-                                int icoId = Convert.ToInt32(dt4.Rows[0]["Id"].ToString());
-                                row1["aluId"] = Convert.ToString(dt3.Rows[0]["Id"].ToString());
-                                row1["icoId"] = Convert.ToInt32(icoId);
-                                row1["Nombre"] = Convert.ToString(dt3.Rows[0]["Nombre"].ToString());
-                                row1["Concepto"] = Convert.ToString(dt4.Rows[0]["Conceptos"].ToString());
-                                row1["FechaPago"] = Convert.ToDateTime(FechaPagofinal);
-                                row1["NroCuota"] = numCuotaNum;
-                                row1["Importe"] = ImporteRealNum;
-                                row1["NroComprobante"] = "";
-                                row1["Imputa"] = "";
-                                String pp;
-                                pp = Convert.ToString(dt4.Rows[0]["Curso"].ToString());
-                                row1["Curso"] = Convert.ToString(dt4.Rows[0]["Curso"].ToString());
-                                row1["adeCBU"] = Convert.ToString(dt4.Rows[0]["adeCBU"].ToString());
-                                row1["insid"] = insid;
-                                String Observ = Line.Substring(151, 3);
-
-                                btnImputar.Enabled = true;
-                                //if (Observ == "")
-                                //{
-                                //    row1["Observaciones"] = "";
-                                //}
-                                //else
-                                //{
-                                //    row1["Observaciones"] = Observ;
-                                //}
-
-                                if (Observ == "   " || Observ == "")
-                                {
-                                    row1["Observaciones"] = Observ;
-                                }
-                                else
-                                {
-                                    if (Observ == "R02")
-                                    {
-                                        row1["Observaciones"] = "Cuenta cerrada";
-                                        row1["Importe"] = 0;
-                                    }
-                                    else
-                                    {
-                                        if (Observ == "R03")
-                                        {
-                                            row1["Observaciones"] = "Cuenta inexistente";
-                                            row1["Importe"] = 0;
-                                        }
-                                        else
-                                        {
-                                            if (Observ == "R04")
-                                            {
-                                                row1["Observaciones"] = "N˙mero de cuenta inv·lido";
-                                                row1["Importe"] = 0;
-                                            }
-                                            else
-                                            {
-                                                if (Observ == "R08")
-                                                {
-                                                    row1["Observaciones"] = "Orden de no pagar";
-                                                    row1["Importe"] = 0;
-                                                }
-                                                else
-                                                {
-                                                    if (Observ == "R10")
-                                                    {
-                                                        row1["Observaciones"] = "Falta de fondos";
-                                                        row1["Importe"] = 0;
-                                                    }
-                                                    else
-                                                    {
-                                                        if (Observ == "R14")
-                                                        {
-                                                            row1["Observaciones"] = "IdentificaciÛn del cliente en la empresa errÛnea";
-                                                            row1["Importe"] = 0;
-                                                        }
-                                                        else
-                                                        {
-                                                            if (Observ == "R15")
-                                                            {
-                                                                row1["Observaciones"] = "Baja del servicio";
-                                                                row1["Importe"] = 0;
-                                                            }
-                                                            else
-                                                            {
-                                                                if (Observ == "R17")
-                                                                {
-                                                                    row1["Observaciones"] = "Error de formato";
-                                                                    row1["Importe"] = 0;
-                                                                }
-                                                                else
-                                                                {
-                                                                    if (Observ == "R19")
-                                                                    {
-                                                                        row1["Observaciones"] = "Importe errÛneo";
-                                                                        row1["Importe"] = 0;
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        if (Observ == "R20")
-                                                                        {
-                                                                            row1["Observaciones"] = "Moneda distinta a la de la cuenta de dÈbito";
-                                                                            row1["Importe"] = 0;
-                                                                        }
-                                                                        else
-                                                                        {
-                                                                            if (Observ == "R23")
-                                                                            {
-                                                                                row1["Observaciones"] = "Sucursal no habilitada";
-                                                                                row1["Importe"] = 0;
-                                                                            }
-                                                                            else
-                                                                            {
-                                                                                if (Observ == "R24")
-                                                                                {
-                                                                                    row1["Observaciones"] = "TransacciÛn duplicada";
-                                                                                    row1["Importe"] = 0;
-                                                                                }
-                                                                                else
-                                                                                {
-                                                                                    if (Observ == "R25")
-                                                                                    {
-                                                                                        row1["Observaciones"] = "Error en registro adicional";
-                                                                                        row1["Importe"] = 0;
-                                                                                    }
-                                                                                    else
-                                                                                    {
-                                                                                        if (Observ == "R26")
-                                                                                        {
-                                                                                            row1["Observaciones"] = "Error por campo mandatario";
-                                                                                            row1["Importe"] = 0;
-                                                                                        }
-                                                                                        else
-                                                                                        {
-                                                                                            if (Observ == "R28")
-                                                                                            {
-                                                                                                row1["Observaciones"] = "Rechazo primer vencimiento";
-                                                                                                row1["Importe"] = 0;
-                                                                                            }
-                                                                                            else
-                                                                                            {
-                                                                                                if (Observ == "R29")
-                                                                                                {
-                                                                                                    row1["Observaciones"] = "ReversiÛn ya efectuada";
-                                                                                                    row1["Importe"] = 0;
-                                                                                                }
-                                                                                                else
-                                                                                                {
-                                                                                                    if (Observ == "R79")
-                                                                                                    {
-                                                                                                        row1["Observaciones"] = "Error en campo 7 Registro Individual ";
-                                                                                                        row1["Importe"] = 0;
-                                                                                                    }
-                                                                                                    else
-                                                                                                    {
-                                                                                                        if (Observ == "R80")
-                                                                                                        {
-                                                                                                            row1["Observaciones"] = "Error en campo 3 Registro Adicional ";
-                                                                                                            row1["Importe"] = 0;
-                                                                                                        }
-                                                                                                        else
-                                                                                                        {
-                                                                                                            if (Observ == "R86")
-                                                                                                            {
-                                                                                                                row1["Observaciones"] = "IdentificaciÛn de la empresa errÛnea";
-                                                                                                                row1["Importe"] = 0;
-                                                                                                            }
-                                                                                                            else
-                                                                                                            {
-                                                                                                                if (Observ == "R90")
-                                                                                                                {
-                                                                                                                    row1["Observaciones"] = "TRX no corresponde por no existir TRX original";
-                                                                                                                    row1["Importe"] = 0;
-                                                                                                                }
-                                                                                                                else
-                                                                                                                {
-                                                                                                                    if (Observ == "R91")
-                                                                                                                    {
-                                                                                                                        row1["Observaciones"] = "CÛdigo banco incompatible con moneda de TRX";
-                                                                                                                        row1["Importe"] = 0;
-                                                                                                                    }
-                                                                                                                    else
-                                                                                                                    {
-                                                                                                                        if (Observ == "R93")
-                                                                                                                        {
-                                                                                                                            row1["Observaciones"] = "DÌa no laborable";
-                                                                                                                            row1["Importe"] = 0;
-                                                                                                                        }
-                                                                                                                        else
-                                                                                                                        {
-                                                                                                                            if (Observ == "R95")
-                                                                                                                            {
-                                                                                                                                row1["Observaciones"] = "ReversiÛn de entidad receptora presentada fuera de tÈrmino";
-                                                                                                                                row1["Importe"] = 0;
-                                                                                                                            }
-                                                                                                                            else
-                                                                                                                            {
-                                                                                                                                if (Observ == "R13")
-                                                                                                                                {
-                                                                                                                                    row1["Observaciones"] = "Entidad destino inexistente";
-                                                                                                                                    row1["Importe"] = 0;
-                                                                                                                                }
-                                                                                                                                else
-                                                                                                                                {
-                                                                                                                                    if (Observ == "R18")
-                                                                                                                                    {
-                                                                                                                                        row1["Observaciones"] = "Fecha de compensaciÛn errÛnea";
-                                                                                                                                        row1["Importe"] = 0;
-                                                                                                                                    }
-                                                                                                                                    else
-                                                                                                                                    {
-                                                                                                                                        if (Observ == "R27")
-                                                                                                                                        {
-                                                                                                                                            row1["Observaciones"] = "Error en contador de registro";
-                                                                                                                                            row1["Importe"] = 0;
-                                                                                                                                        }
-                                                                                                                                        else
-                                                                                                                                        {
-                                                                                                                                            if (Observ == "R31")
-                                                                                                                                            {
-                                                                                                                                                row1["Observaciones"] = "Vuelta atr·s de C·mara";
-                                                                                                                                                row1["Importe"] = 0;
-                                                                                                                                            }
-                                                                                                                                            else
-                                                                                                                                            {
-                                                                                                                                                if (Observ == "R75")
-                                                                                                                                                {
-                                                                                                                                                    row1["Observaciones"] = "Fecha inv·lida";
-                                                                                                                                                    row1["Importe"] = 0;
-                                                                                                                                                }
-                                                                                                                                                else
-                                                                                                                                                {
-                                                                                                                                                    if (Observ == "R76")
-                                                                                                                                                    {
-                                                                                                                                                        row1["Observaciones"] = "Error en campo 11 Cabecera de Lote ";
-                                                                                                                                                        row1["Importe"] = 0;
-                                                                                                                                                    }
-                                                                                                                                                    else
-                                                                                                                                                    {
-                                                                                                                                                        if (Observ == "R77")
-                                                                                                                                                        {
-                                                                                                                                                            row1["Observaciones"] = "Error en campo 4 Registro Individual";
-                                                                                                                                                            row1["Importe"] = 0;
-                                                                                                                                                        }
-                                                                                                                                                        else
-                                                                                                                                                        {
-                                                                                                                                                            if (Observ == "R78")
-                                                                                                                                                            {
-                                                                                                                                                                row1["Observaciones"] = "Error en campo 5 Registro Individual";
-                                                                                                                                                                row1["Importe"] = 0;
-                                                                                                                                                            }
-                                                                                                                                                            else
-                                                                                                                                                            {
-                                                                                                                                                                if (Observ == "R87")
-                                                                                                                                                                {
-                                                                                                                                                                    row1["Observaciones"] = "Error en campo 9 Registro Individual 1er byte ";
-                                                                                                                                                                    row1["Importe"] = 0;
-                                                                                                                                                                }
-                                                                                                                                                                else
-                                                                                                                                                                {
-                                                                                                                                                                    if (Observ == "R88")
-                                                                                                                                                                    {
-                                                                                                                                                                        row1["Observaciones"] = "Error en campo 2 Registro Individual";
-                                                                                                                                                                        row1["Importe"] = 0;
-                                                                                                                                                                    }
-                                                                                                                                                                    else
-                                                                                                                                                                    {
-                                                                                                                                                                        if (Observ == "R89")
-                                                                                                                                                                        {
-                                                                                                                                                                            row1["Observaciones"] = "Errores transacciones no monetarias";
-                                                                                                                                                                            row1["Importe"] = 0;
-                                                                                                                                                                        }
-                                                                                                                                                                    }
-                                                                                                                                                                }
-                                                                                                                                                            }
-                                                                                                                                                        }
-                                                                                                                                                    }
-                                                                                                                                                }
-                                                                                                                                            }
-                                                                                                                                        }
-                                                                                                                                    }
-                                                                                                                                }
-                                                                                                                            }
-                                                                                                                        }
-                                                                                                                    }
-                                                                                                                }
-                                                                                                            }
-                                                                                                        }
-                                                                                                    }
-                                                                                                }
-                                                                                            }
-                                                                                        }
-                                                                                    }
-                                                                                }
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-
-
-                                dt2.Rows.Add(row1);
+                                int wwww = 0;
                             }
-                        }
-                        else
-                        {
-                            dt6 = ocnInscripcionConcepto.ObtenerUnoxaluxcuotaximporteDetallePat(Convert.ToInt32(aluIdNum), numCuotaNum, ImporteReal, AnioCursado);// obtengo inscripcion Cocepto que  exista en comprobante detalle
-                            //lblColegioId.Text = Convert.ToString(dt6.Rows[0]["insId"].ToString());  Modificado el 11062024                            
-                            dt3 = ocnAlumno.ObtenerUno(Convert.ToInt32(aluIdNum));
-                            if (dt6.Rows.Count > 0)
+                            String numCuotaS = Line.Substring(89, 2);
+                            int numCuotaNum = Convert.ToInt32(numCuotaS.TrimEnd(new Char[] { ' ' }));
+
+                            int AnioCursado = DateTime.Now.Year;
+
+                            DataTable dtConcepto = new DataTable();
+                            Decimal ImporteReal = 0;
+                            dtConcepto = ocnInscripcionConcepto.ObtenerImporteRealPat(aluIdNum, numCuotaNum, 2, AnioCursado); // 2 es el tipo de concepto (CUOTA)
+                            if (dtConcepto.Rows.Count > 0)
                             {
-                                insid = Convert.ToString(dt6.Rows[0]["insId"].ToString());
+                                ImporteReal = Convert.ToDecimal(dtConcepto.Rows[0]["Importe"].ToString());
+                            }
+
+                            //dtConcepto = ocnConceptos.ob(aluIdNum, numCuotaNum, Convert.ToDecimal(ImporteRealNum), AnioCursado);// obtengo inscripcion Cocepto que no exista en comprobante detalle
+
+
+                            string ImporteDebitado = Line.Substring(104, 10);
+                            Decimal ImporteRealNum = Convert.ToDecimal(ImporteDebitado.TrimStart(new Char[] { '0' })) / 100;
+
+                            //dt4 = ocnInscripcionConcepto.ObtenerUnoxaluxcuotaximportePat(aluIdNum, numCuotaNum, Convert.ToDecimal(ImporteRealNum), AnioCursado);// obtengo inscripcion Cocepto que no exista en comprobante detalle
+                            dt4 = ocnInscripcionConcepto.ObtenerUnoxaluxcuotaximportePat(aluIdNum, numCuotaNum, Convert.ToDecimal(ImporteReal), AnioCursado);// obtengo inscripcion Cocepto que no exista en comprobante detalle
+
+                            //dt3 = ocnConceptos.ObtenerUno(Convert.ToInt32(dt4.Rows[0]["conId"].ToString()));
+                            DataRow row1 = dt2.NewRow();
+                            if (dt4.Rows.Count > 0)
+                            {
+                                insid = Convert.ToString(dt4.Rows[0]["insId"].ToString());
+                                //lblColegioId.Text = Convert.ToString(dt4.Rows[0]["insId"].ToString());
+                                dt3 = ocnAlumno.ObtenerUno(Convert.ToInt32(aluIdNum));
+
                                 if (dt3.Rows.Count > 0)
                                 {
-                                    int icoId = Convert.ToInt32(dt6.Rows[0]["Id"].ToString());
-                                    DataTable dtComdet = new DataTable();
-                                    dtComdet = ocnComprobantesDetalle.ObtenerUnoxicoId(icoId);
-                                    int fdp = 0;
-                                    if (dtComdet.Rows.Count > 0)
-                                    {
-                                        DataTable dtComfp = new DataTable();
-                                        dtComfp = ocnComprobantesFormasPago.ObtenerTodoxcdeId(Convert.ToInt32(dtComdet.Rows[0]["Id"].ToString()));
-                                        if (dtComfp.Rows.Count > 0)
-                                        {
-                                            fdp = Convert.ToInt32(dtComfp.Rows[0]["fopId"].ToString());
-                                        }
-                                    }
+                                    int icoId = Convert.ToInt32(dt4.Rows[0]["Id"].ToString());
                                     row1["aluId"] = Convert.ToString(dt3.Rows[0]["Id"].ToString());
                                     row1["icoId"] = Convert.ToInt32(icoId);
                                     row1["Nombre"] = Convert.ToString(dt3.Rows[0]["Nombre"].ToString());
-                                    row1["Concepto"] = Convert.ToString(dt6.Rows[0]["Conceptos"].ToString());
+                                    row1["Concepto"] = Convert.ToString(dt4.Rows[0]["Conceptos"].ToString());
                                     row1["FechaPago"] = Convert.ToDateTime(FechaPagofinal);
                                     row1["NroCuota"] = numCuotaNum;
                                     row1["Importe"] = ImporteRealNum;
                                     row1["NroComprobante"] = "";
-                                    row1["insid"] = insid;
-                                    if (fdp == 3)
-                                    {                                       
-                                        row1["Imputa"] = "E";
-                                    }
-                                    else
-                                    {
-                                        row1["Imputa"] = "DFP";
-                                    }
-
-                                    //row1["Imputa"] = "E";
-                                    row1["adeCBU"] = Convert.ToString(dt6.Rows[0]["adeCBU"].ToString());
-                                    row1["Observaciones"] = "";
+                                    row1["Imputa"] = "";
                                     String pp;
-                                    pp = Convert.ToString(dt6.Rows[0]["Curso"].ToString());
-                                    row1["Curso"] = Convert.ToString(dt6.Rows[0]["Curso"].ToString());
+                                    pp = Convert.ToString(dt4.Rows[0]["Curso"].ToString());
+                                    row1["Curso"] = Convert.ToString(dt4.Rows[0]["Curso"].ToString());
+                                    row1["adeCBU"] = Convert.ToString(dt4.Rows[0]["adeCBU"].ToString());
+                                    row1["insid"] = insid;
                                     String Observ = Line.Substring(151, 3);
 
-                                    btnImputar.Enabled = false;
+                                    btnImputar.Enabled = true;
                                     //if (Observ == "")
                                     //{
                                     //    row1["Observaciones"] = "";
@@ -891,7 +594,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                             {
                                                 if (Observ == "R04")
                                                 {
-                                                    row1["Observaciones"] = "N˙mero de cuenta inv·lido";
+                                                    row1["Observaciones"] = "N√∫mero de cuenta inv√°lido";
                                                     row1["Importe"] = 0;
                                                 }
                                                 else
@@ -912,7 +615,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                                         {
                                                             if (Observ == "R14")
                                                             {
-                                                                row1["Observaciones"] = "IdentificaciÛn del cliente en la empresa errÛnea";
+                                                                row1["Observaciones"] = "Identificaci√≥n del cliente en la empresa err√≥nea";
                                                                 row1["Importe"] = 0;
                                                             }
                                                             else
@@ -933,14 +636,14 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                                                     {
                                                                         if (Observ == "R19")
                                                                         {
-                                                                            row1["Observaciones"] = "Importe errÛneo";
+                                                                            row1["Observaciones"] = "Importe err√≥neo";
                                                                             row1["Importe"] = 0;
                                                                         }
                                                                         else
                                                                         {
                                                                             if (Observ == "R20")
                                                                             {
-                                                                                row1["Observaciones"] = "Moneda distinta a la de la cuenta de dÈbito";
+                                                                                row1["Observaciones"] = "Moneda distinta a la de la cuenta de d√©bito";
                                                                                 row1["Importe"] = 0;
                                                                             }
                                                                             else
@@ -954,7 +657,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                                                                 {
                                                                                     if (Observ == "R24")
                                                                                     {
-                                                                                        row1["Observaciones"] = "TransacciÛn duplicada";
+                                                                                        row1["Observaciones"] = "Transacci√≥n duplicada";
                                                                                         row1["Importe"] = 0;
                                                                                     }
                                                                                     else
@@ -982,7 +685,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                                                                                 {
                                                                                                     if (Observ == "R29")
                                                                                                     {
-                                                                                                        row1["Observaciones"] = "ReversiÛn ya efectuada";
+                                                                                                        row1["Observaciones"] = "Reversi√≥n ya efectuada";
                                                                                                         row1["Importe"] = 0;
                                                                                                     }
                                                                                                     else
@@ -1003,7 +706,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                                                                                             {
                                                                                                                 if (Observ == "R86")
                                                                                                                 {
-                                                                                                                    row1["Observaciones"] = "IdentificaciÛn de la empresa errÛnea";
+                                                                                                                    row1["Observaciones"] = "Identificaci√≥n de la empresa err√≥nea";
                                                                                                                     row1["Importe"] = 0;
                                                                                                                 }
                                                                                                                 else
@@ -1017,21 +720,21 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                                                                                                     {
                                                                                                                         if (Observ == "R91")
                                                                                                                         {
-                                                                                                                            row1["Observaciones"] = "CÛdigo banco incompatible con moneda de TRX";
+                                                                                                                            row1["Observaciones"] = "C√≥digo banco incompatible con moneda de TRX";
                                                                                                                             row1["Importe"] = 0;
                                                                                                                         }
                                                                                                                         else
                                                                                                                         {
                                                                                                                             if (Observ == "R93")
                                                                                                                             {
-                                                                                                                                row1["Observaciones"] = "DÌa no laborable";
+                                                                                                                                row1["Observaciones"] = "D√≠a no laborable";
                                                                                                                                 row1["Importe"] = 0;
                                                                                                                             }
                                                                                                                             else
                                                                                                                             {
                                                                                                                                 if (Observ == "R95")
                                                                                                                                 {
-                                                                                                                                    row1["Observaciones"] = "ReversiÛn de entidad receptora presentada fuera de tÈrmino";
+                                                                                                                                    row1["Observaciones"] = "Reversi√≥n de entidad receptora presentada fuera de t√©rmino";
                                                                                                                                     row1["Importe"] = 0;
                                                                                                                                 }
                                                                                                                                 else
@@ -1045,7 +748,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                                                                                                                     {
                                                                                                                                         if (Observ == "R18")
                                                                                                                                         {
-                                                                                                                                            row1["Observaciones"] = "Fecha de compensaciÛn errÛnea";
+                                                                                                                                            row1["Observaciones"] = "Fecha de compensaci√≥n err√≥nea";
                                                                                                                                             row1["Importe"] = 0;
                                                                                                                                         }
                                                                                                                                         else
@@ -1059,14 +762,14 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                                                                                                                             {
                                                                                                                                                 if (Observ == "R31")
                                                                                                                                                 {
-                                                                                                                                                    row1["Observaciones"] = "Vuelta atr·s de C·mara";
+                                                                                                                                                    row1["Observaciones"] = "Vuelta atr√°s de C√°mara";
                                                                                                                                                     row1["Importe"] = 0;
                                                                                                                                                 }
                                                                                                                                                 else
                                                                                                                                                 {
                                                                                                                                                     if (Observ == "R75")
                                                                                                                                                     {
-                                                                                                                                                        row1["Observaciones"] = "Fecha inv·lida";
+                                                                                                                                                        row1["Observaciones"] = "Fecha inv√°lida";
                                                                                                                                                         row1["Importe"] = 0;
                                                                                                                                                     }
                                                                                                                                                     else
@@ -1145,249 +848,590 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                             }
                                         }
                                     }
+
+
                                     dt2.Rows.Add(row1);
                                 }
                             }
                             else
                             {
-                                // Aplicar cambios para 2025 cuando ingresamos por esta opciÛn
-
-                                //String insidN = Convert.ToString(dt3.Rows[0]["insId"].ToString());
-                                String uuu = Convert.ToString(dt3.Rows[0]["Id"].ToString());
-
-                                //insid = Convert.ToString(dt6.Rows[0]["insId"].ToString());
-                                //String qqq, ppp;
-                                //qqq = Convert.ToString(dt3.Rows[0]["Nombre"].ToString());
-                                row1["aluId"] = Convert.ToString(dt3.Rows[0]["Id"].ToString());
-                                row1["icoId"] = 0;
-                                row1["Nombre"] = Convert.ToString(dt3.Rows[0]["Nombre"].ToString());
-                                //row1["Concepto"] = Convert.ToString(dt6.Rows[0]["Conceptos"].ToString());
-                                //ppp = Convert.ToString(row["Concepto"].ToString());
-                                //row1["Concepto"] = Convert.ToString(row["Concepto"].ToString());
-                                row1["Concepto"] = "";
-                                row1["FechaPago"] = Convert.ToDateTime(FechaPagofinal);
-                                row1["NroCuota"] = numCuotaNum;
-                                row1["Importe"] = "0";
-                                row1["NroComprobante"] = "";
-                                //row1["adeCBU"] = Convert.ToString(dt3.Rows[0]["adeCBU"].ToString());
-                                row1["adeCBU"] = Convert.ToString(dt2.Rows[0]["adeCBU"].ToString());
-                                row1["Imputa"] = "NE";
-                                String Observ = Line.Substring(151, 3);
-                                //if (Observ == "")
-                                //{
-                                //    row1["Observaciones"] = "";
-                                //}
-                                //else
-                                //{
-                                //    row1["Observaciones"] = Observ;
-                                //}
-                                if (Observ == "   " || Observ == "")
+                                dt6 = ocnInscripcionConcepto.ObtenerUnoxaluxcuotaximporteDetallePat(Convert.ToInt32(aluIdNum), numCuotaNum, ImporteReal, AnioCursado);// obtengo inscripcion Cocepto que  exista en comprobante detalle
+                                                                                                                                                                      //lblColegioId.Text = Convert.ToString(dt6.Rows[0]["insId"].ToString());  Modificado el 11062024                            
+                                dt3 = ocnAlumno.ObtenerUno(Convert.ToInt32(aluIdNum));
+                                if (dt6.Rows.Count > 0)
                                 {
-                                    row1["Observaciones"] = Observ;
-                                }
-                                else
-                                {
-                                    if (Observ == "R02")
+                                    insid = Convert.ToString(dt6.Rows[0]["insId"].ToString());
+                                    if (dt3.Rows.Count > 0)
                                     {
-                                        row1["Observaciones"] = "Cuenta cerrada";
-                                    }
-                                    else
-                                    {
-                                        if (Observ == "R03")
+                                        int icoId = Convert.ToInt32(dt6.Rows[0]["Id"].ToString());
+                                        DataTable dtComdet = new DataTable();
+                                        dtComdet = ocnComprobantesDetalle.ObtenerUnoxicoId(icoId);
+                                        int fdp = 0;
+                                        if (dtComdet.Rows.Count > 0)
                                         {
-                                            row1["Observaciones"] = "Cuenta inexistente";
+                                            DataTable dtComfp = new DataTable();
+                                            dtComfp = ocnComprobantesFormasPago.ObtenerTodoxcdeId(Convert.ToInt32(dtComdet.Rows[0]["Id"].ToString()));
+                                            if (dtComfp.Rows.Count > 0)
+                                            {
+                                                fdp = Convert.ToInt32(dtComfp.Rows[0]["fopId"].ToString());
+                                            }
+                                        }
+                                        row1["aluId"] = Convert.ToString(dt3.Rows[0]["Id"].ToString());
+                                        row1["icoId"] = Convert.ToInt32(icoId);
+                                        row1["Nombre"] = Convert.ToString(dt3.Rows[0]["Nombre"].ToString());
+                                        row1["Concepto"] = Convert.ToString(dt6.Rows[0]["Conceptos"].ToString());
+                                        row1["FechaPago"] = Convert.ToDateTime(FechaPagofinal);
+                                        row1["NroCuota"] = numCuotaNum;
+                                        row1["Importe"] = ImporteRealNum;
+                                        row1["NroComprobante"] = "";
+                                        row1["insid"] = insid;
+                                        if (fdp == 3)
+                                        {
+                                            row1["Imputa"] = "E";
                                         }
                                         else
                                         {
-                                            if (Observ == "R04")
+                                            row1["Imputa"] = "DFP";
+                                        }
+
+                                        //row1["Imputa"] = "E";
+                                        row1["adeCBU"] = Convert.ToString(dt6.Rows[0]["adeCBU"].ToString());
+                                        row1["Observaciones"] = "";
+                                        String pp;
+                                        pp = Convert.ToString(dt6.Rows[0]["Curso"].ToString());
+                                        row1["Curso"] = Convert.ToString(dt6.Rows[0]["Curso"].ToString());
+                                        String Observ = Line.Substring(151, 3);
+
+                                        btnImputar.Enabled = false;
+                                        //if (Observ == "")
+                                        //{
+                                        //    row1["Observaciones"] = "";
+                                        //}
+                                        //else
+                                        //{
+                                        //    row1["Observaciones"] = Observ;
+                                        //}
+
+                                        if (Observ == "   " || Observ == "")
+                                        {
+                                            row1["Observaciones"] = Observ;
+                                        }
+                                        else
+                                        {
+                                            if (Observ == "R02")
                                             {
-                                                row1["Observaciones"] = "N˙mero de cuenta inv·lido";
+                                                row1["Observaciones"] = "Cuenta cerrada";
+                                                row1["Importe"] = 0;
                                             }
                                             else
                                             {
-                                                if (Observ == "R08")
+                                                if (Observ == "R03")
                                                 {
-                                                    row1["Observaciones"] = "Orden de no pagar";
+                                                    row1["Observaciones"] = "Cuenta inexistente";
+                                                    row1["Importe"] = 0;
                                                 }
                                                 else
                                                 {
-                                                    if (Observ == "R10")
+                                                    if (Observ == "R04")
                                                     {
-                                                        row1["Observaciones"] = "Falta de fondos";
+                                                        row1["Observaciones"] = "N√∫mero de cuenta inv√°lido";
+                                                        row1["Importe"] = 0;
                                                     }
                                                     else
                                                     {
-                                                        if (Observ == "R14")
+                                                        if (Observ == "R08")
                                                         {
-                                                            row1["Observaciones"] = "IdentificaciÛn del cliente en la empresa errÛnea";
+                                                            row1["Observaciones"] = "Orden de no pagar";
+                                                            row1["Importe"] = 0;
                                                         }
                                                         else
                                                         {
-                                                            if (Observ == "R15")
+                                                            if (Observ == "R10")
                                                             {
-                                                                row1["Observaciones"] = "Baja del servicio";
+                                                                row1["Observaciones"] = "Falta de fondos";
+                                                                row1["Importe"] = 0;
                                                             }
                                                             else
                                                             {
-                                                                if (Observ == "R17")
+                                                                if (Observ == "R14")
                                                                 {
-                                                                    row1["Observaciones"] = "Error de formato";
+                                                                    row1["Observaciones"] = "Identificaci√≥n del cliente en la empresa err√≥nea";
+                                                                    row1["Importe"] = 0;
                                                                 }
                                                                 else
                                                                 {
-                                                                    if (Observ == "R19")
+                                                                    if (Observ == "R15")
                                                                     {
-                                                                        row1["Observaciones"] = "Importe errÛneo";
+                                                                        row1["Observaciones"] = "Baja del servicio";
+                                                                        row1["Importe"] = 0;
                                                                     }
                                                                     else
                                                                     {
-                                                                        if (Observ == "R20")
+                                                                        if (Observ == "R17")
                                                                         {
-                                                                            row1["Observaciones"] = "Moneda distinta a la de la cuenta de dÈbito";
+                                                                            row1["Observaciones"] = "Error de formato";
+                                                                            row1["Importe"] = 0;
                                                                         }
                                                                         else
                                                                         {
-                                                                            if (Observ == "R23")
+                                                                            if (Observ == "R19")
                                                                             {
-                                                                                row1["Observaciones"] = "Sucursal no habilitada";
+                                                                                row1["Observaciones"] = "Importe err√≥neo";
+                                                                                row1["Importe"] = 0;
                                                                             }
                                                                             else
                                                                             {
-                                                                                if (Observ == "R24")
+                                                                                if (Observ == "R20")
                                                                                 {
-                                                                                    row1["Observaciones"] = "TransacciÛn duplicada";
+                                                                                    row1["Observaciones"] = "Moneda distinta a la de la cuenta de d√©bito";
+                                                                                    row1["Importe"] = 0;
                                                                                 }
                                                                                 else
                                                                                 {
-                                                                                    if (Observ == "R25")
+                                                                                    if (Observ == "R23")
                                                                                     {
-                                                                                        row1["Observaciones"] = "Error en registro adicional";
+                                                                                        row1["Observaciones"] = "Sucursal no habilitada";
+                                                                                        row1["Importe"] = 0;
                                                                                     }
                                                                                     else
                                                                                     {
-                                                                                        if (Observ == "R26")
+                                                                                        if (Observ == "R24")
                                                                                         {
-                                                                                            row1["Observaciones"] = "Error por campo mandatario";
+                                                                                            row1["Observaciones"] = "Transacci√≥n duplicada";
+                                                                                            row1["Importe"] = 0;
                                                                                         }
                                                                                         else
                                                                                         {
-                                                                                            if (Observ == "R28")
+                                                                                            if (Observ == "R25")
                                                                                             {
-                                                                                                row1["Observaciones"] = "Rechazo primer vencimiento";
+                                                                                                row1["Observaciones"] = "Error en registro adicional";
+                                                                                                row1["Importe"] = 0;
                                                                                             }
                                                                                             else
                                                                                             {
-                                                                                                if (Observ == "R29")
+                                                                                                if (Observ == "R26")
                                                                                                 {
-                                                                                                    row1["Observaciones"] = "ReversiÛn ya efectuada";
+                                                                                                    row1["Observaciones"] = "Error por campo mandatario";
+                                                                                                    row1["Importe"] = 0;
                                                                                                 }
                                                                                                 else
                                                                                                 {
-                                                                                                    if (Observ == "R79")
+                                                                                                    if (Observ == "R28")
                                                                                                     {
-                                                                                                        row1["Observaciones"] = "Error en campo 7 Registro Individual ";
+                                                                                                        row1["Observaciones"] = "Rechazo primer vencimiento";
+                                                                                                        row1["Importe"] = 0;
                                                                                                     }
                                                                                                     else
                                                                                                     {
-                                                                                                        if (Observ == "R80")
+                                                                                                        if (Observ == "R29")
                                                                                                         {
-                                                                                                            row1["Observaciones"] = "Error en campo 3 Registro Adicional ";
+                                                                                                            row1["Observaciones"] = "Reversi√≥n ya efectuada";
+                                                                                                            row1["Importe"] = 0;
                                                                                                         }
                                                                                                         else
                                                                                                         {
-                                                                                                            if (Observ == "R86")
+                                                                                                            if (Observ == "R79")
                                                                                                             {
-                                                                                                                row1["Observaciones"] = "IdentificaciÛn de la empresa errÛnea";
+                                                                                                                row1["Observaciones"] = "Error en campo 7 Registro Individual ";
+                                                                                                                row1["Importe"] = 0;
                                                                                                             }
                                                                                                             else
                                                                                                             {
-                                                                                                                if (Observ == "R90")
+                                                                                                                if (Observ == "R80")
                                                                                                                 {
-                                                                                                                    row1["Observaciones"] = "TRX no corresponde por no existir TRX original";
+                                                                                                                    row1["Observaciones"] = "Error en campo 3 Registro Adicional ";
+                                                                                                                    row1["Importe"] = 0;
                                                                                                                 }
                                                                                                                 else
                                                                                                                 {
-                                                                                                                    if (Observ == "R91")
+                                                                                                                    if (Observ == "R86")
                                                                                                                     {
-                                                                                                                        row1["Observaciones"] = "CÛdigo banco incompatible con moneda de TRX";
+                                                                                                                        row1["Observaciones"] = "Identificaci√≥n de la empresa err√≥nea";
+                                                                                                                        row1["Importe"] = 0;
                                                                                                                     }
                                                                                                                     else
                                                                                                                     {
-                                                                                                                        if (Observ == "R93")
+                                                                                                                        if (Observ == "R90")
                                                                                                                         {
-                                                                                                                            row1["Observaciones"] = "DÌa no laborable";
+                                                                                                                            row1["Observaciones"] = "TRX no corresponde por no existir TRX original";
+                                                                                                                            row1["Importe"] = 0;
                                                                                                                         }
                                                                                                                         else
                                                                                                                         {
-                                                                                                                            if (Observ == "R95")
+                                                                                                                            if (Observ == "R91")
                                                                                                                             {
-                                                                                                                                row1["Observaciones"] = "ReversiÛn de entidad receptora presentada fuera de tÈrmino";
+                                                                                                                                row1["Observaciones"] = "C√≥digo banco incompatible con moneda de TRX";
+                                                                                                                                row1["Importe"] = 0;
                                                                                                                             }
                                                                                                                             else
                                                                                                                             {
-                                                                                                                                if (Observ == "R13")
+                                                                                                                                if (Observ == "R93")
                                                                                                                                 {
-                                                                                                                                    row1["Observaciones"] = "Entidad destino inexistente";
+                                                                                                                                    row1["Observaciones"] = "D√≠a no laborable";
+                                                                                                                                    row1["Importe"] = 0;
                                                                                                                                 }
                                                                                                                                 else
                                                                                                                                 {
-                                                                                                                                    if (Observ == "R18")
+                                                                                                                                    if (Observ == "R95")
                                                                                                                                     {
-                                                                                                                                        row1["Observaciones"] = "Fecha de compensaciÛn errÛnea";
+                                                                                                                                        row1["Observaciones"] = "Reversi√≥n de entidad receptora presentada fuera de t√©rmino";
+                                                                                                                                        row1["Importe"] = 0;
                                                                                                                                     }
                                                                                                                                     else
                                                                                                                                     {
-                                                                                                                                        if (Observ == "R27")
+                                                                                                                                        if (Observ == "R13")
                                                                                                                                         {
-                                                                                                                                            row1["Observaciones"] = "Error en contador de registro";
+                                                                                                                                            row1["Observaciones"] = "Entidad destino inexistente";
+                                                                                                                                            row1["Importe"] = 0;
                                                                                                                                         }
                                                                                                                                         else
                                                                                                                                         {
-                                                                                                                                            if (Observ == "R31")
+                                                                                                                                            if (Observ == "R18")
                                                                                                                                             {
-                                                                                                                                                row1["Observaciones"] = "Vuelta atr·s de C·mara";
+                                                                                                                                                row1["Observaciones"] = "Fecha de compensaci√≥n err√≥nea";
+                                                                                                                                                row1["Importe"] = 0;
                                                                                                                                             }
                                                                                                                                             else
                                                                                                                                             {
-                                                                                                                                                if (Observ == "R75")
+                                                                                                                                                if (Observ == "R27")
                                                                                                                                                 {
-                                                                                                                                                    row1["Observaciones"] = "Fecha inv·lida";
+                                                                                                                                                    row1["Observaciones"] = "Error en contador de registro";
+                                                                                                                                                    row1["Importe"] = 0;
                                                                                                                                                 }
                                                                                                                                                 else
                                                                                                                                                 {
-                                                                                                                                                    if (Observ == "R76")
+                                                                                                                                                    if (Observ == "R31")
                                                                                                                                                     {
-                                                                                                                                                        row1["Observaciones"] = "Error en campo 11 Cabecera de Lote ";
+                                                                                                                                                        row1["Observaciones"] = "Vuelta atr√°s de C√°mara";
+                                                                                                                                                        row1["Importe"] = 0;
                                                                                                                                                     }
                                                                                                                                                     else
                                                                                                                                                     {
-                                                                                                                                                        if (Observ == "R77")
+                                                                                                                                                        if (Observ == "R75")
                                                                                                                                                         {
-                                                                                                                                                            row1["Observaciones"] = "Error en campo 4 Registro Individual";
+                                                                                                                                                            row1["Observaciones"] = "Fecha inv√°lida";
+                                                                                                                                                            row1["Importe"] = 0;
                                                                                                                                                         }
                                                                                                                                                         else
                                                                                                                                                         {
-                                                                                                                                                            if (Observ == "R78")
+                                                                                                                                                            if (Observ == "R76")
                                                                                                                                                             {
-                                                                                                                                                                row1["Observaciones"] = "Error en campo 5 Registro Individual";
+                                                                                                                                                                row1["Observaciones"] = "Error en campo 11 Cabecera de Lote ";
+                                                                                                                                                                row1["Importe"] = 0;
                                                                                                                                                             }
                                                                                                                                                             else
                                                                                                                                                             {
-                                                                                                                                                                if (Observ == "R87")
+                                                                                                                                                                if (Observ == "R77")
                                                                                                                                                                 {
-                                                                                                                                                                    row1["Observaciones"] = "Error en campo 9 Registro Individual 1er byte ";
+                                                                                                                                                                    row1["Observaciones"] = "Error en campo 4 Registro Individual";
+                                                                                                                                                                    row1["Importe"] = 0;
                                                                                                                                                                 }
                                                                                                                                                                 else
                                                                                                                                                                 {
-                                                                                                                                                                    if (Observ == "R88")
+                                                                                                                                                                    if (Observ == "R78")
                                                                                                                                                                     {
-                                                                                                                                                                        row1["Observaciones"] = "Error en campo 2 Registro Individual";
+                                                                                                                                                                        row1["Observaciones"] = "Error en campo 5 Registro Individual";
+                                                                                                                                                                        row1["Importe"] = 0;
                                                                                                                                                                     }
                                                                                                                                                                     else
                                                                                                                                                                     {
-                                                                                                                                                                        if (Observ == "R89")
+                                                                                                                                                                        if (Observ == "R87")
                                                                                                                                                                         {
-                                                                                                                                                                            row1["Observaciones"] = "Errores transacciones no monetarias";
+                                                                                                                                                                            row1["Observaciones"] = "Error en campo 9 Registro Individual 1er byte ";
+                                                                                                                                                                            row1["Importe"] = 0;
+                                                                                                                                                                        }
+                                                                                                                                                                        else
+                                                                                                                                                                        {
+                                                                                                                                                                            if (Observ == "R88")
+                                                                                                                                                                            {
+                                                                                                                                                                                row1["Observaciones"] = "Error en campo 2 Registro Individual";
+                                                                                                                                                                                row1["Importe"] = 0;
+                                                                                                                                                                            }
+                                                                                                                                                                            else
+                                                                                                                                                                            {
+                                                                                                                                                                                if (Observ == "R89")
+                                                                                                                                                                                {
+                                                                                                                                                                                    row1["Observaciones"] = "Errores transacciones no monetarias";
+                                                                                                                                                                                    row1["Importe"] = 0;
+                                                                                                                                                                                }
+                                                                                                                                                                            }
+                                                                                                                                                                        }
+                                                                                                                                                                    }
+                                                                                                                                                                }
+                                                                                                                                                            }
+                                                                                                                                                        }
+                                                                                                                                                    }
+                                                                                                                                                }
+                                                                                                                                            }
+                                                                                                                                        }
+                                                                                                                                    }
+                                                                                                                                }
+                                                                                                                            }
+                                                                                                                        }
+                                                                                                                    }
+                                                                                                                }
+                                                                                                            }
+                                                                                                        }
+                                                                                                    }
+                                                                                                }
+                                                                                            }
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        dt2.Rows.Add(row1);
+                                    }
+                                }
+                                else
+                                {
+                                    // Aplicar cambios para 2025 cuando ingresamos por esta opci√≥n
+
+                                    //String insidN = Convert.ToString(dt3.Rows[0]["insId"].ToString());
+                                    String uuu = Convert.ToString(dt3.Rows[0]["Id"].ToString());
+
+                                    //insid = Convert.ToString(dt6.Rows[0]["insId"].ToString());
+                                    //String qqq, ppp;
+                                    //qqq = Convert.ToString(dt3.Rows[0]["Nombre"].ToString());
+                                    row1["aluId"] = Convert.ToString(dt3.Rows[0]["Id"].ToString());
+                                    row1["icoId"] = 0;
+                                    row1["Nombre"] = Convert.ToString(dt3.Rows[0]["Nombre"].ToString());
+                                    //row1["Concepto"] = Convert.ToString(dt6.Rows[0]["Conceptos"].ToString());
+                                    //ppp = Convert.ToString(row["Concepto"].ToString());
+                                    //row1["Concepto"] = Convert.ToString(row["Concepto"].ToString());
+                                    row1["Concepto"] = "";
+                                    row1["FechaPago"] = Convert.ToDateTime(FechaPagofinal);
+                                    row1["NroCuota"] = numCuotaNum;
+                                    row1["Importe"] = "0";
+                                    row1["NroComprobante"] = "";
+                                    //row1["adeCBU"] = Convert.ToString(dt3.Rows[0]["adeCBU"].ToString());
+                                    row1["adeCBU"] = Convert.ToString(dt2.Rows[0]["adeCBU"].ToString());
+                                    row1["Imputa"] = "NE";
+                                    String Observ = Line.Substring(151, 3);
+                                    //if (Observ == "")
+                                    //{
+                                    //    row1["Observaciones"] = "";
+                                    //}
+                                    //else
+                                    //{
+                                    //    row1["Observaciones"] = Observ;
+                                    //}
+                                    if (Observ == "   " || Observ == "")
+                                    {
+                                        row1["Observaciones"] = Observ;
+                                    }
+                                    else
+                                    {
+                                        if (Observ == "R02")
+                                        {
+                                            row1["Observaciones"] = "Cuenta cerrada";
+                                        }
+                                        else
+                                        {
+                                            if (Observ == "R03")
+                                            {
+                                                row1["Observaciones"] = "Cuenta inexistente";
+                                            }
+                                            else
+                                            {
+                                                if (Observ == "R04")
+                                                {
+                                                    row1["Observaciones"] = "N√∫mero de cuenta inv√°lido";
+                                                }
+                                                else
+                                                {
+                                                    if (Observ == "R08")
+                                                    {
+                                                        row1["Observaciones"] = "Orden de no pagar";
+                                                    }
+                                                    else
+                                                    {
+                                                        if (Observ == "R10")
+                                                        {
+                                                            row1["Observaciones"] = "Falta de fondos";
+                                                        }
+                                                        else
+                                                        {
+                                                            if (Observ == "R14")
+                                                            {
+                                                                row1["Observaciones"] = "Identificaci√≥n del cliente en la empresa err√≥nea";
+                                                            }
+                                                            else
+                                                            {
+                                                                if (Observ == "R15")
+                                                                {
+                                                                    row1["Observaciones"] = "Baja del servicio";
+                                                                }
+                                                                else
+                                                                {
+                                                                    if (Observ == "R17")
+                                                                    {
+                                                                        row1["Observaciones"] = "Error de formato";
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        if (Observ == "R19")
+                                                                        {
+                                                                            row1["Observaciones"] = "Importe err√≥neo";
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            if (Observ == "R20")
+                                                                            {
+                                                                                row1["Observaciones"] = "Moneda distinta a la de la cuenta de d√©bito";
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                if (Observ == "R23")
+                                                                                {
+                                                                                    row1["Observaciones"] = "Sucursal no habilitada";
+                                                                                }
+                                                                                else
+                                                                                {
+                                                                                    if (Observ == "R24")
+                                                                                    {
+                                                                                        row1["Observaciones"] = "Transacci√≥n duplicada";
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        if (Observ == "R25")
+                                                                                        {
+                                                                                            row1["Observaciones"] = "Error en registro adicional";
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            if (Observ == "R26")
+                                                                                            {
+                                                                                                row1["Observaciones"] = "Error por campo mandatario";
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                if (Observ == "R28")
+                                                                                                {
+                                                                                                    row1["Observaciones"] = "Rechazo primer vencimiento";
+                                                                                                }
+                                                                                                else
+                                                                                                {
+                                                                                                    if (Observ == "R29")
+                                                                                                    {
+                                                                                                        row1["Observaciones"] = "Reversi√≥n ya efectuada";
+                                                                                                    }
+                                                                                                    else
+                                                                                                    {
+                                                                                                        if (Observ == "R79")
+                                                                                                        {
+                                                                                                            row1["Observaciones"] = "Error en campo 7 Registro Individual ";
+                                                                                                        }
+                                                                                                        else
+                                                                                                        {
+                                                                                                            if (Observ == "R80")
+                                                                                                            {
+                                                                                                                row1["Observaciones"] = "Error en campo 3 Registro Adicional ";
+                                                                                                            }
+                                                                                                            else
+                                                                                                            {
+                                                                                                                if (Observ == "R86")
+                                                                                                                {
+                                                                                                                    row1["Observaciones"] = "Identificaci√≥n de la empresa err√≥nea";
+                                                                                                                }
+                                                                                                                else
+                                                                                                                {
+                                                                                                                    if (Observ == "R90")
+                                                                                                                    {
+                                                                                                                        row1["Observaciones"] = "TRX no corresponde por no existir TRX original";
+                                                                                                                    }
+                                                                                                                    else
+                                                                                                                    {
+                                                                                                                        if (Observ == "R91")
+                                                                                                                        {
+                                                                                                                            row1["Observaciones"] = "C√≥digo banco incompatible con moneda de TRX";
+                                                                                                                        }
+                                                                                                                        else
+                                                                                                                        {
+                                                                                                                            if (Observ == "R93")
+                                                                                                                            {
+                                                                                                                                row1["Observaciones"] = "D√≠a no laborable";
+                                                                                                                            }
+                                                                                                                            else
+                                                                                                                            {
+                                                                                                                                if (Observ == "R95")
+                                                                                                                                {
+                                                                                                                                    row1["Observaciones"] = "Reversi√≥n de entidad receptora presentada fuera de t√©rmino";
+                                                                                                                                }
+                                                                                                                                else
+                                                                                                                                {
+                                                                                                                                    if (Observ == "R13")
+                                                                                                                                    {
+                                                                                                                                        row1["Observaciones"] = "Entidad destino inexistente";
+                                                                                                                                    }
+                                                                                                                                    else
+                                                                                                                                    {
+                                                                                                                                        if (Observ == "R18")
+                                                                                                                                        {
+                                                                                                                                            row1["Observaciones"] = "Fecha de compensaci√≥n err√≥nea";
+                                                                                                                                        }
+                                                                                                                                        else
+                                                                                                                                        {
+                                                                                                                                            if (Observ == "R27")
+                                                                                                                                            {
+                                                                                                                                                row1["Observaciones"] = "Error en contador de registro";
+                                                                                                                                            }
+                                                                                                                                            else
+                                                                                                                                            {
+                                                                                                                                                if (Observ == "R31")
+                                                                                                                                                {
+                                                                                                                                                    row1["Observaciones"] = "Vuelta atr√°s de C√°mara";
+                                                                                                                                                }
+                                                                                                                                                else
+                                                                                                                                                {
+                                                                                                                                                    if (Observ == "R75")
+                                                                                                                                                    {
+                                                                                                                                                        row1["Observaciones"] = "Fecha inv√°lida";
+                                                                                                                                                    }
+                                                                                                                                                    else
+                                                                                                                                                    {
+                                                                                                                                                        if (Observ == "R76")
+                                                                                                                                                        {
+                                                                                                                                                            row1["Observaciones"] = "Error en campo 11 Cabecera de Lote ";
+                                                                                                                                                        }
+                                                                                                                                                        else
+                                                                                                                                                        {
+                                                                                                                                                            if (Observ == "R77")
+                                                                                                                                                            {
+                                                                                                                                                                row1["Observaciones"] = "Error en campo 4 Registro Individual";
+                                                                                                                                                            }
+                                                                                                                                                            else
+                                                                                                                                                            {
+                                                                                                                                                                if (Observ == "R78")
+                                                                                                                                                                {
+                                                                                                                                                                    row1["Observaciones"] = "Error en campo 5 Registro Individual";
+                                                                                                                                                                }
+                                                                                                                                                                else
+                                                                                                                                                                {
+                                                                                                                                                                    if (Observ == "R87")
+                                                                                                                                                                    {
+                                                                                                                                                                        row1["Observaciones"] = "Error en campo 9 Registro Individual 1er byte ";
+                                                                                                                                                                    }
+                                                                                                                                                                    else
+                                                                                                                                                                    {
+                                                                                                                                                                        if (Observ == "R88")
+                                                                                                                                                                        {
+                                                                                                                                                                            row1["Observaciones"] = "Error en campo 2 Registro Individual";
+                                                                                                                                                                        }
+                                                                                                                                                                        else
+                                                                                                                                                                        {
+                                                                                                                                                                            if (Observ == "R89")
+                                                                                                                                                                            {
+                                                                                                                                                                                row1["Observaciones"] = "Errores transacciones no monetarias";
+                                                                                                                                                                            }
                                                                                                                                                                         }
                                                                                                                                                                     }
                                                                                                                                                                 }
@@ -1422,53 +1466,160 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                             }
                                         }
                                     }
+                                    dt2.Rows.Add(row1);
                                 }
-                                dt2.Rows.Add(row1);
+                            }
+                        }
+
+                        GridView1.DataSource = dt2;
+                        GridView1.DataBind();
+                        lblCantidadRegistros.Text = Convert.ToString(dt2.Rows.Count);
+                        listado.Visible = true;
+                        btnImputar.Visible = true;
+                        btnImprimir.Visible = true;
+                        GrillaCaja.DataSource = null;
+                        GrillaCaja.DataBind();
+                        AlerInfo.Visible = true;
+
+
+                        foreach (GridViewRow row in GridView1.Rows)
+                        {
+                            if (Convert.ToString(GridView1.DataKeys[row.RowIndex].Values["Imputa"]) == "DFP")
+                            {
+                                row.BackColor = System.Drawing.Color.FromName("#B81822");
+                                row.ForeColor = System.Drawing.Color.White;                            //((CheckBox)row.FindControl("chkSeleccion")).Enabled = false;
+                            }
+
+                            else
+                            {
+
                             }
                         }
                     }
 
-                    GridView1.DataSource = dt2;
-                    GridView1.DataBind();
-                    lblCantidadRegistros.Text = Convert.ToString(dt2.Rows.Count);
-                    listado.Visible = true;
-                    btnImputar.Visible = true;
-                    btnImprimir.Visible = true;
-                    GrillaCaja.DataSource = null;
-                    GrillaCaja.DataBind();
-                    AlerInfo.Visible = true;
 
+                    //Eliminar el Archivo Excel del Directorio Temporal
+                    //if (System.IO.File.Exists(path))
+                    //{
+                    //    System.IO.File.Delete(path);
+                    //}
+                    //Vaciar El Dataset y los Datatable
+                    dt1 = null;
+                    DtSet = null;
+                    //DataTable. = null;
 
-                    foreach (GridViewRow row in GridView1.Rows)
-                    {
-                        if (Convert.ToString(GridView1.DataKeys[row.RowIndex].Values["Imputa"]) == "DFP")
-                        {
-                            row.BackColor = System.Drawing.Color.FromName("#B81822");
-                            row.ForeColor = System.Drawing.Color.White;                            //((CheckBox)row.FindControl("chkSeleccion")).Enabled = false;
-                        }
-
-                        else
-                        {
-                      
-                        }
-                    }
                 }
-
-
-                //Eliminar el Archivo Excel del Directorio Temporal
-                //if (System.IO.File.Exists(path))
-                //{
-                //    System.IO.File.Delete(path);
-                //}
-                //Vaciar El Dataset y los Datatable
-                dt1 = null;
-                DtSet = null;
-                //DataTable. = null;
-
             }
+            else // SIRO
+            {
+                //bearerToken = InicioSesion();
+                //string token = bearerToken;
+                //DateTime desde = new DateTime(2020, 11, 01);
+                //DateTime hasta = new DateTime(2020, 11, 30);
+                //string cuitadministrador = "20233953270";
+                //string nroempresa = "5150058293"; // "0428544445150058293";
+
+                //var lineas = ObtenerListadoPagosSIRO(token, desde, hasta, cuitadministrador, nroempresa);
+
+                //foreach (var linea in lineas)
+                //{
+                //    var pago = ParsearLineaUnificada(linea);
+                //    if (pago != null)
+                //    {
+                //        Response.Write("<b>" + pago.FechaPago + "</b> - " + pago.IdReferenciaOperacion + " - $" + pago.Importe.ToString("N2") + " - " + pago.CanalCobro + "<br/>");
+                //    }
+                //}
+
+
+                //string ruta = Server.MapPath("~/SIRO/SiroCobranzas.txt"); // o ruta absoluta
+                //var lineas = LeerArchivoLocal(ruta);
+
+                //foreach (string linea in lineas)
+                //{
+                //    var pago = ParsearLineaUnificada(linea);
+                //    if (pago != null)
+                //    {
+                //        //Response.Write(string.Format(
+                //        //    "<b>{0}</b> - {1} - ${2} - Canal: {3}<br/>",
+                //        //    pago.FechaPago,
+                //        //    pago.IdReferenciaOperacion,
+                //        //    pago.Importe.ToString("N2"),
+                //        //    pago.CanalCobro
+                //        //));
+                //        Label8.Text = Label8.Text + " || " + pago.idUsuario + " - " + pago.idComprobante + " - " + pago.FechaPago + " - " + pago.IdReferenciaOperacion + " - " + pago.ImportePagado.ToString("N2") + " - " + pago.CanalCobro + " <br/>";
+                //    }
+                //}
+            }
+
         }
     }
 
+    public class PagoUnificadoSIRO
+    {
+        public string FechaPago { get; set; }
+        public string fechaacreditacion { get; set; }
+        public string idUsuario { get; set; }
+        public decimal ImportePagado { get; set; }
+        public string idComprobante { get; set; }
+        public string CanalCobro { get; set; }
+        public string CodigoRechazo { get; set; }
+        public string DescripcionRechazo { get; set; }
+        public string IdResultado { get; set; }
+        public string IdReferenciaOperacion { get; set; }
+        public string IdPago { get; set; }
+        public string Cuotas { get; set; }
+        public string Tarjetas { get; set; }
+        public string idPagosSiro { get; set; }
+        public string idResultadoPago { get; set; }
+    }
+
+
+    private string FormatearFecha(string aaaammdd)
+    {
+        if (aaaammdd.Length == 8)
+            return aaaammdd.Substring(6, 2) + "/" + aaaammdd.Substring(4, 2) + "/" + aaaammdd.Substring(0, 4);
+        return aaaammdd;
+    }
+
+
+
+
+
+    private List<string> LeerArchivoLocal(string ruta)
+    {
+        if (!File.Exists(ruta))
+            throw new FileNotFoundException("No se encontr√≥ el archivo de SIRO", ruta);
+
+        return new List<string>(File.ReadAllLines(ruta));
+    }
+
+    private PagoUnificadoSIRO ParsearLineaUnificada(string linea)
+    {
+        try
+        {
+            return new PagoUnificadoSIRO
+            {
+                FechaPago = FormatearFecha(linea.Substring(0, 8)), // AAAAMMDD
+                fechaacreditacion = FormatearFecha(linea.Substring(8, 8)),
+                idUsuario = linea.Substring(35, 8).Trim(),
+                ImportePagado = Decimal.Parse(linea.Substring(24, 11)) / 100m,
+                idComprobante = linea.Substring(103, 20).Trim(),
+                CanalCobro = linea.Substring(123, 3).Trim(),
+                CodigoRechazo = linea.Substring(126, 3).Trim(),
+                DescripcionRechazo = linea.Substring(129, 20).Trim(),
+                Cuotas = linea.Substring(149, 2).Trim(),
+                Tarjetas = linea.Substring(151, 15).Trim(),
+                IdPago = linea.Substring(226, 10).Trim(),
+                IdResultado = linea.Substring(236, 36).Trim(),
+                IdReferenciaOperacion = linea.Substring(272, 100).Trim()
+
+            };
+        }
+        catch
+        {
+            return null;
+        }
+    }
 
 
 
@@ -1476,11 +1627,11 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
     {
         try
         {
-            lblMej.Text = "";            
-            AlerInfo.Visible = true;
+            lblMej.Text = "";
+            //AlerInfo.Visible = true;
             int destino = 1;//Entrenamiento
             int CompTipo = 1;// factura C
-            int LugPago = Convert.ToInt32(lblLugarPago.Text);//BANCO MUNICIPAL o Patagonia
+            int LugPago = 0;//BANCO MUNICIPAL o Patagonia
             DateTime FechaHoraCreacion = DateTime.Now;
             DateTime FechaHoraUltimaModificacion = DateTime.Now;
             int usuIdCreacion = this.Master.usuId;
@@ -1491,13 +1642,26 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
 
             if (BcoAdhId.SelectedValue == "1") // Caja
             {
+                AlerInfo.Visible = true;
                 insId = Convert.ToInt32(lblColegioId.Text);
+                LugPago = Convert.ToInt32(lblLugarPago.Text);//BANCO MUNICIPAL o Patagonia
                 Caja();
             }
 
             else  // Patagonia
             {
-                Patagonia();
+
+                if (BcoAdhId.SelectedValue == "2") // Patagonia
+                {
+                    AlerInfo.Visible = true;
+                    LugPago = Convert.ToInt32(lblLugarPago.Text);//BANCO MUNICIPAL o Patagonia
+                    Patagonia();
+                }
+                else
+                {
+                    AlerInfo.Visible = false;
+                    SiroActualizar();
+                }
             }
         }
         catch (Exception oError)
@@ -1555,8 +1719,13 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
 
     protected void BcoAdhId_SelectedIndexChanged(object sender, EventArgs e)
     {
+        btnImprimirSiro.Visible = false;
+        alerMje.Visible = false;
+        AlerExito.Visible = false;
         lblMej.Text = "";
         alerError.Visible = false;
+        GrillaSiro.DataSource = null;
+        GrillaSiro.DataBind();
         GridView1.DataSource = null;
         GridView1.DataBind();
         lblCantidadRegistros.Text = Convert.ToString(dt2.Rows.Count);
@@ -1565,8 +1734,438 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
         btnImprimir.Visible = false;
         GrillaCaja.DataSource = null;
         GrillaCaja.DataBind();
+
+        if (BcoAdhId.SelectedValue == "3")
+        {
+            PnlSiro.Visible = true;
+            PnlBanco.Visible = false;
+        }
+        else
+        {
+            PnlSiro.Visible = false;
+            PnlBanco.Visible = true;
+        }
+
+
     }
 
+    void Siro()
+    {
+        try
+        {
+            alerError.Visible = false;
+            alerMje.Visible = false;
+            if (txtDesde.Text == "")
+            {
+                alerError.Visible = true;
+                lblError.Text = "Debe ingresar una fecha desde..";
+                return;
+            }
+            if (txtHasta.Text == "")
+            {
+                alerError.Visible = true;
+                lblError.Text = "Debe ingresar una fecha hasta..";
+                return;
+            }
+
+            DataTable dt = new DataTable();
+            dt.Columns.Add("aluId", typeof(Int32));
+            dt.Columns.Add("cocId", typeof(Int32));
+            dt.Columns.Add("cdeId", typeof(Int32));
+            dt.Columns.Add("icoId", typeof(Int32));
+            dt.Columns.Add("cfpId", typeof(Int32));
+            dt.Columns.Add("Nombre", typeof(String));
+            dt.Columns.Add("Curso", typeof(String));
+            dt.Columns.Add("Concepto", typeof(String));
+            dt.Columns.Add("NroCuota", typeof(Int32));
+            dt.Columns.Add("FechaPago", typeof(DateTime));
+            dt.Columns.Add("Importe", typeof(Decimal));
+            dt.Columns.Add("inp_IdReferenciaOperacion", typeof(String));
+            dt.Columns.Add("CanalCobro", typeof(String));
+            dt.Columns.Add("CodRechazo", typeof(String));
+            dt.Columns.Add("Cuotas", typeof(Int32));
+            dt.Columns.Add("Tarjetas", typeof(String));
+            dt.Columns.Add("ImpotePagado", typeof(Decimal));
+            dt.Columns.Add("FechaAcreditacion", typeof(DateTime));
+            dt.Columns.Add("FechaPagoSiro", typeof(DateTime));
+            dt.Columns.Add("FormaPago", typeof(String));
+            dt.Columns.Add("Observacion", typeof(String));
+            dt.Columns.Add("NroCupon", typeof(String));
+            dt.Columns.Add("Anio", typeof(Int32));
+            //bearerToken = InicioSesion();
+            //string token = bearerToken;
+            //DateTime desde = new DateTime(2020, 11, 01);
+            //DateTime hasta = new DateTime(2020, 11, 30);
+            //string cuitadministrador = "20233953270";
+            //string nroempresa = "5150058293"; // "0428544445150058293";
+
+            //var lineas = ObtenerListadoPagosSIRO(token, desde, hasta, cuitadministrador, nroempresa);
+
+            //foreach (var linea in lineas)
+            //{
+            //    var pago = ParsearLineaUnificada(linea);
+            //    if (pago != null)
+            //    {
+            //        Response.Write("<b>" + pago.FechaPago + "</b> - " + pago.IdReferenciaOperacion + " - $" + pago.Importe.ToString("N2") + " - " + pago.CanalCobro + "<br/>");
+            //    }
+            //}
+
+            string ruta = Server.MapPath("~/SIRO/SiroCobranzas.txt"); // o ruta absoluta  
+            var lineas = LeerArchivoLocal(ruta);
+            if (lineas != null && lineas.Any())
+            {
+                foreach (string linea in lineas)
+                {
+                    var pago = ParsearLineaUnificada(linea);
+                    if (pago != null)
+                    {
+                        String idRefOp = pago.IdReferenciaOperacion;
+                        string idRO_aluid = idRefOp.Substring(50, 50);
+                        // Quitamos los ceros a la izquierda de la segunda parte
+                        idRO_aluid = idRO_aluid.TrimStart('0');
+                        DataTable dtCompCab = new DataTable();
+                        String NroCuponTraer = "Siro" + pago.IdPago;
+                        dtCompCab = ocnComprobantesCabecera.ObtenerUnoxIdOperacion(idRefOp);
+                        if (dtCompCab.Rows.Count > 0)
+                        {
+                            foreach (DataRow compRow in dtCompCab.Rows)
+                            {
+                                DataRow row1 = dt.NewRow();
+                                row1["aluId"] = Convert.ToInt32(idRO_aluid);
+
+                                row1["cocId"] = Convert.ToInt32(compRow["cocId"].ToString());
+                                row1["cdeId"] = Convert.ToInt32(compRow["cdeId"].ToString());
+                                row1["icoId"] = Convert.ToInt32(compRow["icoId"].ToString());
+                                row1["cfpId"] = Convert.ToString(compRow["cfpId"].ToString());
+                                row1["Nombre"] = Convert.ToString(compRow["Nombre"].ToString());
+                                row1["Curso"] = Convert.ToString(compRow["Curso"].ToString());
+                                row1["Concepto"] = Convert.ToString(compRow["Concepto"].ToString());
+                                row1["Anio"] = Convert.ToString(compRow["Anio"].ToString());
+                                row1["NroCupon"] = NroCuponTraer;
+
+                                // NroCuota
+                                string nroCuotaStr = (compRow["NroCuota"] != null) ? compRow["NroCuota"].ToString() : "0";
+                                int nroCuota = 0;
+                                int.TryParse(nroCuotaStr, out nroCuota);
+                                row1["NroCuota"] = nroCuota;
+
+                                // FechaPago (de Comprobante Cabecera)
+                                string fechaPagoStr = (compRow["FechaPago"] != null) ? compRow["FechaPago"].ToString() : "";
+                                DateTime fechaPagoDt = DateTime.MinValue;
+                                DateTime.TryParse(fechaPagoStr, out fechaPagoDt);
+                                row1["FechaPago"] = fechaPagoDt;
+
+                                // Importe
+                                string importeStr = (compRow["Importe"] != null) ? compRow["Importe"].ToString() : "0";
+                                decimal importe = 0;
+                                decimal.TryParse(importeStr, out importe);
+                                row1["Importe"] = importe;
+
+                                // Referencia de operaci√≥n
+                                row1["inp_IdReferenciaOperacion"] = (idRefOp != null && idRefOp != "") ? idRefOp : "";
+
+                                // Canal de cobro
+                                row1["CanalCobro"] = (pago.CanalCobro != null && pago.CanalCobro != "") ? pago.CanalCobro : "";
+
+                                // C√≥digo de rechazo
+                                row1["CodRechazo"] = (pago.CodigoRechazo != null) ? pago.CodigoRechazo : "";
+
+                                // Cuotas
+                                row1["Cuotas"] = (pago.Cuotas != null && pago.Cuotas != "") ? pago.Cuotas : "0";
+
+                                // Tarjetas
+                                row1["Tarjetas"] = (pago.Tarjetas != null && pago.Tarjetas != "") ? pago.Tarjetas : "";
+
+                                // Importe pagado
+                                row1["ImpotePagado"] = pago.ImportePagado;
+
+                                // Fecha de acreditaci√≥n
+                                DateTime fechaAcred = DateTime.MinValue;
+                                if (pago.fechaacreditacion != null)
+                                {
+                                    DateTime.TryParse(pago.fechaacreditacion, out fechaAcred);
+                                }
+                                row1["FechaAcreditacion"] = fechaAcred;
+
+                                // Fecha de pago (de objeto pago)
+                                DateTime FechaPago1 = DateTime.MinValue;
+                                if (pago.FechaPago != null)
+                                {
+                                    DateTime.TryParse(pago.FechaPago, out FechaPago1);
+                                }
+                                row1["FechaPagoSiro"] = FechaPago1;
+
+                                // Forma de pago
+                                row1["FormaPago"] = Convert.ToString(compRow["NombreFP"].ToString());
+
+                                // Observaci√≥n
+                                row1["Observacion"] = pago.DescripcionRechazo;
+
+                                dt.Rows.Add(row1);
+                            }
+                        }
+
+                    }
+                    else
+                    {
+                        alerError.Visible = true;
+                        lblError.Text = "Hay registros en el Archivo SIRO que no fueron contemplados en esta instancia.. Consulte al Administrador.. ";
+                    }
+                }
+                btnImprimirSiro.Visible = true;
+                GrillaSiro.DataSource = dt;
+                GrillaSiro.DataBind();
+                btnImputar.Visible = true;
+                alerMje.Visible = true;
+
+
+                bool hayPagosNoImputados = dt.AsEnumerable().Any(row =>
+    row.Field<string>("FormaPago") == "SIRO Pagos" &&
+    string.IsNullOrWhiteSpace(row.Field<string>("Observacion")));
+
+                if (hayPagosNoImputados)
+                {
+                    alerMje.Visible = true;
+                    btnImputar.Enabled = true;
+                    //lblMje.Text = "‚ö†Ô∏è Atenci√≥n: Existen pagos de SiroPagos sin imputar. Presione 'Imputar' para completar el registro.";
+                }
+                else
+                {
+                    Int32 Ban = 0;
+                    DataTable dtTraerCocId = new DataTable();
+                    Int32 Activo = 0;
+                     Int32 CodRechazo = 0;
+
+                    foreach (GridViewRow row1 in GrillaSiro.Rows)
+                    {
+                        Int32 cocIdTraer = Convert.ToInt32(GrillaSiro.DataKeys[row1.RowIndex].Values["cocId"]);
+                        dtTraerCocId = ocnComprobantesCabecera.ObtenerUno(cocIdTraer);
+                        Activo = Convert.ToInt32(dtTraerCocId.Rows[0]["cocActivo"].ToString());
+                        object codRechazoObj = GrillaSiro.DataKeys[row1.RowIndex].Values["CodRechazo"];
+                        int codRechazoParsed;
+                        CodRechazo = (codRechazoObj != null && int.TryParse(codRechazoObj.ToString(), out codRechazoParsed)) ? codRechazoParsed : 0;
+
+                        if (Activo == 1 && CodRechazo == 402)
+                        {
+                            Ban = 1;
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                    if (Ban == 1)
+                    {
+                        alerMje.Visible = true;
+                        btnImputar.Enabled = true;
+                    }
+                    else
+                    {
+                        alerMje.Visible = false;
+                        btnImputar.Enabled = false;
+                    }
+
+                }
+            }
+            else
+            {
+                alerError.Visible = true;
+                lblError.Text = "No hay registros para imputar..";
+                btnImputar.Visible = false;
+                btnImprimirSiro.Visible = false;
+                btnImprimir.Visible = false;
+                return;
+            }
+        }
+        catch (Exception oError)
+        {
+            lblMensajeError.Text = "Aluid: " + Session["aluid"] + @"<div class=""alert alert-danger alert-dismissable"">
+        <button aria-hidden=""true"" data-dismiss=""alert"" class=""close"" type=""button"">x</button>
+        <a class=""alert-link"" href=""#"">Error de Sistema</a><br/>
+        Se ha producido el siguiente error:<br/>
+        MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerException + "<br><br>TRACE:<br>" + oError.StackTrace + "<br><br>TARGET:<br>" + oError.TargetSite +
+    "</div>";
+        }
+    }
+
+
+    void SiroActualizar()
+    {
+        try
+        {
+            alerError.Visible = false;
+            AlerExito.Visible = false;
+
+            DateTime FechaHoraCreacion = DateTime.Now;
+            DateTime FechaHoraUltimaModificacion = DateTime.Now;
+            Int32 usuIdCreacion = this.Master.usuId;
+            Int32 usuIdUltimaModificacion = this.Master.usuId;
+            Dictionary<string, List<string>> agrupacionPorOperacion = new Dictionary<string, List<string>>();
+            foreach (GridViewRow row1 in GrillaSiro.Rows)
+            {
+                int cfpId = Convert.ToInt32(GrillaSiro.DataKeys[row1.RowIndex].Values["cfpId"]);
+                int icoId = Convert.ToInt32(GrillaSiro.DataKeys[row1.RowIndex].Values["icoId"]);
+                int cocId = Convert.ToInt32(GrillaSiro.DataKeys[row1.RowIndex].Values["cocId"]);
+                int cdeId = Convert.ToInt32(GrillaSiro.DataKeys[row1.RowIndex].Values["cdeId"]);
+                String idOperacion = Convert.ToString(GrillaSiro.DataKeys[row1.RowIndex].Values["inp_IdReferenciaOperacion"]);
+                String CanalCobro = Convert.ToString(GrillaSiro.DataKeys[row1.RowIndex].Values["CanalCobro"]);
+                String CodRechazo = Convert.ToString(GrillaSiro.DataKeys[row1.RowIndex].Values["CodRechazo"]);
+                String DescRechazo = Convert.ToString(GrillaSiro.DataKeys[row1.RowIndex].Values["Observacion"]);
+                Int32 cuotas = Convert.ToInt32(GrillaSiro.DataKeys[row1.RowIndex].Values["Cuotas"]);
+                Int32 NroCuota = Convert.ToInt32(GrillaSiro.DataKeys[row1.RowIndex].Values["NroCuota"]);
+                String Tarjetas = Convert.ToString(GrillaSiro.DataKeys[row1.RowIndex].Values["Tarjetas"]);
+                Decimal ImpotePagado = Convert.ToDecimal(GrillaSiro.DataKeys[row1.RowIndex].Values["ImpotePagado"]);
+                DateTime FechaAcreditacion = Convert.ToDateTime(GrillaSiro.DataKeys[row1.RowIndex].Values["FechaAcreditacion"]);
+                DateTime FechaPagoSiro = Convert.ToDateTime(GrillaSiro.DataKeys[row1.RowIndex].Values["FechaPagoSiro"]);
+                Int32 AnioCursado = Convert.ToInt32(GrillaSiro.DataKeys[row1.RowIndex].Values["Anio"]);
+                String NroCupon = Convert.ToString(GrillaSiro.DataKeys[row1.RowIndex].Values["NroCupon"]);
+                String FormaPago = Convert.ToString(GrillaSiro.DataKeys[row1.RowIndex].Values["FormaPago"]);
+                if (CodRechazo == "402")
+                {
+
+                    String ConceptoRech = Convert.ToString(GrillaSiro.DataKeys[row1.RowIndex].Values["Concepto"]);
+                    String CuotasRech = Convert.ToString(GrillaSiro.DataKeys[row1.RowIndex].Values["NroCuota"]);
+                    String Anio = Convert.ToString(AnioCursado);
+                    string conceptoCuota = string.Format("{0} x {1} x {2} ", ConceptoRech, CuotasRech, Anio);
+
+                    if (!agrupacionPorOperacion.ContainsKey(idOperacion))
+                    {
+                        agrupacionPorOperacion[idOperacion] = new List<string>();
+                    }
+
+                    agrupacionPorOperacion[idOperacion].Add(conceptoCuota);
+                    ocnComprobantesDetalle.ActualizarActivo(cocId, false, usuIdCreacion, usuIdUltimaModificacion, FechaHoraCreacion, FechaHoraUltimaModificacion);
+                    ocnComprobantesCabecera.ActualizarActivo(cocId, usuIdUltimaModificacion, FechaHoraUltimaModificacion);
+                    ocnIntencionPagos.ActualizarRegistros(idOperacion, CanalCobro, CodRechazo, DescRechazo, cuotas, Tarjetas, ImpotePagado, FechaAcreditacion, FechaPagoSiro);
+                }
+                else
+                {
+                    if (FormaPago == "SIRO Pagos")
+                    {
+                        int fopReal = 0;
+                        if (CanalCobro == "BPC")
+                        {
+                            fopReal = 2;// Tarjeta
+                            int TarId = 0;
+                            int PalnTarId = 0;
+                            if (Tarjetas == "VISA")
+                            {
+                                TarId = 6; // VISA
+                                PalnTarId = 5; // Otros Visa
+                            }
+                            else
+                            {
+                                if (Tarjetas == "MASTER")
+                                {
+                                    TarId = 4; //MASTER
+                                    PalnTarId = 6; // Otros Master
+                                }
+                                else
+                                {
+                                    if (Tarjetas == "CABAL")
+                                    {
+                                        TarId = 3; //CABAL
+                                        PalnTarId = 7; // Otros Master
+                                    }
+                                }
+                            }
+
+                            ocnPagosTarjetas.Insertar(cfpId, TarId, PalnTarId, 0, 0, cuotas, NroCupon, true, usuIdCreacion, usuIdUltimaModificacion, FechaHoraCreacion, FechaHoraUltimaModificacion);
+                        }
+                        else
+                        {
+                            if (CanalCobro == "BPD")
+                            {
+                                fopReal = 3; // Debito
+                                ocnPagosTarjetas.Insertar(cfpId, 5, 5, 0, 0, 1, NroCupon, true, usuIdCreacion, usuIdUltimaModificacion, FechaHoraCreacion, FechaHoraUltimaModificacion);
+
+                            }
+                            else
+                            {
+                                if (CanalCobro == "TQR")
+                                {
+                                    fopReal = 4;// Transferencia
+                                    ocnPagosTransferenciaElectronica.Insertar(cfpId, ImpotePagado, NroCupon, 500, true, usuIdCreacion, usuIdUltimaModificacion, FechaHoraCreacion, FechaHoraUltimaModificacion);
+
+                                }
+                            }
+                        }
+
+
+                        ocnComprobantesFormasPago.ActualizarFormadePago(cfpId, fopReal, usuIdUltimaModificacion, FechaHoraUltimaModificacion);
+                        ocnIntencionPagos.ActualizarRegistros(idOperacion, CanalCobro, CodRechazo, DescRechazo, cuotas, Tarjetas, ImpotePagado, FechaAcreditacion, FechaPagoSiro);
+                        ocnIntencionPagos.Actualizarobervacionimputacion(idOperacion, "Imputado");
+                    }
+                }
+            }
+            foreach (var kvp in agrupacionPorOperacion)
+            {
+                string idOperacion = kvp.Key;
+                string concatenado = string.Join(", ", kvp.Value);
+
+                // Inserci√≥n final
+                ocnIntencionPagos.Actualizarobervacionimputacion(idOperacion, concatenado);
+            }
+            AlerExito.Visible = true;
+            lblAlerExito.Text = "Archivos Imputados..";
+            Siro();
+        }
+        catch (Exception oError)
+        {
+            lblMensajeError.Text = "Aluid: " + Session["aluid"] + @"<div class=""alert alert-danger alert-dismissable"">
+        <button aria-hidden=""true"" data-dismiss=""alert"" class=""close"" type=""button"">x</button>
+        <a class=""alert-link"" href=""#"">Error de Sistema</a><br/>
+        Se ha producido el siguiente error:<br/>
+        MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerException + "<br><br>TRACE:<br>" + oError.StackTrace + "<br><br>TARGET:<br>" + oError.TargetSite +
+    "</div>";
+        }
+    }
+
+
+    protected void GrillaSiro_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        if (e.Row.RowType == DataControlRowType.DataRow)
+        {
+            // Obtener Forma de Pago
+            object objFormaDePago = DataBinder.Eval(e.Row.DataItem, "FormaPago");
+            string formaDePago = (objFormaDePago != null) ? objFormaDePago.ToString().Trim().ToLower() : string.Empty;
+
+            // Obtener Observaci√≥n
+            object objObservacion = DataBinder.Eval(e.Row.DataItem, "Observacion");
+            string observacion = (objObservacion != null) ? objObservacion.ToString() : string.Empty;
+
+            // √çndice de la columna Observaci√≥n (ajustar si cambia la estructura)
+            int indiceObservacion = 21;
+
+            // Mostrar "Imputado" si la forma de pago NO es "siro pagos"
+            if (!string.Equals(formaDePago, "siro pagos", StringComparison.OrdinalIgnoreCase))
+            {
+                e.Row.Cells[indiceObservacion].Text = "Imputado";
+            }
+            else
+            {
+                //e.Row.Cells[indiceObservacion].Text = "Imputado";
+            }
+
+            // Si hay una observaci√≥n real, colorear la fila
+            if (!string.IsNullOrWhiteSpace(observacion))
+            {
+                e.Row.BackColor = System.Drawing.Color.DarkRed;
+                e.Row.ForeColor = System.Drawing.Color.White;
+            }
+        }
+    }
+
+
+    private int GetColumnIndexByName(string columnName)
+    {
+        foreach (DataControlField col in GrillaSiro.Columns)
+        {
+            if (col.HeaderText == columnName)
+                return GrillaSiro.Columns.IndexOf(col);
+        }
+        return -1;
+    }
     void Patagonia()
     {
         try
@@ -1632,7 +2231,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                     Decimal Importe = Convert.ToDecimal(GridView1.DataKeys[row2.RowIndex].Values["Importe"]);
                                     String Curso = Convert.ToString(GridView1.DataKeys[row2.RowIndex].Values["Curso"]);
                                     insId = Convert.ToInt32(GridView1.DataKeys[row2.RowIndex].Values["insid"]);
-                                    foreach (DataRow row4 in dt.Rows) //Veo si ya lo insertÈ
+                                    foreach (DataRow row4 in dt.Rows) //Veo si ya lo insert√©
                                     {
                                         if (icoId == Convert.ToInt32(row4["icoId"].ToString()))
                                         {
@@ -1797,7 +2396,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                     row1["Observaciones"] = Convert.ToString(GridView1.DataKeys[row.RowIndex].Values["Observaciones"]);
                     row1["Imputa"] = "";
                     row1["adeCBU"] = Convert.ToString(GridView1.DataKeys[row.RowIndex].Values["adeCBU"]);
-                    row1["insid"] = Convert.ToString(GridView1.DataKeys[row.RowIndex].Values["insid"]); 
+                    row1["insid"] = Convert.ToString(GridView1.DataKeys[row.RowIndex].Values["insid"]);
 
                     dt.Rows.Add(row1);
                     //Session.Add[CBU] = Convert.ToString(GridView1.DataKeys[row.RowIndex].Values["adeCBU"];
@@ -1870,7 +2469,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
     <button aria-hidden=""true"" data-dismiss=""alert"" class=""close"" type=""button"">x</button>
     <a class=""alert-link"" href=""#"">Error de Sistema</a><br/>
     Se ha producido el siguiente error:<br/>
-    MESSAGE:<br>" + alu_id  + " - " + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerException + "<br><br>TRACE:<br>" + oError.StackTrace + "<br><br>TARGET:<br>" + oError.TargetSite +
+    MESSAGE:<br>" + alu_id + " - " + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerException + "<br><br>TRACE:<br>" + oError.StackTrace + "<br><br>TARGET:<br>" + oError.TargetSite +
     "</div>";
         }
     }
@@ -1930,7 +2529,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                     Int32 NroCuota = Convert.ToInt32(GrillaCaja.DataKeys[row2.RowIndex].Values["NroCuota"]);
                                     Decimal Importe = Convert.ToDecimal(GrillaCaja.DataKeys[row2.RowIndex].Values["Importe"]);
                                     String Curso = Convert.ToString(GrillaCaja.DataKeys[row2.RowIndex].Values["Curso"]);
-                                    foreach (DataRow row4 in dtCaja.Rows) //Veo si ya lo insertÈ
+                                    foreach (DataRow row4 in dtCaja.Rows) //Veo si ya lo insert√©
                                     {
                                         if (icoId == Convert.ToInt32(row4["icoId"].ToString()))
                                         {
