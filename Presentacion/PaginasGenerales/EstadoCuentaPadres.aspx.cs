@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 using System.Web;
@@ -20,14 +19,11 @@ public partial class EstadoCuentaPadres : System.Web.UI.Page
     GESTIONESCOLAR.Negocio.ComprobantesCabecera ocnComprobantesCabecera = new GESTIONESCOLAR.Negocio.ComprobantesCabecera();
     GESTIONESCOLAR.Negocio.Alumno ocnAlumno = new GESTIONESCOLAR.Negocio.Alumno();
     GESTIONESCOLAR.Negocio.ComprobantesDetalle ocnComprobantesDetalle = new GESTIONESCOLAR.Negocio.ComprobantesDetalle();
-    GESTIONESCOLAR.Negocio.ComprobantesFormasPago ocnComprobantesFormasPago = new GESTIONESCOLAR.Negocio.ComprobantesFormasPago();
+    //GESTIONESCOLAR.Negocio.ComprobantesFormasPago ocnComprobantesFormasPago = new GESTIONESCOLAR.Negocio.ComprobantesFormasPago();
     GESTIONESCOLAR.Negocio.InscripcionCursado ocnInscripcionCursado = new GESTIONESCOLAR.Negocio.InscripcionCursado();
     GESTIONESCOLAR.Negocio.InscripcionConcepto ocnInscripcionConcepto = new GESTIONESCOLAR.Negocio.InscripcionConcepto();
     GESTIONESCOLAR.Negocio.ConceptosIntereses ocnConceptosIntereses = new GESTIONESCOLAR.Negocio.ConceptosIntereses();
     GESTIONESCOLAR.Negocio.Conceptos ocnConceptos = new GESTIONESCOLAR.Negocio.Conceptos();
-    GESTIONESCOLAR.Negocio.PagosCheques ocnPagosCheques = new GESTIONESCOLAR.Negocio.PagosCheques();
-    GESTIONESCOLAR.Negocio.PagosTarjetas ocnPagosTarjetas = new GESTIONESCOLAR.Negocio.PagosTarjetas();
-    GESTIONESCOLAR.Negocio.PagosTransferenciaElectronica ocnPagosTransferenciaElectronica = new GESTIONESCOLAR.Negocio.PagosTransferenciaElectronica();
     GESTIONESCOLAR.Negocio.Instituciones ocnInstituciones = new GESTIONESCOLAR.Negocio.Instituciones();
     GESTIONESCOLAR.Negocio.TEMESTADOCUENTA ocnTEMESTADOCUENTA = new GESTIONESCOLAR.Negocio.TEMESTADOCUENTA();
     GESTIONESCOLAR.Negocio.LibreDeudaQR ocnLibreDeudaQR = new GESTIONESCOLAR.Negocio.LibreDeudaQR();
@@ -38,19 +34,19 @@ public partial class EstadoCuentaPadres : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        
+
         try
         {
             if (!Page.IsPostBack)
             {
-            
+
                 int Anio = DateTime.Now.Year;
                 txtAnioLectivo.Text = Convert.ToString(Anio);
-//                lblMensajeError.visible = false;
+                //                lblMensajeError.visible = false;
 
                 alerError2.Visible = false;
                 lblMjerror2.Text = "";
-                btnImprimir2.Visible = false;
+ //               btnImprimir2.Visible = false;
                 //lblCuotas.Visible = false;
                 //TexCuotas.Visible = false;
                 //lblInt.Visible = false;
@@ -69,28 +65,25 @@ public partial class EstadoCuentaPadres : System.Web.UI.Page
                 dt = ocnAlumno.ObtenerUnoporDoc(DNIUSUARIO);
                 if (dt.Rows.Count > 0)
                 {
-             
                     aluNombre.Text = Convert.ToString(dt.Rows[0]["Nombre"].ToString());
                     aluNombre.Enabled = false;
                     hfNombreAlumno.Value = aluNombre.Text;
 
                     btnFacturar.Visible = false;
                     aludni.Text = Convert.ToString(dt.Rows[0]["Doc"].ToString());
+                    lblaluId.Text = Convert.ToString(dt.Rows[0]["Id"].ToString());
                     if (aludni.Text == "48481957")
                     {
                         btnFacturar.Visible = true;
                     }
 
                     aludni.Enabled = false;
-                    lblaluId.Text = Convert.ToString(dt.Rows[0]["Id"].ToString());
 
                     //Grilla.DataSource = null;
                     //Grilla.DataBind();
                     //AlumnoSeleccionado.Visible = true;
                     PageIndex = Convert.ToInt32(Session["EstadoCuenta.PageIndex"]);
                     GrillaCargar(PageIndex);
-
-
                 }
                 else
                 {
@@ -138,6 +131,97 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
         }
     }
 
+    // *** INICIO DEL CÓDIGO A AGREGAR / VERIFICAR ***
+    protected void GrillaHistorial_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        if (e.Row.RowType == DataControlRowType.DataRow)
+        {
+            // Se asume que el DataItem es de tipo DataRowView o el tipo de objeto que uses para tus datos
+            // Puedes necesitar ajustar esto si tu fuente de datos es un tipo diferente
+            DataRowView drv = e.Row.DataItem as DataRowView;
+
+            if (drv != null)
+            {
+                // Agrega los atributos data-* a la fila (<tr>) que el JavaScript leerá
+                // Asegúrate de que los nombres de los atributos (ej. "data-concepto")
+                // y los nombres de las columnas en tu DataTable (ej. "Concepto")
+                // coincidan con lo que tu JavaScript espera.
+                e.Row.Attributes["data-concepto"] = drv["Concepto"].ToString();
+                e.Row.Attributes["data-importe"] = string.Format("{0:C}", Convert.ToDecimal(drv["Importe"]));
+                e.Row.Attributes["data-intereses"] = string.Format("{0:C}", Convert.ToDecimal(drv["ImporteInteres"]));
+                e.Row.Attributes["data-importetotal"] = string.Format("{0:C}", Convert.ToDecimal(drv["ImporteTotal"]));
+                e.Row.Attributes["data-beca"] = drv["Beca"].ToString();
+                e.Row.Attributes["data-nrocuota"] = drv["NroCuota"].ToString();
+
+                // Conversión segura a DateTime para formatear la fecha
+                DateTime fechaVto;
+                if (DateTime.TryParse(drv["FechaVto"].ToString(), out fechaVto))
+                {
+                    e.Row.Attributes["data-fechavto"] = fechaVto.ToShortDateString();
+                }
+                else
+                {
+                    e.Row.Attributes["data-fechavto"] = ""; // O un valor predeterminado si la conversión falla
+                }
+
+                e.Row.Attributes["data-dcto"] = drv["Dcto"].ToString();
+                e.Row.Attributes["data-imppagado"] = string.Format("{0:C}", Convert.ToDecimal(drv["ImpPagado"]));
+
+                DateTime fechaPago;
+                if (DateTime.TryParse(drv["FechaPago"].ToString(), out fechaPago))
+                {
+                    e.Row.Attributes["data-fechapago"] = fechaPago.ToShortDateString();
+                }
+                else
+                {
+                    e.Row.Attributes["data-fechapago"] = "";
+                }
+
+                e.Row.Attributes["data-colegio"] = drv["Colegio"].ToString();
+                e.Row.Attributes["data-curso"] = drv["Curso"].ToString();
+                e.Row.Attributes["data-conid"] = drv["conId"].ToString();
+                e.Row.Attributes["data-fp"] = drv["FP"].ToString();
+
+
+                // Lógica para el Label "Estado" (ya presente en tu .aspx y lógica de negocio)
+                Label lblEstado = (Label)e.Row.FindControl("lblEstado");
+                if (lblEstado != null)
+                {
+                    // Obtener valores de la fila
+                    decimal impPagado = Convert.ToDecimal(DataBinder.Eval(e.Row.DataItem, "ImpPagado"));
+                    DateTime fechaVtoEstado = Convert.ToDateTime(DataBinder.Eval(e.Row.DataItem, "FechaVto")); // Usar una variable diferente para evitar conflictos
+
+                    if (impPagado > 0)
+                    {
+                        lblEstado.Text = "Pagado";
+                        lblEstado.CssClass = "label label-success"; // Asegúrate de tener estas clases CSS
+                    }
+                    else if (fechaVtoEstado < DateTime.Today)
+                    {
+                        lblEstado.Text = "Vencido";
+                        lblEstado.CssClass = "label label-danger"; // Asegúrate de tener estas clases CSS
+                    }
+                    else
+                    {
+                        lblEstado.Text = "Pendiente";
+                        lblEstado.CssClass = "label label-warning"; // Asegúrate de tener estas clases CSS
+                    }
+                }
+            }
+        }
+    }
+    // *** FIN DEL CÓDIGO A AGREGAR / VERIFICAR ***
+
+    protected void Grilla_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+        if (e.Row.RowType == DataControlRowType.DataRow)
+        {
+            e.Row.Attributes.Add("onmouseover", "this.origfinalcolor=this.style.backgroundColor; this.style.backgroundColor='#F7F7DE';");
+            e.Row.Attributes.Add("onmouseout", "this.style.backgroundColor=this.originalcolor;");
+        }
+    }
+
+
     private void GrillaCargar(int PageIndex)
     {
         DataTable dtAlumno = new DataTable();
@@ -145,15 +229,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
         dtAlumno = ocnAlumno.ObtenerUnoporDoc(DNIUSUARIO);
         if (dtAlumno.Rows.Count > 0)
         {
-          String NombreAlumno = dtAlumno.Rows[0]["Nombre"].ToString();
-            //int usuario = Convert.ToInt32(Session["_usuId"].ToString());
-            //dt = ocnFamiliar.ObtenerUnoxUsuId(usuario);
-            //if (dt.Rows.Count != 0)
-            //{
-            //    this.Master.TituloDelFormulario = "Bienvenido/a Sr/a: " + dt.Rows[0][1].ToString() + "." +
-            // " En esta sección encontrará información academica del menor a cargo. ";
-
-            //}
+            String NombreAlumno = dtAlumno.Rows[0]["Nombre"].ToString();
         }
         DateTime FechaPago;
         DataTable dt9 = new DataTable();
@@ -166,7 +242,6 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
             alerError2.Visible = false;
 
             lblMjerror2.Text = "";
-
             DataTable dt = new DataTable();
             dt.Columns.Add("icoId", typeof(int));
             dt.Columns.Add("conId", typeof(Int32));
@@ -367,13 +442,9 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                                         }
                                                     }
                                                 }
-                                                //if (Interes > ValorInteres)
-                                                //{
-                                                //    ValorInteres = Interes;
-                                                //}
-                                                //row1["ImporteInteres"] = Convert.ToDecimal(string.Format("{0:0.00}", ValorInteres));
-                                                float ValorInteresParcial = ValorInteres;
 
+                                                float ValorInteresParcial = ValorInteres;
+                                                ValorInteresParcial = ValorInteres;  //16/07/2025
                                                 if (Interes > ValorInteres)
                                                 {
                                                     ValorInteresParcial = Interes;
@@ -395,6 +466,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                                         }
                                                 }
                                                 Single InteresMensualaPagar = (((Convert.ToSingle(dt5.Rows[0]["ConInteresMensual"].ToString()) * MesesAtrasados) / 100) * (Convert.ToSingle(dt5.Rows[0]["ConImporte"].ToString()) + ValorInteres));
+
                                                 if (InteresMensualaPagar > 0)
                                                 {
 
@@ -406,11 +478,17 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                                     {
                                                         ValorInteres = ValorInteres + InteresMensualaPagar;
                                                     }
+                                                    row1["ImporteInteres"] = Convert.ToDecimal(string.Format("{0:0.00}", ValorInteres));
+                                                    ImporteTotal = Convert.ToDecimal(string.Format("{0:0.00}", ImporteBecado)) + Convert.ToDecimal(string.Format("{0:0.00}", ValorInteres));
                                                 }
-                                                row1["ImporteInteres"] = Convert.ToDecimal(string.Format("{0:0.00}", ValorInteresParcial + ValorInteres));
+                                                else
+                                                {
+                                                    row1["ImporteInteres"] = Convert.ToDecimal(string.Format("{0:0.00}", ValorInteresParcial));
+                                                    ImporteTotal = Convert.ToDecimal(string.Format("{0:0.00}", ImporteBecado)) + Convert.ToDecimal(string.Format("{0:0.00}", ValorInteresParcial));
+                                                }
+                                                //row1["ImporteInteres"] = Convert.ToDecimal(string.Format("{0:0.00}", ValorInteresParcial + ValorInteres));
                                                 row1["BecasInteres"] = row["BecasInteres"].ToString();
-                                                
-                                                ImporteTotal = Convert.ToDecimal(string.Format("{0:0.00}", ImporteBecado)) + Convert.ToDecimal(string.Format("{0:0.00}", ValorInteresParcial + ValorInteres));
+                                                //ImporteTotal = Convert.ToDecimal(string.Format("{0:0.00}", ImporteBecado)) + Convert.ToDecimal(string.Format("{0:0.00}", ValorInteresParcial + ValorInteres));
                                                 row1["ImporteTotal"] = ImporteTotal;
 
 
@@ -575,7 +653,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
 
 
                                                 float ValorInteresParcial = 0;
-
+                                                ValorInteresParcial = ValorInteres;  //16/07/2025
                                                 if (Interes > ValorInteres)
                                                 {
                                                     ValorInteresParcial = Interes;
@@ -607,11 +685,17 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                                     {
                                                         ValorInteres = ValorInteres + InteresMensualaPagar;
                                                     }
+                                                    row1["ImporteInteres"] = Convert.ToDecimal(string.Format("{0:0.00}", ValorInteres));
+                                                    ImporteTotal = Convert.ToDecimal(string.Format("{0:0.00}", ImporteBecado)) + Convert.ToDecimal(string.Format("{0:0.00}", ValorInteres));
                                                 }
-                                                row1["ImporteInteres"] = Convert.ToDecimal(string.Format("{0:0.00}", ValorInteresParcial + ValorInteres));
+                                                else
+                                                {
+                                                    row1["ImporteInteres"] = Convert.ToDecimal(string.Format("{0:0.00}", ValorInteresParcial));
+                                                    ImporteTotal = Convert.ToDecimal(string.Format("{0:0.00}", ImporteBecado)) + Convert.ToDecimal(string.Format("{0:0.00}", ValorInteresParcial));
+                                                }
+                                                //row1["ImporteInteres"] = Convert.ToDecimal(string.Format("{0:0.00}", ValorInteresParcial + ValorInteres));
                                                 row1["BecasInteres"] = row["BecasInteres"].ToString();
-
-                                                ImporteTotal = Convert.ToDecimal(string.Format("{0:0.00}", ImporteBecado)) + Convert.ToDecimal(string.Format("{0:0.00}", ValorInteresParcial + ValorInteres));
+                                                //ImporteTotal = Convert.ToDecimal(string.Format("{0:0.00}", ImporteBecado)) + Convert.ToDecimal(string.Format("{0:0.00}", ValorInteresParcial + ValorInteres));
                                                 row1["ImporteTotal"] = ImporteTotal;
 
                                                 dt.Rows.Add(row1);
@@ -701,7 +785,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                     int banFilaRojaAlMenosUna = 0;
                     foreach (GridViewRow row in GrillaHistorial.Rows)
                     {
-                        
+
                         if (Convert.ToDecimal(GrillaHistorial.DataKeys[row.RowIndex].Values["ImpPagado"]) != 0 || Convert.ToInt32(GrillaHistorial.DataKeys[row.RowIndex].Values["BecId"]) == 13 || Convert.ToInt32(GrillaHistorial.DataKeys[row.RowIndex].Values["Dcto"]) != 0)
                         {
                             row.BackColor = System.Drawing.Color.LightBlue;
@@ -908,7 +992,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                                             InteresCuotaAsignar = ValorInteresCI;
                                                             RecargoAbiertoAsignar = ValorInteresRA;
                                                             InteresMensualAsignar = InteresAplicar;
-                                                            InteresTotal = ValorInteresCI + ValorInteresRA + InteresAplicar;
+                                                            InteresTotal = ValorInteresRA + InteresAplicar;
                                                             fchVtoAsignar = Convert.ToDateTime(UltVto);
                                                         }
                                                         else
@@ -916,7 +1000,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                                             InteresCuotaAsignar = ValorInteresCI;
                                                             RecargoAbiertoAsignar = ValorInteresRA;
                                                             InteresMensualAsignar = InteresAplicar;
-                                                            InteresTotal = ValorInteresCI + ValorInteresRA + InteresAplicar;
+                                                            InteresTotal = ValorInteresCI + ValorInteresRA;
                                                             fchVtoAsignar = Convert.ToDateTime(UltVto);
                                                         }
                                                     }
@@ -937,7 +1021,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                                             InteresCuotaAsignar = ValorInteresCI;
                                                             RecargoAbiertoAsignar = ValorInteresRA;
                                                             InteresMensualAsignar = InteresAplicar;
-                                                            InteresTotal = ValorInteresCI + ValorInteresRA + InteresAplicar;
+                                                            InteresTotal = ValorInteresRA + InteresAplicar;
                                                             fchVtoAsignar = Convert.ToDateTime(UltVto);
                                                         }
                                                         else
@@ -945,7 +1029,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                                             InteresCuotaAsignar = ValorInteresCI;
                                                             RecargoAbiertoAsignar = ValorInteresRA;
                                                             InteresMensualAsignar = InteresAplicar;
-                                                            InteresTotal = ValorInteresCI + ValorInteresRA + InteresAplicar;
+                                                            InteresTotal = ValorInteresCI + ValorInteresRA;
                                                             fchVtoAsignar = Convert.ToDateTime(UltVto);
                                                         }
                                                     }
@@ -970,7 +1054,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                                             InteresCuotaAsignar = ValorInteresCI;
                                                             RecargoAbiertoAsignar = ValorInteresRA;
                                                             InteresMensualAsignar = InteresAplicar;
-                                                            InteresTotal = ValorInteresCI + ValorInteresRA + InteresAplicar;
+                                                            InteresTotal = ValorInteresRA + InteresAplicar;
                                                             fchVtoAsignar = Convert.ToDateTime(UltVto);
 
                                                         }
@@ -986,7 +1070,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                                             InteresCuotaAsignar = ValorInteresCI;
                                                             RecargoAbiertoAsignar = ValorInteresRA;
                                                             InteresMensualAsignar = InteresAplicar;
-                                                            InteresTotal = ValorInteresCI + ValorInteresRA + InteresAplicar;
+                                                            InteresTotal = ValorInteresCI + ValorInteresRA;
                                                             fchVtoAsignar = Convert.ToDateTime(UltVto);
                                                         }
                                                     }
@@ -1004,23 +1088,6 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                     }
                                 }
 
-
-
-                                //DataRow row1 = dt.NewRow();
-                                //row1["icoId"] = Convert.ToInt32(row3["icoId"].ToString());
-                                //row1["conId"] = Convert.ToInt32(row3["conId"].ToString());
-                                //row1["TipoConcepto"] = Convert.ToInt32(row3["cntId"].ToString());
-                                //row1["Concepto"] = Convert.ToString(row3["Concepto"].ToString());
-                                //row1["Importe"] = Convert.ToDecimal(row3["Importe"].ToString());
-                                //row1["InteresCuota"] = InteresCuotaAsignar;
-                                //row1["RecargoAbierto"] = RecargoAbiertoAsignar;
-                                //row1["InteresMensual"] = InteresMensualAsignar;
-                                //row1["AnioLectivo"] = Convert.ToInt32(row3["AnioLectivo"].ToString());
-                                //row1["Beca"] = Convert.ToString(row3["Beca"].ToString());
-                                //row1["BecId"] = Convert.ToInt32(row3["BecId"].ToString());
-                                //row1["FchInscripcion"] = Convert.ToString(row3["FchInscripcion"].ToString());
-                                //row1["FechaVto"] = Convert.ToString(fchVtoAsignar);
-                                //row1["NroCuota"] = Convert.ToInt32(row3["NroCuota"].ToString());
                                 txtInt = txtInt + InteresTotal;
 
 
@@ -1028,7 +1095,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                 //Bandera = 1;
                             }
                             Decimal TotGral = TotAdeuda + txtInt;
-                            TexCuotas.Text = Convert.ToString(TotAdeuda);
+                           TexCuotas.Text = Convert.ToString(TotAdeuda);
                             txtIntereses.Text = Convert.ToString(txtInt);
                             txtTot.Text = Convert.ToString(TotGral);
 
@@ -1221,7 +1288,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                                 //row1["ImporteInteres"] = Convert.ToDecimal(string.Format("{0:0.00}", ValorInteres));
 
                                                 float ValorInteresParcial = 0;
-
+                                                ValorInteresParcial = ValorInteres;  //16/07/2025
                                                 if (Interes > ValorInteres)
                                                 {
                                                     ValorInteresParcial = Interes;
@@ -1254,12 +1321,17 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                                     {
                                                         ValorInteres = ValorInteres + InteresMensualaPagar;
                                                     }
+                                                    row1["ImporteInteres"] = Convert.ToDecimal(string.Format("{0:0.00}", ValorInteres));
+                                                    ImporteTotal = Convert.ToDecimal(string.Format("{0:0.00}", ImporteBecado)) + Convert.ToDecimal(string.Format("{0:0.00}", ValorInteres));
                                                 }
-                                                row1["ImporteInteres"] = Convert.ToDecimal(string.Format("{0:0.00}", ValorInteresParcial + ValorInteres));
+                                                else
+                                                {
+                                                    row1["ImporteInteres"] = Convert.ToDecimal(string.Format("{0:0.00}", ValorInteresParcial));
+                                                    ImporteTotal = Convert.ToDecimal(string.Format("{0:0.00}", ImporteBecado)) + Convert.ToDecimal(string.Format("{0:0.00}", ValorInteresParcial));
+                                                }
+                                                //row1["ImporteInteres"] = Convert.ToDecimal(string.Format("{0:0.00}", ValorInteresParcial + ValorInteres));
                                                 row1["BecasInteres"] = row["BecasInteres"].ToString();
-
-
-                                                ImporteTotal = Convert.ToDecimal(string.Format("{0:0.00}", ImporteBecado)) + Convert.ToDecimal(string.Format("{0:0.00}", ValorInteresParcial + ValorInteres));
+                                                //ImporteTotal = Convert.ToDecimal(string.Format("{0:0.00}", ImporteBecado)) + Convert.ToDecimal(string.Format("{0:0.00}", ValorInteresParcial + ValorInteres));
                                                 row1["ImporteTotal"] = ImporteTotal;
 
                                                 dt.Rows.Add(row1);
@@ -1415,14 +1487,9 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                                         }
                                                     }
                                                 }
-                                                //if (Interes > ValorInteres)
-                                                //{
-                                                //    ValorInteres = Interes;
-                                                //}
-                                                //row1["ImporteInteres"] = Convert.ToDecimal(string.Format("{0:0.00}", ValorInteres));
 
                                                 float ValorInteresParcial = 0;
-
+                                                ValorInteresParcial = ValorInteres;  //16/07/2025
                                                 if (Interes > ValorInteres)
                                                 {
                                                     ValorInteresParcial = Interes;
@@ -1444,6 +1511,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                                         }
                                                 }
                                                 Single InteresMensualaPagar = (((Convert.ToSingle(dt5.Rows[0]["ConInteresMensual"].ToString()) * MesesAtrasados) / 100) * (Convert.ToSingle(dt5.Rows[0]["ConImporte"].ToString()) + ValorInteres));
+
                                                 if (InteresMensualaPagar > 0)
                                                 {
 
@@ -1455,12 +1523,17 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                                     {
                                                         ValorInteres = ValorInteres + InteresMensualaPagar;
                                                     }
+                                                    row1["ImporteInteres"] = Convert.ToDecimal(string.Format("{0:0.00}", ValorInteres));
+                                                    ImporteTotal = Convert.ToDecimal(string.Format("{0:0.00}", ImporteBecado)) + Convert.ToDecimal(string.Format("{0:0.00}", ValorInteres));
                                                 }
-                                                row1["ImporteInteres"] = Convert.ToDecimal(string.Format("{0:0.00}", ValorInteresParcial + ValorInteres));
+                                                else
+                                                {
+                                                    row1["ImporteInteres"] = Convert.ToDecimal(string.Format("{0:0.00}", ValorInteresParcial));
+                                                    ImporteTotal = Convert.ToDecimal(string.Format("{0:0.00}", ImporteBecado)) + Convert.ToDecimal(string.Format("{0:0.00}", ValorInteresParcial));
+                                                }
+                                                //row1["ImporteInteres"] = Convert.ToDecimal(string.Format("{0:0.00}", ValorInteresParcial + ValorInteres));
                                                 row1["BecasInteres"] = row["BecasInteres"].ToString();
-
-
-                                                ImporteTotal = Convert.ToDecimal(string.Format("{0:0.00}", ImporteBecado)) + Convert.ToDecimal(string.Format("{0:0.00}", ValorInteresParcial + ValorInteres));
+                                                //ImporteTotal = Convert.ToDecimal(string.Format("{0:0.00}", ImporteBecado)) + Convert.ToDecimal(string.Format("{0:0.00}", ValorInteresParcial + ValorInteres));
                                                 row1["ImporteTotal"] = ImporteTotal;
 
 
@@ -1757,7 +1830,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                                             InteresCuotaAsignar = ValorInteresCI;
                                                             RecargoAbiertoAsignar = ValorInteresRA;
                                                             InteresMensualAsignar = InteresAplicar;
-                                                            InteresTotal = ValorInteresCI + ValorInteresRA + InteresAplicar;
+                                                            InteresTotal = ValorInteresRA + InteresAplicar;
                                                             fchVtoAsignar = Convert.ToDateTime(UltVto);
                                                         }
                                                         else
@@ -1765,7 +1838,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                                             InteresCuotaAsignar = ValorInteresCI;
                                                             RecargoAbiertoAsignar = ValorInteresRA;
                                                             InteresMensualAsignar = InteresAplicar;
-                                                            InteresTotal = ValorInteresCI + ValorInteresRA + InteresAplicar;
+                                                            InteresTotal = ValorInteresCI + ValorInteresRA;
                                                             fchVtoAsignar = Convert.ToDateTime(UltVto);
                                                         }
                                                     }
@@ -1786,7 +1859,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                                             InteresCuotaAsignar = ValorInteresCI;
                                                             RecargoAbiertoAsignar = ValorInteresRA;
                                                             InteresMensualAsignar = InteresAplicar;
-                                                            InteresTotal = ValorInteresCI + ValorInteresRA + InteresAplicar;
+                                                            InteresTotal = ValorInteresRA + InteresAplicar;
                                                             fchVtoAsignar = Convert.ToDateTime(UltVto);
                                                         }
                                                         else
@@ -1794,7 +1867,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                                             InteresCuotaAsignar = ValorInteresCI;
                                                             RecargoAbiertoAsignar = ValorInteresRA;
                                                             InteresMensualAsignar = InteresAplicar;
-                                                            InteresTotal = ValorInteresCI + ValorInteresRA + InteresAplicar;
+                                                            InteresTotal = ValorInteresCI + ValorInteresRA;
                                                             fchVtoAsignar = Convert.ToDateTime(UltVto);
                                                         }
                                                     }
@@ -1819,7 +1892,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                                             InteresCuotaAsignar = ValorInteresCI;
                                                             RecargoAbiertoAsignar = ValorInteresRA;
                                                             InteresMensualAsignar = InteresAplicar;
-                                                            InteresTotal = ValorInteresCI + ValorInteresRA + InteresAplicar;
+                                                            InteresTotal = ValorInteresRA + InteresAplicar;
                                                             fchVtoAsignar = Convert.ToDateTime(UltVto);
 
                                                         }
@@ -1835,7 +1908,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                                             InteresCuotaAsignar = ValorInteresCI;
                                                             RecargoAbiertoAsignar = ValorInteresRA;
                                                             InteresMensualAsignar = InteresAplicar;
-                                                            InteresTotal = ValorInteresCI + ValorInteresRA + InteresAplicar;
+                                                            InteresTotal = ValorInteresCI + ValorInteresRA;
                                                             fchVtoAsignar = Convert.ToDateTime(UltVto);
                                                         }
                                                     }
@@ -1852,24 +1925,6 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                         }
                                     }
                                 }
-
-
-
-                                //DataRow row1 = dt.NewRow();
-                                //row1["icoId"] = Convert.ToInt32(row3["icoId"].ToString());
-                                //row1["conId"] = Convert.ToInt32(row3["conId"].ToString());
-                                //row1["TipoConcepto"] = Convert.ToInt32(row3["cntId"].ToString());
-                                //row1["Concepto"] = Convert.ToString(row3["Concepto"].ToString());
-                                //row1["Importe"] = Convert.ToDecimal(row3["Importe"].ToString());
-                                //row1["InteresCuota"] = InteresCuotaAsignar;
-                                //row1["RecargoAbierto"] = RecargoAbiertoAsignar;
-                                //row1["InteresMensual"] = InteresMensualAsignar;
-                                //row1["AnioLectivo"] = Convert.ToInt32(row3["AnioLectivo"].ToString());
-                                //row1["Beca"] = Convert.ToString(row3["Beca"].ToString());
-                                //row1["BecId"] = Convert.ToInt32(row3["BecId"].ToString());
-                                //row1["FchInscripcion"] = Convert.ToString(row3["FchInscripcion"].ToString());
-                                //row1["FechaVto"] = Convert.ToString(fchVtoAsignar);
-                                //row1["NroCuota"] = Convert.ToInt32(row3["NroCuota"].ToString());
                                 txtInt = txtInt + InteresTotal;
 
 
@@ -1935,11 +1990,11 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                         row.BackColor = System.Drawing.Color.LightBlue;
                         Session["UltimaCuota"] = Convert.ToInt32(GrillaHistorial.DataKeys[row.RowIndex].Values["NroCuota"]);
                         int CuotNro = 0;
-                        CuotNro = Convert.ToInt32(GrillaHistorial.DataKeys[row.RowIndex].Values["NroCuota"])+2;
+                        CuotNro = Convert.ToInt32(GrillaHistorial.DataKeys[row.RowIndex].Values["NroCuota"]) + 2;
                         string ultimomesañopago = "";
                         string anocursado = "";
                         Session["Concepto"] = Convert.ToString(GrillaHistorial.DataKeys[row.RowIndex].Values["Concepto"]);
-                        string FechaFormateada = Convert.ToString (Convert.ToDateTime((GrillaHistorial.DataKeys[row.RowIndex].Values["FechaPago"])).ToString("MMMM", new System.Globalization.CultureInfo("es-ES")) + " del " + Convert.ToDateTime((GrillaHistorial.DataKeys[row.RowIndex].Values["FechaPago"])).ToString("yyyy", new System.Globalization.CultureInfo("es-ES")));
+                        string FechaFormateada = Convert.ToString(Convert.ToDateTime((GrillaHistorial.DataKeys[row.RowIndex].Values["FechaPago"])).ToString("MMMM", new System.Globalization.CultureInfo("es-ES")) + " del " + Convert.ToDateTime((GrillaHistorial.DataKeys[row.RowIndex].Values["FechaPago"])).ToString("yyyy", new System.Globalization.CultureInfo("es-ES")));
                         if (FechaFormateada != "")
                         {
                             anocursado = GrillaHistorial.DataKeys[row.RowIndex].Values["AnioLectivo"].ToString();
@@ -1953,10 +2008,6 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
 
                     else
                     {
-                        //DateTime ppp = Convert.ToDateTime(GrillaHistorial.DataKeys[row.RowIndex].Values["FechaVto"]);
-                        //Double ppp1 = Convert.ToDouble(GrillaHistorial.DataKeys[row.RowIndex].Values["Importe"]); // Importe Becado
-
-
                         if (Convert.ToDateTime(GrillaHistorial.DataKeys[row.RowIndex].Values["FechaVto"]) < Hoy)
                         {
                             row.BackColor = System.Drawing.Color.FromName("#B81822");
@@ -2001,502 +2052,119 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
         }
     }
 
-
-    public static int GetMonthDifference(DateTime startDate, DateTime endDate)
+    protected void btnActualizar_Click(object sender, EventArgs e)
     {
-        int monthsApart = 12 * (startDate.Year - endDate.Year) + startDate.Month - endDate.Month;
-        return Math.Abs(monthsApart);
+        GrillaCargar(0);
     }
-
-
-    protected void btnBuscar_Click(object sender, EventArgs e)
-    {
-        //AlumnoSeleccionado.Visible = false;
-        //alerErroBE.Visible = false;
-        //int PageIndex = 0;
-        //PageIndex = Convert.ToInt32(Session["EstadoCuenta.PageIndex"]);
-        //if (TextBuscar.Text != "")
-        //{
-        //    if (Convert.ToInt32(Session["Bandera"]) == 0)
-        //    {
-        //        dt = ocnAlumno.ObtenerTodoBuscarxNombre(TextBuscar.Text.Trim());
-        //        if (dt.Rows.Count > 0)
-        //        {
-
-        //            this.Grilla.DataSource = dt;
-        //            this.Grilla.PageIndex = PageIndex;
-        //            this.Grilla.DataBind();
-        //            this.GrillaHistorial.DataSource = null;
-        //            this.GrillaHistorial.PageIndex = PageIndex;
-        //            this.GrillaHistorial.DataBind();
-
-        //        }
-        //        else
-        //        {
-        //            alerErroBE.Visible = true;
-        //            lblalerErroBE.Text = "No se encuentra Alumno con ese Filtro";
-        //            this.GrillaHistorial.DataSource = null;
-        //            this.GrillaHistorial.PageIndex = PageIndex;
-        //            this.GrillaHistorial.DataBind();
-
-        //        }
-        //    }
-        //    else
-        //    {
-        //        dt = ocnAlumno.ObtenerUnoporDoc(TextBuscar.Text.Trim());
-        //        if (dt.Rows.Count > 0)
-        //        {
-        //            CanReg.Visible = true;
-        //            lblCantidadRegistros2.Text = "Cantidad de registros: " + dt.Rows.Count.ToString();
-        //            this.Grilla.DataSource = dt;
-        //            this.Grilla.PageIndex = PageIndex;
-        //            this.Grilla.DataBind();
-        //            this.GrillaHistorial.DataSource = null;
-        //            this.GrillaHistorial.PageIndex = PageIndex;
-        //            this.GrillaHistorial.DataBind();
-        //        }
-        //        else
-        //        {
-        //            alerErroBE.Visible = true;
-        //            lblalerErroBE.Text = "No se encuentra Alumno con ese Filtro";
-        //            this.GrillaHistorial.DataSource = null;
-        //            this.GrillaHistorial.PageIndex = PageIndex;
-        //            this.GrillaHistorial.DataBind();
-        //        }
-        //    }
-
-        //    //if (dt.Rows.Count > 0)
-        //    //{
-        //    //    AlumnoSeleccionado.Visible = true;
-        //    //    aluNombre.Text = Convert.ToString(dt.Rows[0]["Nombre"]);
-        //    //    aluNombre.Enabled = false;
-        //    //    aludni.Text = Convert.ToString(dt.Rows[0]["Doc"]);
-        //    //    aludni.Enabled = false;
-
-        //    //    PageIndex = Convert.ToInt32(Session["EstadoCuenta.PageIndex"]);
-        //    //    String Id = Convert.ToString(dt.Rows[0]["Id"]);
-        //    //    lblaluId.Text = Id;
-        //    //    GrillaCargar(PageIndex);
-        //    //}
-        //    //else
-        //    //{
-        //    //    alerErroBE.Visible = true;
-        //    //    lblalerErroBE.Text = "No se encuentra Alumno con ese Filtro";
-        //    //}
-        //}
-        //else
-        //{
-        //    alerErroBE.Visible = true;
-        //    lblalerErroBE.Text = "Debe ingresar DNI del Alumno";
-        //}
-    }
-
-
-
-    protected void btnCancelarAlumno_Click(object sender, EventArgs e)
-    {
-        try
-        {
-            Response.Redirect("../PaginasBasicas/Inicio.aspx", true);
-        }
-        catch (Exception oError)
-        {
-            lblMensajeError.Text = @"<div class=""alert alert-danger alert-dismissable"">
-<button aria-hidden=""true"" data-dismiss=""alert"" class=""close"" type=""button"">x</button>
-<a class=""alert-link"" href=""#"">Error de Sistema</a><br/>
-Se ha producido el siguiente error:<br/>
-MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerException + "<br><br>TRACE:<br>" + oError.StackTrace + "<br><br>TARGET:<br>" + oError.TargetSite +
-    "</div>";
-        }
-    }
-
-    protected void GrillaHistorial_RowCommand(object sender, GridViewCommandEventArgs e)
-    {
-        try
-        {
-            alerError2.Visible = false;
-            lblMensajeError.Text = ""; // Limpiar mensaje de error al inicio de cada comando
-
-            // Manejar Paginación y Ordenamiento primero para evitar el parseo de CommandArgument
-            if (e.CommandName == "Sort" || e.CommandName == "Page")
-            {
-                return;
-            }
-
-            int conId = -1; // Inicializar con un valor que indique que no se ha encontrado.
-            int rowIndex = -1; // Inicializar para el comando "Select"
-
-            if (e.CommandName == "Pagar" || e.CommandName == "VerDetalle")
-            {
-                // Para estos comandos, el CommandArgument ya es el conId.
-                conId = Convert.ToInt32(e.CommandArgument);
-            }
-            else if (e.CommandName == "Select")
-            {
-                // Para el comando "Select" (clic en la fila), el CommandArgument es el rowIndex.
-                if (!int.TryParse(Convert.ToString(e.CommandArgument), out rowIndex))
-                {
-                    if (rowIndex >= 0 && rowIndex < GrillaHistorial.DataKeys.Count)
-                    {
-                        conId = Convert.ToInt32(this.GrillaHistorial.DataKeys[rowIndex]["conId"]);
-                    }
-                    else
-                    {
-                        lblMensajeError.Text = string.Format("<div class=\"alert alert-danger\">Error: Índice de fila inválido para el comando Select. Índice: {0}</div>", rowIndex);
-                        alerError2.Visible = true;
-                        return;
-                    }
-                }
-                else
-                {
-                    lblMensajeError.Text = "<div class=\"alert alert-danger\">Error: Argumento de comando Select inválido.</div>";
-                    alerError2.Visible = true;
-                    return;
-                }
-            }
-            else
-            {
-                // Otros comandos desconocidos o no manejados.
-                lblMensajeError.Text = "<div class=\"alert alert-warning\">Comando desconocido o no procesado.</div>";
-                alerError2.Visible = true;
-                return;
-            }
-
-            // Si conId es -1, significa que no se pudo obtener un ID válido para el comando.
-            if (conId == -1)
-            {
-                lblMensajeError.Text = "<div class=\"alert alert-danger\">Error: No se pudo obtener el ID del concepto para el comando.</div>";
-                alerError2.Visible = true;
-                return;
-            }
-
-            // Ahora, manejar la lógica basada en el CommandName
-            if (e.CommandName == "Pagar")
-            {
-                DataTable dt = new DataTable();
-                dt.Columns.Add("icuId", typeof(int));
-                dt.Columns.Add("icoId", typeof(int));
-                dt.Columns.Add("cntId", typeof(int));
-                dt.Columns.Add("conId", typeof(Int32));
-                dt.Columns.Add("TipoConcepto", typeof(String));
-                dt.Columns.Add("Concepto", typeof(String));
-                dt.Columns.Add("Importe", typeof(Decimal));
-                dt.Columns.Add("AnioLectivo", typeof(Decimal));
-                dt.Columns.Add("Beca", typeof(String));
-                dt.Columns.Add("BecId", typeof(Int32));
-                dt.Columns.Add("NroCuota", typeof(Int32));
-                dt.Columns.Add("FchInscripcion", typeof(String));
-
-                // Para el comando "Pagar", el e.CommandArgument *ya es* el conId.
-                // Debemos encontrar la fila en el DataSource si necesitamos más datos de la fila.
-                DataRowView dataRowView = ((DataView)GrillaHistorial.DataSource).Cast<DataRowView>()
-                    .FirstOrDefault(dr => Convert.ToInt32(dr["conId"]) == conId);
-
-                if (dataRowView != null)
-                {
-                    int AnioCursado = Convert.ToInt32(dataRowView["AnioLectivo"]);
-
-                    // Asegúrate de que insId y lblaluId.Text están disponibles en tu página.
-                    // Reemplaza 'insId' y 'lblaluId.Text' con tus variables reales.
-                    // Ejemplo: int insId = (int)Session["_Institucion"];
-                    //          int aluId = Convert.ToInt32(lblaluId.Text);
-
-                    // Asumo que ocnInscripcionCursado es una instancia de tu clase de negocio
-                    // Si icuId2 es una variable de nivel de clase o de página, asegúrate de que esté declarada.
-                    // int icuId2; // Declarar si no está globalmente accesible
-
-                    // Llamada a tu lógica de negocio
-                    // DataTable dt3 = ocnInscripcionCursado.ObtenerTodoxInsIdxaluIdxAnioCursado(insId, AnioCursado, aluId);
-                    // Si la línea de arriba es tu código real, asegúrate de que ocnInscripcionCursado está instanciado.
-                    // Y que dt3.Rows[0]["Id"] existe.
-
-                    // Temporalmente, para que compile sin tus objetos de negocio:
-                    int icuId2 = 0; // Valor de ejemplo
-                                    // Si usas tu código real, descomenta y usa el dt3:
-                                    // if (dt3 != null && dt3.Rows.Count > 0)
-                                    // {
-                                    //     icuId2 = Convert.ToInt32(dt3.Rows[0]["Id"].ToString());
-                                    // } else {
-                                    //    lblMensajeError.Text = "<div class=\"alert alert-danger\">Error: No se encontró inscripción de cursado.</div>";
-                                    //    alerError2.Visible = true;
-                                    //    return;
-                                    // }
-
-
-                    DataRow row1 = dt.NewRow();
-                    row1["icuId"] = icuId2; // Usar el valor obtenido o mockeado
-                    row1["icoId"] = Convert.ToInt32(dataRowView["icoId"]);
-                    row1["cntId"] = Convert.ToInt32(dataRowView["cntId"]);
-                    row1["conId"] = Convert.ToInt32(dataRowView["conId"]);
-                    row1["TipoConcepto"] = Convert.ToString(dataRowView["TipoConcepto"]);
-                    row1["Concepto"] = Convert.ToString(dataRowView["Concepto"]);
-                    row1["Importe"] = Convert.ToDecimal(dataRowView["Importe"]);
-                    row1["AnioLectivo"] = Convert.ToInt32(dataRowView["AnioLectivo"]);
-                    row1["Beca"] = Convert.ToString(dataRowView["Beca"]);
-                    row1["BecId"] = Convert.ToInt32(dataRowView["BecId"]);
-                    row1["NroCuota"] = Convert.ToInt32(dataRowView["NroCuota"]);
-                    row1["FchInscripcion"] = Convert.ToString(dataRowView["FchInscripcion"]);
-                    dt.Rows.Add(row1);
-
-                    Session.Add("TablaPagar", dt);
-
-                    Response.Redirect(string.Format("FacturarCupones.aspx?Id={0}", icuId2), false);
-                }
-                else
-                {
-                    lblMensajeError.Text = string.Format("<div class=\"alert alert-danger\">Error: Concepto con ID {0} no encontrado en la grilla para Pagar.</div>", conId);
-                    alerError2.Visible = true;
-                    return;
-                }
-            }
-            else if (e.CommandName == "VerDetalle")
-            {
-                // El JavaScript del cliente ya debería haber abierto el modal
-                // Puedes agregar aquí lógica de servidor si es estrictamente necesaria
-                // (ej. auditoría, cargar detalles complejos vía AJAX si no se usan data-*)
-                // System.Diagnostics.Debug.WriteLine(string.Format("Botón Ver Detalle clickeado para conId: {0}", conId));
-            }
-            else if (e.CommandName == "Select")
-            {
-                // Este es el comando que se dispara cuando se hace clic en la fila completa.
-                // El JavaScript del cliente ya debería haber abierto el modal.
-                // Puedes usar este bloque para depuración o para registrar la selección en el servidor.
-                // System.Diagnostics.Debug.WriteLine(string.Format("Fila seleccionada en servidor, conId: {0}", conId));
-            }
-        }
-        catch (Exception oError)
-        {
-            // Reemplazamos la cadena interpolada del mensaje de error
-            string innerExceptionMessage = oError.InnerException != null ? oError.InnerException.Message : "N/A";
-            lblMensajeError.Text = string.Format(@"<div class=""alert alert-danger alert-dismissable"">
-<button aria-hidden=""true"" data-dismiss=""alert"" class=""close"" type=""button"">x</button>
-<a class=""alert-link"" href=""#"">Error de Sistema</a><br/>
-Se ha producido el siguiente error:<br/>
-MESSAGE:<br>{0}<br><br>EXCEPTION:<br>{1}<br><br>TRACE:<br>{2}<br><br>TARGET:<br>{3}
-</div>",
-                oError.Message,
-                innerExceptionMessage,
-                oError.StackTrace,
-                oError.TargetSite);
-            alerError2.Visible = true;
-        }
-    }
-
-
-    protected void GrillaHistorial_RowDataBound(object sender, GridViewRowEventArgs e)
-    {
-        if (e.Row.RowType == DataControlRowType.DataRow)
-        {
-            e.Row.Style.Add("cursor", "pointer");
-
-            DataRowView dr = (DataRowView)e.Row.DataItem;
-
-            // Inyecta los atributos data-* para el modal (tal como lo teníamos)
-            e.Row.Attributes["data-concepto"] = dr["Concepto"] != DBNull.Value ? dr["Concepto"].ToString() : "";
-            e.Row.Attributes["data-importe"] = dr["Importe"] != DBNull.Value ? string.Format("{0:C}", dr["Importe"]) : "";
-            e.Row.Attributes["data-intereses"] = dr["ImporteInteres"] != DBNull.Value ? string.Format("{0:C}", dr["ImporteInteres"]) : "";
-            e.Row.Attributes["data-importeTotal"] = dr["ImporteTotal"] != DBNull.Value ? string.Format("{0:C}", dr["ImporteTotal"]) : "";
-            e.Row.Attributes["data-beca"] = dr["Beca"] != DBNull.Value ? dr["Beca"].ToString() : "";
-            e.Row.Attributes["data-nrocuota"] = dr["NroCuota"] != DBNull.Value ? dr["NroCuota"].ToString() : "";
-            e.Row.Attributes["data-fechavto"] = dr["FechaVto"] != DBNull.Value ? string.Format("{0:d}", dr["FechaVto"]) : "";
-            e.Row.Attributes["data-dcto"] = dr["Dcto"] != DBNull.Value ? string.Format("{0:C}", dr["Dcto"]) : "";
-            e.Row.Attributes["data-imppagado"] = dr["ImpPagado"] != DBNull.Value ? string.Format("{0:C}", dr["ImpPagado"]) : "";
-            e.Row.Attributes["data-fechapago"] = dr["FechaPago"] != DBNull.Value ? string.Format("{0:d}", dr["FechaPago"]) : "N/A";
-            e.Row.Attributes["data-colegio"] = dr["Colegio"] != DBNull.Value ? dr["Colegio"].ToString() : "";
-            e.Row.Attributes["data-curso"] = dr["Curso"] != DBNull.Value ? dr["Curso"].ToString() : "";
-            e.Row.Attributes["data-conId"] = dr["conId"] != DBNull.Value ? dr["conId"].ToString() : "";
-      e.Row.Attributes["data-FP"] = dr["FP"] != DBNull.Value ? dr["FP"].ToString() : "";
-            // --- Lógica para la nueva columna "Estado" ---
-            Label lblEstado = (Label)e.Row.FindControl("lblEstado");
-            if (lblEstado != null)
-            {
-                decimal impPagado = dr["ImpPagado"] != DBNull.Value ? Convert.ToDecimal(dr["ImpPagado"]) : 0m;
-                decimal importeTotal = dr["ImporteTotal"] != DBNull.Value ? Convert.ToDecimal(dr["ImporteTotal"]) : 0m;
-                DateTime fechaVto = dr["FechaVto"] != DBNull.Value ? Convert.ToDateTime(dr["FechaVto"]) : DateTime.MinValue; // Usar un valor por defecto si es nulo
-
-                DateTime fechaActual = DateTime.Today; // Obtener la fecha actual sin la parte de la hora
-
-                if (impPagado > 0m && impPagado >= importeTotal) // Si el importe pagado es mayor que cero y cubre el total
-                {
-                    lblEstado.Text = "Pagada";
-                    lblEstado.CssClass = "text-success font-weight-bold"; // Opcional: estilo para "Pagada"
-                }
-                else if (impPagado == 0m && fechaVto != DateTime.MinValue && fechaVto < fechaActual) // Si no está pagado y la fecha de vencimiento ya pasó
-                {
-                    lblEstado.Text = "Vencida";
-                    lblEstado.CssClass = "text-danger font-weight-bold"; // Opcional: estilo para "Vencida"
-                }
-                else
-                {
-                    lblEstado.Text = ""; // Vacío (o podrías poner "Pendiente" si lo prefieres)
-                                         // lblEstado.Text = "Pendiente";
-                                         // lblEstado.CssClass = "text-info"; // Opcional: estilo para "Pendiente"
-                }
-            }
-        }
-    }
-    //    protected void GrillaHistorial_RowCommand(object sender, GridViewCommandEventArgs e)
+    //protected void btnImprimirClick(object sender, EventArgs e)
+    //{
+    //    DataTable dtImprimir = new DataTable();
+    //    // Genera la misma tabla de datos que en GrillaCargar para imprimir
+    //    // Esto es un ejemplo, deberías reutilizar la lógica de GrillaCargar para obtener dt
+    //    dtImprimir = (DataTable)GrillaHistorial.DataSource;
+    //    if (dtImprimir == null || dtImprimir.Rows.Count == 0)
     //    {
-    //        try
-    //        {
-    //            alerError2.Visible = false;
-
-    //            if (e.CommandName != "Sort" && e.CommandName != "Page" && e.CommandName != "")
-    //            {
-    //                int rowIndex = int.Parse(e.CommandArgument.ToString());
-    //                int val = (int)this.GrillaHistorial.DataKeys[rowIndex]["icoId"];
-    //                //string Id = ((HyperLink)GrillaHistorial.Rows[Convert.ToInt32(e.CommandArgument)].Cells[0].Controls[1]).Text;
-    //                if (e.CommandName == "Pagar")
-    //                {
-
-    //                    alerError2.Visible = false;
-
-
-    //                    //insId = Convert.ToInt32(Session["_Institucion"]);
-    //                    lblMensajeError.Text = "";
-
-    //                    DataTable dt = new DataTable();
-    //                    DataTable dt9 = new DataTable();
-    //                    DataTable dt4 = new DataTable();
-    //                    DataTable dt3 = new DataTable();
-    //                    DataTable dt1 = new DataTable();
-    //                    dt.Columns.Add("icuId", typeof(int));
-    //                    dt.Columns.Add("icoId", typeof(int));
-    //                    dt.Columns.Add("cntId", typeof(int));
-    //                    dt.Columns.Add("conId", typeof(Int32));
-    //                    dt.Columns.Add("TipoConcepto", typeof(String));
-    //                    dt.Columns.Add("Concepto", typeof(String));
-    //                    dt.Columns.Add("Importe", typeof(Decimal));
-    //                    dt.Columns.Add("AnioLectivo", typeof(Decimal));
-    //                    dt.Columns.Add("Beca", typeof(String));
-    //                    dt.Columns.Add("BecId", typeof(Int32));
-    //                    dt.Columns.Add("NroCuota", typeof(Int32));
-    //                    dt.Columns.Add("FchInscripcion", typeof(String));
-
-    //                    String FchaInscripcionCon;
-    //                    Int32 NroCuotaCon;
-    //                    Int32 bcaIdCon;
-    //                    Int32 AnioCursado;
-
-    //                    AnioCursado = Convert.ToInt32(this.GrillaHistorial.DataKeys[rowIndex]["AnioLectivo"]);
-    //                    //insId = Convert.ToInt32(GrillaHistorial.DataKeys[row.RowIndex].Values["InsId"]);
-    //                    dt3 = ocnInscripcionCursado.ObtenerTodoxInsIdxaluIdxAnioCursado(insId, AnioCursado, Convert.ToInt32(lblaluId.Text));
-    //                    icuId2 = Convert.ToInt32(dt3.Rows[0]["Id"].ToString());
-    //                    //FchaInscripcionCon = Convert.ToString(GrillaHistorial.DataKeys[row.RowIndex].Values["FchInscripcion"]);
-    //                    //NroCuotaCon = Convert.ToInt32(GrillaHistorial.DataKeys[row.RowIndex].Values["NroCuota"]);
-    //                    //bcaIdCon = Convert.ToInt32(GrillaHistorial.DataKeys[row.RowIndex].Values["BecasId"]);
-    //                    DataRow row1 = dt.NewRow();
-    //                    row1["icuId"] = icuId2;
-
-    //                    row1["icoId"] = Convert.ToInt32(this.GrillaHistorial.DataKeys[rowIndex]["icoId"]);
-    //                    row1["cntId"] = Convert.ToInt32(this.GrillaHistorial.DataKeys[rowIndex]["cntId"]);
-    //                    row1["conId"] = Convert.ToInt32(this.GrillaHistorial.DataKeys[rowIndex]["conId"]);
-    //                    row1["TipoConcepto"] = Convert.ToString(this.GrillaHistorial.DataKeys[rowIndex]["TipoConcepto"]);
-    //                    row1["Concepto"] = Convert.ToString(this.GrillaHistorial.DataKeys[rowIndex]["Concepto"]);
-    //                    row1["Importe"] = Convert.ToDecimal(this.GrillaHistorial.DataKeys[rowIndex]["Importe"]);
-    //                    row1["AnioLectivo"] = Convert.ToInt32(this.GrillaHistorial.DataKeys[rowIndex]["AnioLectivo"]);
-    //                    row1["Beca"] = Convert.ToString(this.GrillaHistorial.DataKeys[rowIndex]["Beca"]);
-    //                    row1["BecId"] = Convert.ToInt32(this.GrillaHistorial.DataKeys[rowIndex]["BecId"]);
-    //                    row1["NroCuota"] = Convert.ToInt32(this.GrillaHistorial.DataKeys[rowIndex]["NroCuota"]);
-
-    //                    row1["FchInscripcion"] = Convert.ToString(this.GrillaHistorial.DataKeys[rowIndex]["FchInscripcion"]);
-    //                    dt.Rows.Add(row1);
-
-    //                    Session.Add("TablaPagar", dt);
-    //                }
-    //                Response.Redirect("FacturarCupones.aspx?Id=" + icuId2, false);
-    //            }
-    //            else
-    //            {
-    //                alerError2.Visible = true;
-    //                lblError2.Text = "Debe seleccionar un items a facturar";
-    //            }
-    //        }
-    //        catch (Exception oError)
-    //        {
-    //            lblMensajeError.Text = @"<div class=""alert alert-danger alert-dismissable"">
-    //<button aria-hidden=""true"" data-dismiss=""alert"" class=""close"" type=""button"">x</button>
-    //<a class=""alert-link"" href=""#"">Error de Sistema</a><br/>
-    //Se ha producido el siguiente error:<br/>
-    //MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerException + "<br><br>TRACE:<br>" + oError.StackTrace + "<br><br>TARGET:<br>" + oError.TargetSite +
-    //    "</div>";
-    //        }
+    //        lblMjerror2.Text = "No hay datos para imprimir.";
+    //        alerError2.Visible = true;
+    //        return;
     //    }
 
-    protected override void Render(System.Web.UI.HtmlTextWriter writer)
-    {
-        //foreach (GridViewRow row in Grilla.Rows)
-        //{
-        //    if (row.RowType == DataControlRowType.DataRow)
-        //    {
-        //        row.Attributes["onmouseover"] = "this.style.background = '#0BB8A1'; this.style.cursor = 'pointer'";
-        //        row.Attributes["onmouseout"] = "this.style.background='#ffffff'";
-        //        row.Attributes["onclick"] = ClientScript.GetPostBackClientHyperlink(Grilla, "Select$" + row.RowIndex, true);
-        //    }
-        //}
+    //    GenerarPDF(dtImprimir);
+    //}
 
-        base.Render(writer);
-    }
-
-    protected void Grilla_RowDataBound(object sender, GridViewRowEventArgs e)
+    private void GenerarPDF(DataTable dataSource)
     {
-        if (e.Row.RowType == DataControlRowType.DataRow)
+        using (MemoryStream ms = new MemoryStream())
         {
-            e.Row.Attributes.Add("onmouseover", "this.originalcolor=this.style.backgroundColor; this.style.backgroundColor='#F7F7DE';");
-            e.Row.Attributes.Add("onmouseout", "this.style.backgroundColor=this.originalcolor;");
-        }
-    }
+            Document document = new Document(PageSize.A4, 25, 25, 30, 30);
+            PdfWriter writer = PdfWriter.GetInstance(document, ms);
+            document.Open();
+
+            // Título
+            Paragraph title = new Paragraph("Estado de Cuenta - " + aluNombre.Text, new Font(Font.FontFamily.HELVETICA, 16, Font.BOLD));
+            title.Alignment = Element.ALIGN_CENTER;
+            document.Add(title);
+            document.Add(new Paragraph(" ")); // Espacio
+
+            // Datos del Alumno
+            document.Add(new Paragraph("Alumno: " + aluNombre.Text + " (DNI: " + aludni.Text + ")", new Font(Font.FontFamily.HELVETICA, 12)));
+            document.Add(new Paragraph("Año Lectivo: " + txtAnioLectivo.Text, new Font(Font.FontFamily.HELVETICA, 12)));
+            document.Add(new Paragraph("Fecha de Emisión: " + DateTime.Now.ToShortDateString(), new Font(Font.FontFamily.HELVETICA, 12)));
+            document.Add(new Paragraph(" ")); // Espacio
+
+            // Tabla de la grilla
+            PdfPTable table = new PdfPTable(4); // Ajusta el número de columnas según las que quieras mostrar en el PDF
+            table.WidthPercentage = 100;
+            table.SetWidths(new float[] { 3f, 1.5f, 1.5f, 1.5f }); // Anchos relativos de las columnas
+
+            // Encabezados de la tabla
+            table.AddCell(new PdfPCell(new Phrase("Concepto", new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD))) { HorizontalAlignment = Element.ALIGN_CENTER });
+            table.AddCell(new PdfPCell(new Phrase("Importe", new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD))) { HorizontalAlignment = Element.ALIGN_CENTER });
+            table.AddCell(new PdfPCell(new Phrase("Fecha Vto.", new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD))) { HorizontalAlignment = Element.ALIGN_CENTER });
+            table.AddCell(new PdfPCell(new Phrase("Estado", new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD))) { HorizontalAlignment = Element.ALIGN_CENTER });
 
 
-    protected void Grilla_PageIndexChanging(object sender, GridViewPageEventArgs e)
-    {
-        try
-        {
-            if (Session["EstadoCuenta.PageIndex"] != null)
+            foreach (DataRow row in dataSource.Rows)
             {
-                Session["EstadoCuenta.PageIndex"] = e.NewPageIndex;
+                table.AddCell(new PdfPCell(new Phrase(row["Concepto"].ToString(), new Font(Font.FontFamily.HELVETICA, 9))) { HorizontalAlignment = Element.ALIGN_LEFT });
+                table.AddCell(new PdfPCell(new Phrase(string.Format("{0:C}", Convert.ToDecimal(row["Importe"])), new Font(Font.FontFamily.HELVETICA, 9))) { HorizontalAlignment = Element.ALIGN_RIGHT });
+
+                DateTime fechaVto;
+                if (DateTime.TryParse(row["FechaVto"].ToString(), out fechaVto))
+                {
+                    table.AddCell(new PdfPCell(new Phrase(fechaVto.ToShortDateString(), new Font(Font.FontFamily.HELVETICA, 9))) { HorizontalAlignment = Element.ALIGN_CENTER });
+                }
+                else
+                {
+                    table.AddCell(new PdfPCell(new Phrase("", new Font(Font.FontFamily.HELVETICA, 9))) { HorizontalAlignment = Element.ALIGN_CENTER });
+                }
+
+                // Lógica para el estado en el PDF (replica la de la grilla si es posible)
+                string estado = "";
+                decimal impPagado = Convert.ToDecimal(row["ImpPagado"]);
+                DateTime fechaVtoRow = Convert.ToDateTime(row["FechaVto"]);
+
+                if (impPagado > 0)
+                {
+                    estado = "Pagado";
+                }
+                else if (fechaVtoRow < DateTime.Today)
+                {
+                    estado = "Vencido";
+                }
+                else
+                {
+                    estado = "Pendiente";
+                }
+                table.AddCell(new PdfPCell(new Phrase(estado, new Font(Font.FontFamily.HELVETICA, 9))) { HorizontalAlignment = Element.ALIGN_CENTER });
             }
-            else
+            document.Add(table);
+            document.Add(new Paragraph(" ")); // Espacio
+
+            // Totales (si los quieres añadir al PDF)
+            if (lblTot.Visible && !string.IsNullOrEmpty(txtTot.Text))
             {
-                Session.Add("EstadoCuenta.PageIndex", e.NewPageIndex);
+                document.Add(new Paragraph("Total Adeudado: " + txtTot.Text, new Font(Font.FontFamily.HELVETICA, 11, Font.BOLD)));
+            }
+            if (lblCuotas.Visible && !string.IsNullOrEmpty(TexCuotas.Text))
+            {
+                document.Add(new Paragraph("Total Cuotas Vencidas: " + TexCuotas.Text, new Font(Font.FontFamily.HELVETICA, 11, Font.BOLD)));
+            }
+            if (lblInt.Visible && !string.IsNullOrEmpty(txtIntereses.Text))
+            {
+                document.Add(new Paragraph("Total Intereses: " + txtIntereses.Text, new Font(Font.FontFamily.HELVETICA, 11, Font.BOLD)));
             }
 
-            this.GrillaCargar2(e.NewPageIndex);
-        }
-        catch (Exception oError)
-        {
-            lblMensajeError.Text = @"<div class=""alert alert-danger alert-dismissable"">
-<button aria-hidden=""true"" data-dismiss=""alert"" class=""close"" type=""button"">x</button>
-<a class=""alert-link"" href=""#"">Error de Sistema</a><br/>
-Se ha producido el siguiente error:<br/>
-MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerException + "<br><br>TRACE:<br>" + oError.StackTrace + "<br><br>TARGET:<br>" + oError.TargetSite +
-    "</div>";
+
+            document.Close();
+
+            Response.ContentType = "application/pdf";
+            Response.AddHeader("content-disposition", "attachment;filename=EstadoDeCuenta_" + aluNombre.Text.Replace(" ", "_") + ".pdf");
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            Response.BinaryWrite(ms.ToArray());
+            Response.End();
         }
     }
-
-
-
-
-    private void GrillaCargar2(int PageIndex)
-    {
-        try
-        {
-
-
-        }
-        catch (Exception oError)
-        {
-            lblMensajeError.Text = @"<div class=""alert alert-danger alert-dismissable"">
-<button aria-hidden=""true"" data-dismiss=""alert"" class=""close"" type=""button"">x</button>
-<a class=""alert-link"" href=""#"">Error de Sistema</a><br/>
-Se ha producido el siguiente error:<br/>
-MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerException + "<br><br>TRACE:<br>" + oError.StackTrace + "<br><br>TARGET:<br>" + oError.TargetSite +
-"</div>";
-        }
-    }
-
-
-
     protected void btnImprimirClickLD_Click(object sender, EventArgs e)
     {
         try
@@ -2509,7 +2177,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
             int mes = Convert.ToInt32(Session["UltimaCuota"]) + 2;
             String Concepto = Convert.ToString(Session["Concepto"]);
             String mesPago = Convert.ToString(Session["FechaPago"]);
-       
+
             int InstId = Convert.ToInt32(this.Session["_Institucion"]);
             int UsuId = Convert.ToInt32(this.Session["_usuId"]);
             int IdLDP = 0;
@@ -2519,7 +2187,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
             if (dt.Rows.Count > 0)
             {
                 ocnLibreDeudaQR.InsertarSinoExiste(aluId, aluNombre.Text, aludni.Text, Convert.ToString(dt.Rows[0]["Curso"].ToString()), Convert.ToString(dt.Rows[0]["insNombre"].ToString()), Convert.ToString(dt.Rows[0]["Mes"].ToString()),
-                    aniocursado, DateTime.Now, Concepto,mesPago);
+                    aniocursado, DateTime.Now, Concepto, mesPago);
 
 
                 string Imagenes, ImageLogo;
@@ -2586,7 +2254,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                 Paragraph Parrafo3 = new Paragraph("Institución:  " + Convert.ToString(dt.Rows[0]["insNombre"].ToString()), parrafo.Font);
                 Paragraph Parrafo31 = new Paragraph("Concepto:  " + Concepto, parrafo.Font);
 
-                Paragraph Parrafo4 = new Paragraph("Canceló los aranceles hasta:  " + mesPago , parrafoBold.Font);
+                Paragraph Parrafo4 = new Paragraph("Canceló los aranceles hasta:  " + mesPago, parrafoBold.Font);
 
                 Paragraph Parrafo5 = new Paragraph("Se extiende la presente en la ciudad de Santiago del Estero, " + Convert.ToString(DateTime.Now), parrafo.Font);
 
@@ -2609,7 +2277,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                 //barCode.SetAbsolutePosition(300, 500);
                 barCode.ScalePercent(150);
                 barCode.Alignment = Element.ALIGN_CENTER;
-                doc.Add(barCode);               
+                doc.Add(barCode);
                 //DrawThickLine(writer, 36f, 519f, 556f, 519f);//Horizontal Line
                 doc.Close();
                 Response.Redirect("../PaginasGenerales/LD/LibreDeuda.pdf", false);
@@ -2640,131 +2308,95 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
         }
     }
 
+    //private void GenerarLibreDeudaPDF()
+    //{
+    //    // Verificar que no haya deuda pendiente
+    //    DataTable dtDeudaPendiente = ocnTEMESTADOCUENTA.ObtenerTotalesAlumno(Convert.ToInt32(lblaluId.Text), Convert.ToInt32(txtAnioLectivo.Text), "2");
+    //    if (dtDeudaPendiente.Rows.Count > 0 && Convert.ToDecimal(dtDeudaPendiente.Rows[0]["TotalAdeudado"]) > 0)
+    //    {
+    //        lblMjerror2.Text = "No se puede generar el Libre Deuda. El alumno tiene deuda pendiente.";
+    //        alerError2.Visible = true;
+    //        return;
+    //    }
 
-    private static void DrawThickLine(PdfWriter writer, float x1, float y1, float x2, float y2)
+    //    using (MemoryStream ms = new MemoryStream())
+    //    {
+    //        Document document = new Document(PageSize.A4, 50, 50, 50, 50);
+    //        PdfWriter writer = PdfWriter.GetInstance(document, ms);
+    //        document.Open();
+
+    //        // Título
+    //        Paragraph title = new Paragraph("CERTIFICADO DE LIBRE DEUDA", new Font(Font.FontFamily.HELVETICA, 18, Font.BOLD, BaseColor.BLUE));
+    //        title.Alignment = Element.ALIGN_CENTER;
+    //        document.Add(title);
+    //        document.Add(new Paragraph("\n")); // Espacio
+
+    //        // Contenido del certificado
+    //        string alumnoNombre = aluNombre.Text;
+    //        string alumnoDNI = aludni.Text;
+    //        string institucion = "Nombre de la Institución"; // Reemplaza con el nombre real de tu institución
+    //        string fechaEmision = DateTime.Now.ToLongDateString();
+
+    //        Paragraph content = new Paragraph();
+    //        content.Add(new Chunk("Por medio de la presente, la institución ", new Font(Font.FontFamily.HELVETICA, 12)));
+    //        content.Add(new Chunk(institucion, new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD)));
+    //        content.Add(new Chunk(", certifica que el/la alumno/a ", new Font(Font.FontFamily.HELVETICA, 12)));
+    //        content.Add(new Chunk(alumnoNombre, new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD)));
+    //        content.Add(new Chunk(", con DNI N° ", new Font(Font.FontFamily.HELVETICA, 12)));
+    //        content.Add(new Chunk(alumnoDNI, new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD)));
+    //        content.Add(new Chunk(", no registra deudas pendientes de ningún tipo con nuestra institución hasta la fecha de emisión de este certificado (", new Font(Font.FontFamily.HELVETICA, 12)));
+    //        content.Add(new Chunk(fechaEmision, new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD)));
+    //        content.Add(new Chunk(").\n\n", new Font(Font.FontFamily.HELVETICA, 12)));
+    //        content.Add(new Chunk("Este certificado se extiende a solicitud del interesado para los fines que estime convenientes.\n\n", new Font(Font.FontFamily.HELVETICA, 12)));
+    //        content.Add(new Chunk("Sin otro particular, saludamos a usted atentamente.", new Font(Font.FontFamily.HELVETICA, 12)));
+    //        content.Alignment = Element.ALIGN_JUSTIFIED;
+    //        document.Add(content);
+
+    //        document.Add(new Paragraph("\n\n")); // Espacio
+
+    //        // Firma
+    //        Paragraph signature = new Paragraph("_____________________________\n", new Font(Font.FontFamily.HELVETICA, 12));
+    //        signature.Add(new Chunk("Firma y Sello de la Autoridad\n", new Font(Font.FontFamily.HELVETICA, 10)));
+    //        signature.Alignment = Element.ALIGN_CENTER;
+    //        document.Add(signature);
+
+    //        // Código QR
+    //        string qrData = string.Format("Alumno: {0}, DNI: {1}, Estado: Libre de Deuda, Fecha: {2}, Institucion: {3}", alumnoNombre, alumnoDNI, fechaEmision, institucion);
+    //        BarcodeQRCode qrcode = new BarcodeQRCode(qrData, 100, 100, null);
+    //        Image qrImage = qrcode.GetImage();
+    //        qrImage.Alignment = Element.ALIGN_CENTER;
+    //        document.Add(qrImage);
+
+    //        document.Close();
+
+    //        Response.ContentType = "application/pdf";
+    //        Response.AddHeader("content-disposition", "attachment;filename=LibreDeuda_" + aluNombre.Text.Replace(" ", "_") + ".pdf");
+    //        Response.Cache.SetCacheability(HttpCacheability.NoCache);
+    //        Response.BinaryWrite(ms.ToArray());
+    //        Response.End();
+    //    }
+    //}
+
+
+    protected void ckbDeuda_CheckedChanged(object sender, EventArgs e)
     {
-        PdfContentByte contentByte = writer.DirectContent;
-        contentByte.SetLineWidth(1.0f);   // Make a bit thicker than 1.0 default
-        contentByte.SetColorStroke(BaseColor.BLACK);
-        contentByte.MoveTo(x1, y1);
-        contentByte.LineTo(x2, y2);
-        contentByte.Stroke();
+        GrillaCargar(0);
     }
 
-    protected void btnImprimirClick(object sender, EventArgs e)
+    private int GetMonthDifference(DateTime start, DateTime end)
     {
-        ocnTEMESTADOCUENTA.EliminarTodo();
-        int Id = 0;
-        int InstId = Convert.ToInt32(this.Session["_Institucion"]);
-        DateTime Hoy = DateTime.Today;
-        foreach (GridViewRow row in GrillaHistorial.Rows)
-        {
-            if (Convert.ToDateTime(GrillaHistorial.DataKeys[row.RowIndex].Values["FechaVto"]) < Hoy && Convert.ToSingle(GrillaHistorial.DataKeys[row.RowIndex].Values["ImpPagado"]) == 0 && Convert.ToInt32(GrillaHistorial.DataKeys[row.RowIndex].Values["BecId"]) != 14)
-            {
-                ocnTEMESTADOCUENTA = new GESTIONESCOLAR.Negocio.TEMESTADOCUENTA(Convert.ToInt32(Id));
-                ocnTEMESTADOCUENTA.tecConcepto = Convert.ToString(GrillaHistorial.DataKeys[row.RowIndex].Values["Concepto"]);
-                ocnTEMESTADOCUENTA.tecNumCuota = Convert.ToInt32(GrillaHistorial.DataKeys[row.RowIndex].Values["NroCuota"]);
-                ocnTEMESTADOCUENTA.tecImporte = Convert.ToDecimal(GrillaHistorial.DataKeys[row.RowIndex].Values["Importe"]);
-                ocnTEMESTADOCUENTA.tecColegio = Convert.ToString(GrillaHistorial.DataKeys[row.RowIndex].Values["Colegio"]);
-                ocnTEMESTADOCUENTA.tecCurso = Convert.ToString(GrillaHistorial.DataKeys[row.RowIndex].Values["Curso"]);
-                ocnTEMESTADOCUENTA.tecImpPagado = Convert.ToDecimal(GrillaHistorial.DataKeys[row.RowIndex].Values["ImpPagado"]);
-                ocnTEMESTADOCUENTA.tecFchPago = Convert.ToString(GrillaHistorial.DataKeys[row.RowIndex].Values["FechaPago"]);
-                ocnTEMESTADOCUENTA.tecImpInteres = Convert.ToDecimal(GrillaHistorial.DataKeys[row.RowIndex].Values["ImporteInteres"]);
-                ocnTEMESTADOCUENTA.tecBeca = Convert.ToString(GrillaHistorial.DataKeys[row.RowIndex].Values["Beca"]);
-
-                ocnTEMESTADOCUENTA.tecFechaVto = Hoy;
-                ocnTEMESTADOCUENTA.tecLugarPago = "";
-                ocnTEMESTADOCUENTA.tecFormaPago = "";
-                ocnTEMESTADOCUENTA.tecTotalCuotasImpagas = 0;
-                ocnTEMESTADOCUENTA.tecTotalInteres = 0;
-                ocnTEMESTADOCUENTA.tecTotalDeudaalaFecha = 0;
-
-                ocnTEMESTADOCUENTA.Insertar();
-            }
-        }
-
-        foreach (GridViewRow row in GrillaHistorial.Rows)
-        {
-            if (Convert.ToDecimal(GrillaHistorial.DataKeys[row.RowIndex].Values["ImpPagado"]) != 0)
-            {
-                row.BackColor = System.Drawing.Color.LightBlue;
-                //CuotaUltPagada = Convert.ToInt32(GrillaHistorial.DataKeys[row.RowIndex].Values["NroCuota"]);
-                //((CheckBox)row.FindControl("chkSeleccion")).Enabled = false;
-            }
-
-            else
-            {
-                if (Convert.ToDateTime(GrillaHistorial.DataKeys[row.RowIndex].Values["FechaVto"]) < DateTime.Today)
-                {
-                    row.BackColor = System.Drawing.Color.FromName("#B81822");
-                    row.ForeColor = System.Drawing.Color.White;
-                    //btnFacturar.Visible = true;
-                    //txtFchPago.Visible = true;
-                    //lblFchPago.Visible = true;
-                    btnImprimir2.Visible = true;
-                    //lblCuotas.Visible = true;
-                    //TexCuotas.Visible = true;
-                    //lblInt.Visible = true;
-                    //txtIntereses.Visible = true;
-                    //txtTot.Visible = true;
-                    //lblTot.Visible = true;
-                    //CheckBox ck = (CheckBox)row.Cells[1].FindControl("chkSeleccion");
-                    //(CheckBox)row.Cells[1].FindControl("chkSeleccion").Visible = false;
-
-                }
-            }
-        }
-        String NomRep;
-        String ParamStr1 = aluNombre.Text;
-        if (InstId == 121)
-        {
-            NomRep = "EstadoDeCuentaNew.rpt";
-        }
-        else
-        {
-            NomRep = "EstadoCuenta.rpt";
-
-        }
-
-        FuncionesUtiles.AbreVentana("Reporte.aspx?ParamStr1=" + ParamStr1 + "&NomRep=" + NomRep);
+        return Math.Abs((end.Year - start.Year) * 12 + end.Month - start.Month);
     }
-
-    protected void RbtBuscar_SelectedIndexChanged(object sender, EventArgs e)
+    protected void GrillaHistorial_RowCommand(object sender, GridViewCommandEventArgs e)
     {
-
+        // Este método se activa con los botones dentro de la grilla.
+        // No debería interferir con el clic de la fila para abrir el modal.
     }
-
-    protected void Grilla_RowCommand(object sender, GridViewCommandEventArgs e)
+    protected void btnCancelarAlumno_Click(object sender, EventArgs e)
     {
         try
         {
-            if (e.CommandName != "Sort" && e.CommandName != "Page" && e.CommandName != "")
-            {
-                //String Id = ((HyperLink)Grilla.Rows[Convert.ToInt32(e.CommandArgument)].Cells[1].Controls[1]).Text;
-
-                //if (e.CommandName == "Select")
-                //{
-                //    aluNombre.Text = ((HyperLink)Grilla.Rows[Convert.ToInt32(e.CommandArgument)].Cells[2].Controls[1]).Text;
-                //    aluNombre.Enabled = false;
-                //    aludni.Text = ((HyperLink)Grilla.Rows[Convert.ToInt32(e.CommandArgument)].Cells[3].Controls[1]).Text;
-                //    aludni.Enabled = false;
-                //    aluId.Text = Id;
-                //    //CanReg.Visible = false;
-                //    Grilla.DataSource = null;
-                //    Grilla.DataBind();
-                //    AlumnoSeleccionado.Visible = true;
-                //    int PageIndex = Convert.ToInt32(Session["EstadoCuenta.PageIndex"]);
-
-                //    lblaluId.Text = Id;
-                //    GrillaCargar(PageIndex);
-                //    //Grilla.Text = ((HyperLink)Grilla.Rows[Convert.ToInt32(e.CommandArgument)].Cells[4].Controls[1]).Text;
-
-                //}
-            }
-            if (e.CommandName != "Page")
-            {
-
-            }
+            Response.Redirect("../PaginasBasicas/InicioPadres.aspx", true);
         }
         catch (Exception oError)
         {
@@ -2773,33 +2405,63 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
 <a class=""alert-link"" href=""#"">Error de Sistema</a><br/>
 Se ha producido el siguiente error:<br/>
 MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerException + "<br><br>TRACE:<br>" + oError.StackTrace + "<br><br>TARGET:<br>" + oError.TargetSite +
-"</div>";
+    "</div>";
         }
     }
-
-
-
-    protected void ckbDeuda_CheckedChanged(object sender, EventArgs e)
-    {
-        //if (AlumnoSeleccionado.Visible == true)
-        //{
-        int PageIndex = Convert.ToInt32(Session["EstadoCuenta.PageIndex"]);
-        GrillaCargar(PageIndex);
-        //}
-        //else
-        //{
-
-        //}
-    }
-
-    protected void btnActualizar_Click(object sender, EventArgs e)
-    {
-        int PageIndex = Convert.ToInt32(Session["EstadoCuenta.PageIndex"]);
-        GrillaCargar(PageIndex);
-    }
-
     protected void btnFacturarClick(object sender, EventArgs e)
     {
+        //    string idsConceptos = "";
+        //    decimal totalAPagar = 0;
+        //    decimal totalIntereses = 0;
+        //    decimal totalImpuestos = 0;
+        //    string concepto = "";
+        //    int cantidadItems = 0;
+
+        //    foreach (GridViewRow row in GrillaHistorial.Rows)
+        //    {
+        //        CheckBox chk = (CheckBox)row.FindControl("chkSeleccion");
+        //        if (chk != null && chk.Checked)
+        //        {
+        //            // Solo procesar si el estado no es "Pagado"
+        //            Label lblEstado = (Label)row.FindControl("lblEstado");
+        //            if (lblEstado != null && lblEstado.Text != "Pagado")
+        //            {
+        //                int conId = Convert.ToInt32(GrillaHistorial.DataKeys[row.RowIndex].Values["conId"]);
+        //                int icoId = Convert.ToInt32(GrillaHistorial.DataKeys[row.RowIndex].Values["icoId"]);
+        //                decimal importe = Convert.ToDecimal(GrillaHistorial.DataKeys[row.RowIndex].Values["Importe"]);
+        //                decimal interes = Convert.ToDecimal(GrillaHistorial.DataKeys[row.RowIndex].Values["ImporteInteres"]);
+
+        //                idsConceptos += string.Format("{0},{1},{2},{3}|", icoId, conId, importe, interes); // Formato: icoId,conId,importe,interes|
+        //                totalAPagar += importe;
+        //                totalIntereses += interes;
+        //                concepto = GrillaHistorial.DataKeys[row.RowIndex].Values["Concepto"].ToString();
+        //                cantidadItems++;
+        //            }
+        //        }
+        //    }
+
+        //    if (idsConceptos.Length > 0)
+        //    {
+        //        idsConceptos = idsConceptos.TrimEnd('|');
+
+        //        // Guarda los datos en la sesión para la página de pago
+        //        Session["_idsConceptosAPagar"] = idsConceptos;
+        //        Session["_totalAPagar"] = totalAPagar;
+        //        Session["_totalIntereses"] = totalIntereses;
+        //        Session["_conceptoPago"] = concepto;
+        //        Session["_cantidadItemsPago"] = cantidadItems;
+        //        Session["_aluIdPago"] = lblaluId.Text; // ID del alumno
+        //        Session["_aluNombrePago"] = hfNombreAlumno.Value; // Nombre del alumno
+
+        //        Session.Add("TablaPagar", dt);
+
+        //        Response.Redirect("FacturacionPadres.aspx?Id=" + lblaluId.Text, false);
+        //    }
+        //    else
+        //    {
+        //        lblMensajeError.Text = "<div class=\"alert alert-warning\">No se seleccionaron conceptos para pagar o los conceptos seleccionados ya están pagados.</div>";
+        //    }
+
         try
         {
             //alerError2.Visible = false;
@@ -2877,7 +2539,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
 
                 }
                 //Response.Redirect("Facturacion.aspx?Id=" + icuId2, false);
-                Response.Redirect("FacturacionPadres.aspx?Id=" + icuId2, false);
+                Response.Redirect("FacturacionPadres.aspx?Id=" + lblaluId.Text, false);
             }
             else
             {
@@ -2900,9 +2562,9 @@ Se ha producido el siguiente error:<br/>
 MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerException + "<br><br>TRACE:<br>" + oError.StackTrace + "<br><br>TARGET:<br>" + oError.TargetSite +
     "</div>";
         }
-    }
 
 
     }
 
 
+}

@@ -15,30 +15,23 @@ using System.Net;
 public partial class FacturacionPadres : System.Web.UI.Page
 {
     DataTable dt = new DataTable();
-    GESTIONESCOLAR.Negocio.Docentes ocnDocentes = new GESTIONESCOLAR.Negocio.Docentes();
+    GESTIONESCOLAR.Negocio.Alumno ocnAlumno = new GESTIONESCOLAR.Negocio.Alumno();
     GESTIONESCOLAR.Negocio.InscripcionConcepto ocnInscripcionConcepto = new GESTIONESCOLAR.Negocio.InscripcionConcepto();
     GESTIONESCOLAR.Negocio.InscripcionCursado ocnInscripcionCursado = new GESTIONESCOLAR.Negocio.InscripcionCursado();
     GESTIONESCOLAR.Negocio.ConceptosTipos ocnConceptosTipos = new GESTIONESCOLAR.Negocio.ConceptosTipos();
     GESTIONESCOLAR.Negocio.Conceptos ocnConceptos = new GESTIONESCOLAR.Negocio.Conceptos();
-    GESTIONESCOLAR.Negocio.Becas ocnBecas = new GESTIONESCOLAR.Negocio.Becas();
     GESTIONESCOLAR.Negocio.ComprobantesCabecera ocnComprobantesCabecera = new GESTIONESCOLAR.Negocio.ComprobantesCabecera();
     GESTIONESCOLAR.Negocio.ComprobantesPtosVta ocnComprobantesPtosVta = new GESTIONESCOLAR.Negocio.ComprobantesPtosVta();
-    GESTIONESCOLAR.Negocio.ComprobantesFormasPago ocnComprobantesFormasPago = new GESTIONESCOLAR.Negocio.ComprobantesFormasPago();
-    GESTIONESCOLAR.Negocio.Tarjetas ocnTarjetas = new GESTIONESCOLAR.Negocio.Tarjetas();
-    GESTIONESCOLAR.Negocio.LugaresPago ocnLugaresPago = new GESTIONESCOLAR.Negocio.LugaresPago();
-    GESTIONESCOLAR.Negocio.Bancos ocnBancos = new GESTIONESCOLAR.Negocio.Bancos();
     GESTIONESCOLAR.Negocio.FormasPago ocnFormasPago = new GESTIONESCOLAR.Negocio.FormasPago();
-    GESTIONESCOLAR.Negocio.TarjetasPlanes ocnTarjetasPlanes = new GESTIONESCOLAR.Negocio.TarjetasPlanes();
-    GESTIONESCOLAR.Negocio.PagosTarjetas ocnPagosTarjetas = new GESTIONESCOLAR.Negocio.PagosTarjetas();
-    GESTIONESCOLAR.Negocio.PagosCheques ocnPagosCheques = new GESTIONESCOLAR.Negocio.PagosCheques();
-    GESTIONESCOLAR.Negocio.PagosTransferenciaElectronica ocnPagosTransferenciaElectronica = new GESTIONESCOLAR.Negocio.PagosTransferenciaElectronica();
     GESTIONESCOLAR.Negocio.ComprobantesDetalle ocnComprobantesDetalle = new GESTIONESCOLAR.Negocio.ComprobantesDetalle();
     GESTIONESCOLAR.Negocio.ConceptosIntereses ocnConceptosIntereses = new GESTIONESCOLAR.Negocio.ConceptosIntereses();
     GESTIONESCOLAR.Negocio.IntencionPagos ocnIntencionPagos = new GESTIONESCOLAR.Negocio.IntencionPagos();
+    GESTIONESCOLAR.Negocio.ComprobantesFormasPago ocnComprobantesFormasPago = new GESTIONESCOLAR.Negocio.ComprobantesFormasPago();
 
 
     int cfoIdNuevo;
     DataTable dt9 = new DataTable();
+    DataTable dtCE = new DataTable();
     int valor;
     int cantCuotasPlan;
     int insId;
@@ -53,40 +46,39 @@ public partial class FacturacionPadres : System.Web.UI.Page
         {
             if (!Page.IsPostBack)
             {
-                ///
+                ///Se recibe desde la página de SIRO Pagos
                 IdReferenciaOperacion = Request.QueryString["IdReferenciaOperacion"];
                 IdResultado = Request.QueryString["IdResultado"];
-                //string token = bearerToken; // Reemplazar con tu token real
-
+                ///////////////////////////
                 if (!string.IsNullOrEmpty(IdReferenciaOperacion) && !string.IsNullOrEmpty(IdResultado))
                 {
                     //Label4.Text = "IdReferenciaOperacion: " + IdReferenciaOperacion + " Fin";
                     //Label5.Text = "IdResultado: " + IdResultado + " Fin";
-
                     string hash_ = "";
                     string bearerToken_ = "";
-
-
                     string idRO_aluid = IdReferenciaOperacion.Substring(50, 50);
                     // Quitamos los ceros a la izquierda de la segunda parte
                     idRO_aluid = idRO_aluid.TrimStart('0');
 
-                    //Label7.Text = " Hash devuelto: ";
+                    //Label7.Text = " idRO: " + IdReferenciaOperacion + " - Aluid: " + idRO_aluid;
 
                     dt = new DataTable();
                     dt = ocnIntencionPagos.ObtenerTodoBuscarxVarios(IdReferenciaOperacion, Convert.ToInt32(idRO_aluid));
                     if (dt.Rows.Count > 0)
                     {
+                        lblSubTotal.Text = dt.Rows[0]["inp_Monto"].ToString();
                         hash_ = dt.Rows[0]["inp_hash"].ToString();
-                        //Label7.Text = " Luego de buscar y encontrar.. ";
-                        //Label8.Text = "bearerToken_ " + dt.Rows[0]["inp_bearerToken"].ToString();
+                        //Label7.Text = " Luego de ObtenerTodoBuscarxVarios y encontrar.. ";
+                        //EstadoPago.Text = "bearerToken_ " + dt.Rows[0]["inp_bearerToken"].ToString();
                         bearerToken_ = dt.Rows[0]["inp_bearerToken"].ToString();
                         CargarDatosAlumnoyPago(Convert.ToInt32(dt.Rows[0]["aluid"].ToString()));
-                        GrillaCargar(Convert.ToInt32(dt.Rows[0]["aluid"].ToString()));                   
+                        //Label7.Text = "Luego de CargarDatosAlumnoyPago y encontrar.. hash: " + hash_ + " bearerToken_: " + bearerToken_ + " IdResultado: " + IdResultado + " Fin";
+                        GrillaCargar(Convert.ToInt32(dt.Rows[0]["aluid"].ToString()));
                     }
                     string json = ConsultarEstadoPago(hash_, IdResultado, bearerToken_);
                     if (json != "")
                     {
+                        //Label7.Text = "Luego de ConsultarEstadoPago.. json " + json;
                         // Deserializar JSON a diccionario
                         var serializer = new JavaScriptSerializer();
                         var datos = serializer.Deserialize<Dictionary<string, object>>(json);
@@ -94,70 +86,80 @@ public partial class FacturacionPadres : System.Web.UI.Page
                         // Acceder a cada campo
                         bool pagoExitoso = Convert.ToBoolean(datos["PagoExitoso"]);
                         string estado = datos["Estado"].ToString();
+                        string estadoconmensaje = "";
                         string mensaje = "";
                         string fecha = "";
                         string idOperacion = "";
                         string refOperacion = "";
+                        //var Rendicion = "";
+                        btnImprimir.Enabled = false;
                         if (estado == "PROCESADA")
                         {
                             lblTotal.Text = lblSubTotal.Text;
+                            //Rendicion = datos["Rendición"].ToString(); 
                             mensaje = datos["MensajeResultado"].ToString();
                             fecha = datos["FechaOperacion"].ToString();
                             idOperacion = datos["IdOperacion"].ToString();
                             refOperacion = datos["idReferenciaOperacion"].ToString();
-                            estado = "La operación fue " + estado + " correctamente!";
-                            btnGrabar();
+                            estadoconmensaje = "La operación fue " + estado + " correctamente!";
+
+                            //IdReferenciaOperacion
+                            // Consulto si
+                            dtCE = new DataTable();
+                            dtCE = ocnIntencionPagos.ObtenerEstado(IdReferenciaOperacion);
+                            if (dtCE.Rows.Count > 0)
+                            {
+                                if (dtCE.Rows[0]["inp_Estado"].ToString() != "PROCESADA")
+                                {
+                                    btnGrabar(IdReferenciaOperacion);
+                                }
+                            }
                             btnPagar.Enabled = false;
+                            btnImprimir.Enabled = true;
                         }
                         else
                         {
                             if (estado == "CANCELADA")
                             {
-                                estado = "La operación fue " + estado + " por el Usuario!";
+                                estadoconmensaje = "La operación fue CANCELADA por el Usuario!";
                             }
                             else
                             {
                                 if (estado == "ERROR")
                                 {
-                                    estado = "Se produjo un " + estado + " al intentar realizar la operación! Reintente!";
+                                    estadoconmensaje = "Se produjo un " + estado + " al intentar realizar la operación! Reintente!";
                                 }
                                 else
                                 {
                                     if (estado == "RECHAZADA")
                                     {
-                                        estado = "La operación fue " + estado + " al intentar realizar la operación! Reintente!";
-                                    }
-                                    else
-                                    {
-                                        if (estado == "REGISTRADA")
-                                        {
-                                            estado = "La operación fue " + estado + " pero no se completó completamente!";
-                                        }
+                                        estadoconmensaje = "La operación fue " + estado + " al intentar realizar la operación! Reintente!";
                                     }
                                 }
                             }
                         }
+                        /// Actualizar Estado
+                        int Id = 0;
+                        ocnIntencionPagos = new GESTIONESCOLAR.Negocio.IntencionPagos(Id);
+                        ocnIntencionPagos.ActualizarEstado(IdReferenciaOperacion, estado);
+                        ///
                         // Mostrar en pantalla
-                        Label8.Text = "<b>Resultado del Pago:</b><br/>" +
+                        EstadoPago.Text = "<b>Resultado del Pago:</b><br/>" +
                                           //"Pago Exitoso: " + pagoExitoso + "<br/>" +
-                                          "Mensaje: " + mensaje + "<br/>" +
+                                          //mensaje + "<br/>" +
                                           //"Fecha: " + fecha + "<br/>" +
-                                          "Estado: " + estado + "<br/>";
-                                          //"Id Operación: " + idOperacion + "<br/>" +
-                                          //"Referencia: " + refOperacion;
+                                          estadoconmensaje + "<br/>";
+                        //"Id Operación: " + idOperacion + "<br/>" +
+                        //"Referencia: " + refOperacion;
                     }
 
                 }
                 else
                 {
-
                     this.ViewState["paginaorigen"] = Request.UrlReferrer.ToString();
-                    lblicuId.Text = Convert.ToString(Request.QueryString["Id"]);
-                    if (lblicuId.Text.Trim() != "")
-                    {
-                        CargarDatosAlumnoyPago(Convert.ToInt32(lblicuId.Text.Trim().ToString()));
-                        GrillaCargar(Convert.ToInt32(lblicuId.Text.Trim().ToString()));
-                    }
+                    lblaluid.Text = Convert.ToString(Request.QueryString["Id"]);
+                    CargarDatosAlumnoyPago(Convert.ToInt32(lblaluid.Text.Trim().ToString()));
+                    GrillaCargar(Convert.ToInt32(lblaluid.Text.Trim().ToString()));
                 }
 
                 #region PageIndex
@@ -190,7 +192,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
         }
     }
 
-    private void CargarDatosAlumnoyPago(int IC)
+    private void CargarDatosAlumnoyPago(int aluid)
     {
         this.ViewState["paginaorigen"] = Request.UrlReferrer.ToString();
         this.Master.TituloDelFormulario = " Pago de Aranceles";
@@ -198,20 +200,16 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
         lblTotal.Text = "0";
         lblcocId.Text = "";
         lblinst.Text = "";
-        //int IC = Convert.ToInt32(Request.QueryString["Id"]);
-        //lblicuId.Text = Convert.ToString(Request.QueryString["Id"]);
         DataTable dt2 = new DataTable();
-
-        dt2 = ocnInscripcionCursado.ObtenerUno(IC);
+        dt2 = ocnAlumno.ObtenerUno(aluid);
         if (dt2.Rows.Count > 0)
         {
             //lblInstitucion.Text = dt2.Rows[0]["InstNombre"].ToString();
-            lblNombre.Text = dt2.Rows[0]["Alumno"].ToString();
-            lblDni.Text = dt2.Rows[0]["DNI"].ToString();
-            lblaluid.Text = dt2.Rows[0]["AluId"].ToString();
-            lblinst.Text = dt2.Rows[0]["Inst"].ToString();
-            insId = Convert.ToInt32(lblinst.Text);
-            //lblDireccion.Text = dt.Rows[0]["Domicilio"].ToString();
+            lblNombre.Text = dt2.Rows[0]["Nombre"].ToString();
+            lblDni.Text = dt2.Rows[0]["Doc"].ToString();
+            lblaluid.Text = aluid.ToString();
+            lblinst.Text = "1";  // dt2.Rows[0]["Inst"].ToString();
+            //insId = Convert.ToInt32(lblinst.Text);
             DateTime fechaActual = DateTime.Today;
             /*txtAnioLectivo.Text = fechaActual.Year.ToString()*/
 
@@ -219,48 +217,32 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
             //lblanioLectivo.Text = dt2.Rows[0]["AnoCursado"].ToString();
             //lblTutor.Text = dt2.Rows[0]["TutorApe"].ToString() + "  " + "" + dt2.Rows[0]["TutorNombre"].ToString();
         }
-        CompTipoId.DataValueField = "Valor"; CompTipoId.DataTextField = "Texto"; CompTipoId.DataSource = (new GESTIONESCOLAR.Negocio.ComprobantesTipos()).ObtenerListaxInst("[Seleccionar...]", insId); CompTipoId.DataBind();
-        CompTipoId.SelectedValue = "1";
-        //TarjetaId.DataValueField = "Valor"; TarjetaId.DataTextField = "Texto"; TarjetaId.DataSource = (new GESTIONESCOLAR.Negocio.Tarjetas()).ObtenerLista("[Seleccionar...]"); TarjetaId.DataBind();
-        //BancoId.DataValueField = "Valor"; BancoId.DataTextField = "Texto"; BancoId.DataSource = (new GESTIONESCOLAR.Negocio.Bancos()).ObtenerLista("[Seleccionar...]"); BancoId.DataBind();
+        //CompTipoId.DataValueField = "Valor"; CompTipoId.DataTextField = "Texto"; CompTipoId.DataSource = (new GESTIONESCOLAR.Negocio.ComprobantesTipos()).ObtenerListaxInst("[Seleccionar...]", insId); CompTipoId.DataBind();
+        //CompTipoId.SelectedValue = "1";
+        //DestinoId.DataValueField = "Valor"; DestinoId.DataTextField = "Texto"; DestinoId.DataSource = (new GESTIONESCOLAR.Negocio.ComprobantesDestinos()).ObtenerLista("[Seleccionar...]"); DestinoId.DataBind();
+        //DestinoId.SelectedValue = "1";
+        //DataTable dt = new DataTable();
+        //dt.Columns.Add("IdLP", typeof(Int32));
+        //dt.Columns.Add("IdFP", typeof(Int32));
+        //dt.Columns.Add("FormaPago", typeof(String));
+        //dt.Columns.Add("Importe", typeof(Decimal));
+        //dt.Columns.Add("FchPago", typeof(DateTime));
+        //dt.Columns.Add("TarjetaId", typeof(Int32));
+        //dt.Columns.Add("Tarjeta", typeof(String));
+        //dt.Columns.Add("NroCuota", typeof(Int32));
+        //dt.Columns.Add("NroCupon", typeof(String));
+        //dt.Columns.Add("ImporteCuota", typeof(Decimal));
+        //dt.Columns.Add("PlanTarj", typeof(String));
+        //dt.Columns.Add("Interes", typeof(String));
+        //dt.Columns.Add("TotalTarj", typeof(Decimal));
+        //dt.Columns.Add("IdPlanTarj", typeof(int));
+        //dt.Columns.Add("BancoId", typeof(Int32));
+        //dt.Columns.Add("Banco", typeof(String));
+        //dt.Columns.Add("NroCta", typeof(String));
+        //dt.Columns.Add("NroCheque", typeof(String));
+        //dt.Columns.Add("TotalFinal", typeof(Decimal));
 
-        //Banco2Id.DataValueField = "Valor"; Banco2Id.DataTextField = "Texto"; Banco2Id.DataSource = (new GESTIONESCOLAR.Negocio.Bancos()).ObtenerLista("[Seleccionar...]"); Banco2Id.DataBind();
-
-        DestinoId.DataValueField = "Valor"; DestinoId.DataTextField = "Texto"; DestinoId.DataSource = (new GESTIONESCOLAR.Negocio.ComprobantesDestinos()).ObtenerLista("[Seleccionar...]"); DestinoId.DataBind();
-        DestinoId.SelectedValue = "1";
-        //LugarPagoId.DataValueField = "Valor"; LugarPagoId.DataTextField = "Texto"; LugarPagoId.DataSource = (new GESTIONESCOLAR.Negocio.LugaresPago()).ObtenerLista("[Seleccionar...]"); LugarPagoId.DataBind();
-        //LugarPagoId.SelectedValue = "1";
-        //FchPago.Text = DateTime.Today;
-        DataTable dt = new DataTable();
-        dt.Columns.Add("IdLP", typeof(Int32));
-        dt.Columns.Add("IdFP", typeof(Int32));
-        dt.Columns.Add("FormaPago", typeof(String));
-        dt.Columns.Add("Importe", typeof(Decimal));
-        dt.Columns.Add("FchPago", typeof(DateTime));
-        dt.Columns.Add("TarjetaId", typeof(Int32));
-        dt.Columns.Add("Tarjeta", typeof(String));
-        dt.Columns.Add("NroCuota", typeof(Int32));
-        dt.Columns.Add("NroCupon", typeof(String));
-        dt.Columns.Add("ImporteCuota", typeof(Decimal));
-        dt.Columns.Add("PlanTarj", typeof(String));
-        dt.Columns.Add("Interes", typeof(String));
-        dt.Columns.Add("TotalTarj", typeof(Decimal));
-        dt.Columns.Add("IdPlanTarj", typeof(int));
-        dt.Columns.Add("BancoId", typeof(Int32));
-        dt.Columns.Add("Banco", typeof(String));
-        dt.Columns.Add("NroCta", typeof(String));
-        dt.Columns.Add("NroCheque", typeof(String));
-        dt.Columns.Add("TotalFinal", typeof(Decimal));
-
-        Session["Facturar"] = dt;
-
-        dt9 = ocnComprobantesPtosVta.ObtenerUnoxInstxTipoCompxDest(insId, Convert.ToInt32(CompTipoId.SelectedValue), Convert.ToInt32(DestinoId.SelectedValue));
-        lblCompTipo.Text = dt9.Rows[0]["ComprobantesTipos"].ToString();
-        lblNroPtoVta.Text = dt9.Rows[0]["PtoVta"].ToString();
-        lblcpvId.Text = dt9.Rows[0]["Id"].ToString();
-        valor = Convert.ToInt32(dt9.Rows[0]["UltimoNro"].ToString());
-        int NroCompr = valor + 1;
-        lblUltimoNro.Text = string.Format("{0:00000000}", NroCompr);
+        //Session["Facturar"] = dt;
 
         DateTime fecha = DateTime.Now;
         txtFechaPago.Text = fecha.ToShortDateString();
@@ -297,7 +279,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
         ((Button)sender).Parent.Controls[5].Visible = false;
     }
 
- 
+
 
     private void GrillaCargar(int PageIndex)
     {
@@ -884,12 +866,8 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
 
     }
 
-    //protected void Grabar_Click(object sender, EventArgs e)
-    //{
-    //    btnGrabar();
-    //}
 
-    protected void btnGrabar()
+    protected void btnGrabar(String IdReferenciaOperacion)
     {
         try
         {
@@ -906,35 +884,38 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
             }
             else
             {
-                insId = Convert.ToInt32(lblinst.Text);
-                dt9 = ocnComprobantesPtosVta.ObtenerUnoxInstxTipoCompxDest(insId, Convert.ToInt32(CompTipoId.SelectedValue), Convert.ToInt32(DestinoId.SelectedValue));
-                lblCompTipo.Text = dt9.Rows[0]["ComprobantesTipos"].ToString();
+                //insId = Convert.ToInt32(lblinst.Text);
+                //dt9 = ocnComprobantesPtosVta.ObtenerUnoxInstxTipoCompxDest(insId, Convert.ToInt32(CompTipoId.SelectedValue), Convert.ToInt32(DestinoId.SelectedValue));
+                //lblCompTipo.Text = dt9.Rows[0]["ComprobantesTipos"].ToString();
+
                 //DataTable dt5 = new DataTable();
                 //dt5 = Session["Facturar"] as DataTable;
                 //dt5 = Session["GrillaFinal"] as DataTable;
                 int LugPago = 4;
                 Decimal ImportePagar2 = Convert.ToDecimal(lblTotal.Text.ToString());
 
-              
                 DateTime FechaHoraCreacion = DateTime.Now;
                 DateTime FechaHoraUltimaModificacion = DateTime.Now;
                 DateTime patFechaHoraCreacion = DateTime.Now;
                 DateTime patFechaHoraUltimaModificacion = DateTime.Now;
                 int usuIdCreacion = this.Master.usuId;
                 int usuIdUltimaModificacion = this.Master.usuId;
+                insId = 1;
                 DataTable dt8 = new DataTable();
-                dt8 = ocnComprobantesPtosVta.ObtenerUnoxInstxTipoCompxDest(Convert.ToInt32(insId), Convert.ToInt32(CompTipoId.SelectedValue), Convert.ToInt32(DestinoId.SelectedValue));
-                valor = Convert.ToInt32(dt9.Rows[0]["UltimoNro"].ToString());
+                //Label7.Text = "Antes de ObtenerUnoxInstxTipoCompxDest : " + Convert.ToInt32(insId) + " - " + Convert.ToInt32(CompTipoId.SelectedValue) + " - " + Convert.ToInt32(DestinoId.SelectedValue);
+                dt8 = ocnComprobantesPtosVta.ObtenerUnoxInstxTipoCompxDest(Convert.ToInt32(insId), 1, 1);
+                valor = Convert.ToInt32(dt8.Rows[0]["UltimoNro"].ToString());
                 int NroCompr = valor + 1;
                 //lblUltimoNro.Text = string.Format("{0:00000000}", NroCompr);
                 lblUltimoNro.Text = Convert.ToString(NroCompr);
-                int compPtoVta = Convert.ToInt32(lblcpvId.Text);
-                int cpvid = Convert.ToInt32(dt9.Rows[0]["Id"].ToString());
+                int cpvid = Convert.ToInt32(dt8.Rows[0]["Id"].ToString());
+                lblNroPtoVta.Text = dt8.Rows[0]["PtoVta"].ToString();
 
                 //Insertar y Actualizar Tablas
                 //Comprobante Cabecera
+                //Label77.Text = IdReferenciaOperacion;
                 //int cocIdNuevo = ocnComprobantesCabecera.InsertarTraerId(Convert.ToInt32(CompTipoId.SelectedValue), lblNroPtoVta.Text, lblUltimoNro.Text, Convert.ToDateTime(dt5.Rows[0]["FchPago"].ToString()), ImportePagar2, LugPago, "", true, usuIdCreacion, usuIdUltimaModificacion, FechaHoraCreacion, FechaHoraUltimaModificacion);
-                int cocIdNuevo = ocnComprobantesCabecera.InsertarTraerId(Convert.ToInt32(CompTipoId.SelectedValue), lblNroPtoVta.Text, lblUltimoNro.Text, Convert.ToDateTime(txtFechaPago.Text.ToString()), ImportePagar2, LugPago, "", true, usuIdCreacion, usuIdUltimaModificacion, FechaHoraCreacion, FechaHoraUltimaModificacion);
+                int cocIdNuevo = ocnComprobantesCabecera.InsertarConRefOpeTraerId(1, lblNroPtoVta.Text, lblUltimoNro.Text, Convert.ToDateTime(txtFechaPago.Text.ToString()), ImportePagar2, LugPago, "", true, usuIdCreacion, usuIdUltimaModificacion, FechaHoraCreacion, FechaHoraUltimaModificacion, IdReferenciaOperacion);
                 lblcocId.Text = Convert.ToString(cocIdNuevo);
 
                 ocnComprobantesPtosVta.ActualizarUltimoNro(cpvid, NroCompr, usuIdCreacion, usuIdUltimaModificacion, FechaHoraCreacion, FechaHoraUltimaModificacion);
@@ -969,45 +950,14 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                         cdeIdNew = ocnComprobantesDetalle.InsertarTraeId(cocIdNuevo, Convert.ToInt32(row["icoId"].ToString()), sumatoria, true, usuIdCreacion, usuIdUltimaModificacion, FechaHoraCreacion, FechaHoraUltimaModificacion);
 
                         //Forma Pago
-                        //if (dt5.Rows.Count > 0)
-                        //{
-                        //    int FormPagoIn;
-                        //    decimal ImpParcial;
-                        //    foreach (DataRow row2 in dt5.Rows)
-                        //    {
-                        //        FormPagoIn = Convert.ToInt32(row2["IdFP"].ToString());
-
-                        //        if (FormPagoIn == 1)
-                        //        {
-                        //            ImpParcial = sumatoria * porCont / 100;
-                        //            cfoIdNuevo = ocnComprobantesFormasPago.InsertarTraerId(cdeIdNew, FormPagoIn, ImpParcial, true, usuIdCreacion, usuIdUltimaModificacion, FechaHoraCreacion, FechaHoraUltimaModificacion);
-                        //        }
-                        //        if (FormPagoIn == 2)
-                        //        {
-                        //            decimal ImpParcial2 = (sumatoria * porTarj / 100) / varTarj;
-                        //            ImpParcial = ImpParcial2 + IntCuota;
-                        //            cfoIdNuevo = ocnComprobantesFormasPago.InsertarTraerId(cdeIdNew, FormPagoIn, ImpParcial, true, usuIdCreacion, usuIdUltimaModificacion, FechaHoraCreacion, FechaHoraUltimaModificacion);
-                        //            ocnPagosTarjetas.Insertar(cfoIdNuevo, Convert.ToInt32(row2["TarjetaId"].ToString()), Convert.ToInt32(row2["IdPlanTarj"].ToString()), Convert.ToDecimal(row2["Interes"].ToString()), Convert.ToDecimal(row2["ImporteCuota"].ToString()), Convert.ToInt32(row2["NroCuota"].ToString()), Convert.ToString(row2["NroCupon"].ToString()), true, usuIdCreacion, usuIdUltimaModificacion, patFechaHoraCreacion, patFechaHoraUltimaModificacion);
-                        //        }
-                        //        if (FormPagoIn == 3)
-                        //        {
-                        //            ImpParcial = (sumatoria * porcheque / 100) / conCheq;
-                        //            cfoIdNuevo = ocnComprobantesFormasPago.InsertarTraerId(cdeIdNew, FormPagoIn, ImpParcial, true, usuIdCreacion, usuIdUltimaModificacion, FechaHoraCreacion, FechaHoraUltimaModificacion);
-                        //            ocnPagosCheques.Insertar(cfoIdNuevo, ImpParcial, Convert.ToString(row2["NroCheque"].ToString()), Convert.ToInt32(row2["BancoId"].ToString()), true, usuIdCreacion, usuIdUltimaModificacion, FechaHoraCreacion, FechaHoraUltimaModificacion);
-                        //        }
-                        //        if (FormPagoIn == 4)
-                        //        {
-                        //            ImpParcial = sumatoria * porTranf / 100;
-                        //            cfoIdNuevo = ocnComprobantesFormasPago.InsertarTraerId(cdeIdNew, FormPagoIn, ImpParcial, true, usuIdCreacion, usuIdUltimaModificacion, FechaHoraCreacion, FechaHoraUltimaModificacion);
-                        //            ocnPagosTransferenciaElectronica.Insertar(cfoIdNuevo, Convert.ToInt32(row2["Importe"].ToString()), Convert.ToString(row2["NroCta"].ToString()), Convert.ToInt32(row2["BancoId"].ToString()), true, usuIdCreacion, usuIdUltimaModificacion, FechaHoraCreacion, FechaHoraUltimaModificacion);
-                        //        }
-                        //    }
-                        //}
+                        cfoIdNuevo = ocnComprobantesFormasPago.InsertarTraerId(cdeIdNew, 5, sumatoria, true, usuIdCreacion, usuIdUltimaModificacion, FechaHoraCreacion, FechaHoraUltimaModificacion);
                     }
                 }
+                lab_inp_IdReferenciaOperacion.Text = IdReferenciaOperacion;
                 btnImprimir.Visible = true;
                 btnImprimir.Enabled = true;
             }
+
         }
         catch (Exception oError)
         {
@@ -1030,15 +980,10 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
         try
         {
             String NomRep;
-            Int32 icuId = Int32.Parse(lblicuId.Text);
-            Int32 cocId = Int32.Parse(lblcocId.Text);
-            Int32 cocId2 = Int32.Parse(lblcocId.Text);
-            Int32 cocId3 = Int32.Parse(lblcocId.Text);
-            int InstId = Convert.ToInt32(this.Session["_Institucion"]);
+            String inp_IdReferenciaOperacion = lab_inp_IdReferenciaOperacion.Text; 
 
-            NomRep = "InformeFactura.rpt";
-            FuncionesUtiles.AbreVentana("Reporte.aspx?icuId=" + icuId + "&cocId=" + cocId + "&cocId2=" + cocId2 + "&cocId3=" + cocId3 + "&NomRep=" + NomRep);
-            //FuncionesUtiles.AbreVentana("Reporte.aspx?icuId=" + icuId + "&cocId=" + cocId + "&NomRep=" + NomRep);
+            NomRep = "InformeFacturaNueva.rpt";
+            FuncionesUtiles.AbreVentana("Reporte.aspx?inp_IdReferenciaOperacion=" + inp_IdReferenciaOperacion + "&NomRep=" + NomRep);
 
         }
         catch (Exception oError)
@@ -1056,8 +1001,8 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
 
     protected void btnGestion_Click(object sender, EventArgs e)
     {
-        Response.Redirect("https://obramisericordista.com.ar/PaginasGenerales/EstadoCuentaPadres.aspx", false);
-
+        //Response.Redirect("https://obramisericordista.com.ar/PaginasGenerales/EstadoCuentaPadres.aspx", false);
+        Response.Redirect("../PaginasGenerales/EstadoCuentaPadres.aspx", false);
     }
 
     protected void chkSeleccion_CheckedChanged(object sender, EventArgs e)
@@ -1067,6 +1012,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
 
     protected void btnPagar_Click(object sender, EventArgs e)
     {
+        lab_inp_IdReferenciaOperacion.Text = "";
         bearerToken = InicioSesion();
         if (!string.IsNullOrEmpty(bearerToken))
         {
@@ -1080,14 +1026,20 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                 //Label7.Text = hash;
                 //Label6.Text = bearerToken;
 
-                // Guardar en Session usando el IdReferenciaOperacion como clave
-                //Session["Hash_" + payload.IdReferenciaOperacion] = hash;
-                //Session["Hash__"] = hash;
-                //Session["bearerToken__"] = bearerToken;
-
                 int Id = 0;
                 ocnIntencionPagos = new GESTIONESCOLAR.Negocio.IntencionPagos(Id);
-                ocnIntencionPagos.Actualizar(Convert.ToInt32(lblicuId.Text.Trim().ToString()), bearerToken, hash, resultado_Pago);
+                ocnIntencionPagos.Actualizar(Convert.ToInt32(lblaluid.Text.Trim().ToString()), bearerToken, hash);
+
+                // Actualizo en InscripcionConcepto el idReferenciaOperacion
+                DataTable dt44 = new DataTable();
+                dt44 = Session["GrillaFinal"] as DataTable;
+
+                // lblidReferenciaOperacion.Text
+                foreach (DataRow row in dt44.Rows)
+                {
+                    ocnInscripcionConcepto.ActualizarIdReferenciaOperacion(Convert.ToInt32(row["icoid"].ToString()), lblidReferenciaOperacion.Text.Trim());
+                }
+                ///////
 
                 Response.Redirect(urlPago, false);
                 Context.ApplicationInstance.CompleteRequest();
@@ -1125,7 +1077,6 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
             referencia = referencia,
             cuit = cuit
         };
-
 
         // Se convierte el objeto en un string JSON usando JavaScriptSerializer
         var jsonSerializer = new JavaScriptSerializer();
@@ -1181,7 +1132,9 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
 
     private string RealizarPago(string bearerTokenOrigen)
     {
-        string url = "https://siropagosh.bancoroela.com.ar/api/Pago";
+        string url = "";
+        url = "https://siropagosh.bancoroela.com.ar/api/Pago";
+        //url = "https://siropagos.bancoroela.com.ar/api/Pago";
 
         // Este token debe ser el que te entrega SIRO
         string bearerToken = bearerTokenOrigen;  //"Bearer " +
@@ -1194,7 +1147,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
         String ReferenciaOperacion = ""; // numero.ToString();
         //String NroComprobante = "0000000" + lblNroPtoVta.Text + lblUltimoNro.Text;
 
-        String NroComprobante = ahora.ToString("yyMMddHHmmss");       
+        String NroComprobante = ahora.ToString("yyMMddHHmmss");
         NroComprobante = long.Parse(NroComprobante).ToString();
         NroComprobante = NroComprobante + lblaluid.Text.Trim().ToString();
         NroComprobante = NroComprobante.PadLeft(20, '0');
@@ -1203,6 +1156,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
         ReferenciaOperacion = ReferenciaOperacion.PadLeft(50, '0');
         String aluid = lblaluid.Text.Trim().ToString().PadLeft(50, '0');
         ReferenciaOperacion = ReferenciaOperacion + aluid;
+        lblidReferenciaOperacion.Text = ReferenciaOperacion;
 
         DateTime FechaExp = DateTime.Now.AddHours(1);
         var payload = new
@@ -1231,7 +1185,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
         ocnIntencionPagos.inp_Monto = ImporteTotal;
         ocnIntencionPagos.usuIdCreacion = this.Master.usuId;
         ocnIntencionPagos.inp_comprobantenro = NroComprobante;
-        ocnIntencionPagos.aluid = Convert.ToInt32(lblicuId.Text.Trim().ToString());
+        ocnIntencionPagos.aluid = Convert.ToInt32(lblaluid.Text.Trim().ToString());
         ocnIntencionPagos.inp_FechaExpiracion = FechaExp;
         ocnIntencionPagos.inp_bearerToken = bearerToken;
         //Nuevo
@@ -1291,7 +1245,6 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
 
     private string ConsultarEstadoPago(string hash, string idResultado, string bearerToken)
     {
-
         string url = "https://siropagosh.bancoroela.com.ar/api/Pago/" + hash + "/" + idResultado;
         //Label9.Text = "URL: " + url + " Final..";
 
@@ -1381,47 +1334,47 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
 
 
 
-    protected void btnRecibirListadoClick(object sender, EventArgs e)
-    {
-        //bearerToken = InicioSesion();
-        //string token = bearerToken;
-        //DateTime desde = new DateTime(2020, 11, 01);
-        //DateTime hasta = new DateTime(2020, 11, 30);
-        //string cuitadministrador = "20233953270";
-        //string nroempresa = "5150058293"; // "0428544445150058293";
+    //protected void btnRecibirListadoClick(object sender, EventArgs e)
+    //{
+    //    //bearerToken = InicioSesion();
+    //    //string token = bearerToken;
+    //    //DateTime desde = new DateTime(2020, 11, 01);
+    //    //DateTime hasta = new DateTime(2020, 11, 30);
+    //    //string cuitadministrador = "20233953270";
+    //    //string nroempresa = "5150058293"; // "0428544445150058293";
 
-        //var lineas = ObtenerListadoPagosSIRO(token, desde, hasta, cuitadministrador, nroempresa);
+    //    //var lineas = ObtenerListadoPagosSIRO(token, desde, hasta, cuitadministrador, nroempresa);
 
-        //foreach (var linea in lineas)
-        //{
-        //    var pago = ParsearLineaUnificada(linea);
-        //    if (pago != null)
-        //    {
-        //        Response.Write("<b>" + pago.FechaPago + "</b> - " + pago.IdReferenciaOperacion + " - $" + pago.Importe.ToString("N2") + " - " + pago.CanalCobro + "<br/>");
-        //    }
-        //}
+    //    //foreach (var linea in lineas)
+    //    //{
+    //    //    var pago = ParsearLineaUnificada(linea);
+    //    //    if (pago != null)
+    //    //    {
+    //    //        Response.Write("<b>" + pago.FechaPago + "</b> - " + pago.IdReferenciaOperacion + " - $" + pago.Importe.ToString("N2") + " - " + pago.CanalCobro + "<br/>");
+    //    //    }
+    //    //}
 
 
-        string ruta = Server.MapPath("~/SIRO/SiroCobranzas.txt"); // o ruta absoluta
-        var lineas = LeerArchivoLocal(ruta);
+    //    string ruta = Server.MapPath("~/SIRO/SiroCobranzas.txt"); // o ruta absoluta
+    //    var lineas = LeerArchivoLocal(ruta);
 
-        foreach (string linea in lineas)
-        {
-            var pago = ParsearLineaUnificada(linea);
-            if (pago != null)
-            {
-                //Response.Write(string.Format(
-                //    "<b>{0}</b> - {1} - ${2} - Canal: {3}<br/>",
-                //    pago.FechaPago,
-                //    pago.IdReferenciaOperacion,
-                //    pago.Importe.ToString("N2"),
-                //    pago.CanalCobro
-                //));
-                Label8.Text = Label8.Text + " || " + pago.idUsuario + " - " + pago.idComprobante + " - " + pago.FechaPago + " - " + pago.IdReferenciaOperacion + " - " + pago.ImportePagado.ToString("N2") + " - " + pago.CanalCobro + " <br/>";
-            }
-        }
+    //    foreach (string linea in lineas)
+    //    {
+    //        var pago = ParsearLineaUnificada(linea);
+    //        if (pago != null)
+    //        {
+    //            //Response.Write(string.Format(
+    //            //    "<b>{0}</b> - {1} - ${2} - Canal: {3}<br/>",
+    //            //    pago.FechaPago,
+    //            //    pago.IdReferenciaOperacion,
+    //            //    pago.Importe.ToString("N2"),
+    //            //    pago.CanalCobro
+    //            //));
+    //            Label8.Text = Label8.Text + " || " + pago.idUsuario + " - " + pago.idComprobante + " - " + pago.FechaPago + " - " + pago.IdReferenciaOperacion + " - " + pago.ImportePagado.ToString("N2") + " - " + pago.CanalCobro + " <br/>";
+    //        }
+    //    }
 
-    }
+    //}
 
 
 
@@ -1434,7 +1387,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                 FechaPago = FormatearFecha(linea.Substring(0, 8)), // AAAAMMDD
                 fechaacreditacion = FormatearFecha(linea.Substring(8, 8)),
                 idUsuario = linea.Substring(35, 8).Trim(),
-                ImportePagado = Decimal.Parse(linea.Substring(24, 11)) /100m,
+                ImportePagado = Decimal.Parse(linea.Substring(24, 11)) / 100m,
                 idComprobante = linea.Substring(103, 20).Trim(),
                 CanalCobro = linea.Substring(123, 3).Trim(),
                 CodigoRechazo = linea.Substring(126, 3).Trim(),

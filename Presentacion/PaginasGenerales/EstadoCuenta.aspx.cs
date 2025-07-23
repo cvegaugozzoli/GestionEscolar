@@ -195,8 +195,8 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                                 row1["NroCompbte"] = Convert.ToString(dt6.Rows[0]["NroCompbte"].ToString());
                                                 row1["Curso"] = Convert.ToString(row5["Curso"].ToString());
 
-                                                int qq = 0;
-                                                qq = ins_Id;
+                                                //int qq = 0;
+                                                //qq = ins_Id;
                                                 //row1["insId"] = (Convert.ToInt32(dt2.Rows[0]["insId"].ToString()));
                                                 row1["insId"] = ins_Id.ToString();
                                                 row1["Colegio"] = Colegio;
@@ -286,7 +286,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                                 //row1["ImporteInteres"] = Convert.ToDecimal(string.Format("{0:0.00}", ValorInteres));
 
                                                 float ValorInteresParcial = 0;
-
+                                                ValorInteresParcial = ValorInteres;  //16/07/2025
                                                 if (Interes > ValorInteres)
                                                 {
                                                     ValorInteresParcial = Interes;
@@ -318,13 +318,17 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                                     {
                                                         ValorInteres = ValorInteres + InteresMensualaPagar;
                                                     }
+                                                    row1["ImporteInteres"] = Convert.ToDecimal(string.Format("{0:0.00}", ValorInteres));
+                                                    ImporteTotal = Convert.ToDecimal(string.Format("{0:0.00}", ImporteBecado)) + Convert.ToDecimal(string.Format("{0:0.00}", ValorInteres));
                                                 }
-                                                row1["ImporteInteres"] = Convert.ToDecimal(string.Format("{0:0.00}", ValorInteresParcial + ValorInteres));
-
-
+                                                else
+                                                {
+                                                    row1["ImporteInteres"] = Convert.ToDecimal(string.Format("{0:0.00}", ValorInteresParcial));
+                                                    ImporteTotal = Convert.ToDecimal(string.Format("{0:0.00}", ImporteBecado)) + Convert.ToDecimal(string.Format("{0:0.00}", ValorInteresParcial));
+                                                }
+                                                //row1["ImporteInteres"] = Convert.ToDecimal(string.Format("{0:0.00}", ValorInteresParcial + ValorInteres));
                                                 row1["BecasInteres"] = row["BecasInteres"].ToString();
-
-                                                ImporteTotal = Convert.ToDecimal(string.Format("{0:0.00}", ImporteBecado)) + Convert.ToDecimal(string.Format("{0:0.00}", ValorInteresParcial + ValorInteres));
+                                                //ImporteTotal = Convert.ToDecimal(string.Format("{0:0.00}", ImporteBecado)) + Convert.ToDecimal(string.Format("{0:0.00}", ValorInteresParcial + ValorInteres));
                                                 row1["ImporteTotal"] = ImporteTotal;
 
                                                 dt.Rows.Add(row1);
@@ -473,7 +477,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                                 //row1["ImporteInteres"] = Convert.ToDecimal(string.Format("{0:0.00}", ValorInteres));
 
                                                 float ValorInteresParcial = ValorInteres;
-
+                                                ValorInteresParcial = ValorInteres;  // 16/07/2025
                                                 if (Interes > ValorInteres)
                                                 {
                                                     ValorInteresParcial = Interes;
@@ -494,6 +498,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                                         }
                                                 }
                                                 Single InteresMensualaPagar = (((Convert.ToSingle(dt5.Rows[0]["ConInteresMensual"].ToString()) * MesesAtrasados) / 100) * (Convert.ToSingle(dt5.Rows[0]["ConImporte"].ToString()) + ValorInteres));
+
                                                 if (InteresMensualaPagar > 0)
                                                 {
 
@@ -505,12 +510,18 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                                     {
                                                         ValorInteres = ValorInteres + InteresMensualaPagar;
                                                     }
+                                                    row1["ImporteInteres"] = Convert.ToDecimal(string.Format("{0:0.00}", ValorInteres));
+                                                    ImporteTotal = Convert.ToDecimal(string.Format("{0:0.00}", ImporteBecado)) + Convert.ToDecimal(string.Format("{0:0.00}", ValorInteres));
                                                 }
-                                                row1["ImporteInteres"] = Convert.ToDecimal(string.Format("{0:0.00}", ValorInteresParcial + ValorInteres));
+                                                else
+                                                {
+                                                    row1["ImporteInteres"] = Convert.ToDecimal(string.Format("{0:0.00}", ValorInteresParcial));
+                                                    ImporteTotal = Convert.ToDecimal(string.Format("{0:0.00}", ImporteBecado)) + Convert.ToDecimal(string.Format("{0:0.00}", ValorInteresParcial));
+                                                }
+                                                //row1["ImporteInteres"] = Convert.ToDecimal(string.Format("{0:0.00}", ValorInteresParcial + ValorInteres));
                                                 row1["BecasInteres"] = row["BecasInteres"].ToString();
-                                                ImporteTotal = Convert.ToDecimal(string.Format("{0:0.00}", ImporteBecado)) + Convert.ToDecimal(string.Format("{0:0.00}", ValorInteresParcial + ValorInteres));
+                                                //ImporteTotal = Convert.ToDecimal(string.Format("{0:0.00}", ImporteBecado)) + Convert.ToDecimal(string.Format("{0:0.00}", ValorInteresParcial + ValorInteres));
                                                 row1["ImporteTotal"] = ImporteTotal;
-
 
                                                 dt.Rows.Add(row1);
                                                 Bandera = 1;
@@ -704,7 +715,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                                 //row1["ImporteInteres"] = Convert.ToDecimal(string.Format("{0:0.00}", ValorInteres));
 
                                                 float ValorInteresParcial = 0;
-
+                                                ValorInteresParcial = ValorInteres;  //16/07/2025
                                                 if (Interes > ValorInteres)
                                                 {
                                                     ValorInteresParcial = Interes;
@@ -737,10 +748,17 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                                         ValorInteres = ValorInteres + InteresMensualaPagar;
                                                     }
                                                 }
-                                                row1["ImporteInteres"] = Convert.ToDecimal(string.Format("{0:0.00}", ValorInteresParcial + ValorInteres));
+                                                if (ValorInteres > 0)
+                                                {
+                                                    row1["ImporteInteres"] = Convert.ToDecimal(string.Format("{0:0.00}", ValorInteres));
+                                                    ImporteTotal = Convert.ToDecimal(string.Format("{0:0.00}", ImporteBecado)) + Convert.ToDecimal(string.Format("{0:0.00}", ValorInteres));
+                                                }
+                                                else
+                                                {
+                                                    row1["ImporteInteres"] = Convert.ToDecimal(string.Format("{0:0.00}", ValorInteresParcial));
+                                                    ImporteTotal = Convert.ToDecimal(string.Format("{0:0.00}", ImporteBecado)) + Convert.ToDecimal(string.Format("{0:0.00}", ValorInteresParcial));
+                                                }
                                                 row1["BecasInteres"] = row["BecasInteres"].ToString();
-
-                                                ImporteTotal = Convert.ToDecimal(string.Format("{0:0.00}", ImporteBecado)) + Convert.ToDecimal(string.Format("{0:0.00}", ValorInteresParcial + ValorInteres));
                                                 row1["ImporteTotal"] = ImporteTotal;
 
 
@@ -925,11 +943,17 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                                         ValorInteres = ValorInteres + InteresMensualaPagar;
                                                     }
                                                 }
-                                                row1["ImporteInteres"] = Convert.ToDecimal(string.Format("{0:0.00}", ValorInteresParcial + ValorInteres));
+                                                if (ValorInteres > 0)
+                                                {
+                                                    row1["ImporteInteres"] = Convert.ToDecimal(string.Format("{0:0.00}", ValorInteres));
+                                                    ImporteTotal = Convert.ToDecimal(string.Format("{0:0.00}", ImporteBecado)) + Convert.ToDecimal(string.Format("{0:0.00}", ValorInteres));
+                                                }
+                                                else
+                                                {
+                                                    row1["ImporteInteres"] = Convert.ToDecimal(string.Format("{0:0.00}", ValorInteresParcial));
+                                                    ImporteTotal = Convert.ToDecimal(string.Format("{0:0.00}", ImporteBecado)) + Convert.ToDecimal(string.Format("{0:0.00}", ValorInteresParcial));
+                                                }
                                                 row1["BecasInteres"] = row["BecasInteres"].ToString();
-
-
-                                                ImporteTotal = Convert.ToDecimal(string.Format("{0:0.00}", ImporteBecado)) + Convert.ToDecimal(string.Format("{0:0.00}", ValorInteresParcial + ValorInteres));
                                                 row1["ImporteTotal"] = ImporteTotal;
 
                                                 dt.Rows.Add(row1);
@@ -984,35 +1008,6 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
 
             if (dt.Rows.Count != 0)
             {
-                //this.GrillaHistorial.DataSource = dt;
-                //this.GrillaHistorial.PageIndex = PageIndex;
-                //this.GrillaHistorial.DataBind();
-                //int CuotaUltPagada = 0;
-                //DateTime Hoy = DateTime.Today;
-
-                //foreach (GridViewRow row in GrillaHistorial.Rows)
-                //{
-                //    if (Convert.ToDecimal(GrillaHistorial.DataKeys[row.RowIndex].Values["ImpPagado"]) != 0)
-                //    {
-                //        row.BackColor = System.Drawing.Color.LightBlue;
-                //        CuotaUltPagada = Convert.ToInt32(GrillaHistorial.DataKeys[row.RowIndex].Values["NroCuota"]);
-                //    }
-                //    else
-                //    {
-                //        if (Convert.ToDateTime(GrillaHistorial.DataKeys[row.RowIndex].Values["FechaVto"]) < Hoy)
-                //        {
-                //            row.BackColor = System.Drawing.Color.FromName("#B81822");
-                //            row.ForeColor = System.Drawing.Color.White;
-                //            lblPagado.Visible = true;
-                //            lblVencido.Visible = true;
-                //            txtcELESTE.Visible = true;
-                //            txtRojo.Visible = true;
-                //            btnImprimir2.Visible = true;                  
-                //        }
-                //    }
-                //}
-
-
                 Decimal TotAdeuda = 0;
                 Decimal txtInt = 0;
                 this.GrillaHistorial.DataSource = dt;
@@ -1048,7 +1043,6 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                         CuotaUltPagada = Convert.ToInt32(GrillaHistorial.DataKeys[row.RowIndex].Values["NroCuota"]);
                         //((CheckBox)row.FindControl("chkSeleccion")).Enabled = false;
                     }
-
                     else
                     {
                         if (Convert.ToDateTime(GrillaHistorial.DataKeys[row.RowIndex].Values["FechaVto"]) < Hoy)
@@ -1265,7 +1259,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                                             InteresCuotaAsignar = ValorInteresCI;
                                                             RecargoAbiertoAsignar = ValorInteresRA;
                                                             InteresMensualAsignar = InteresAplicar;
-                                                            InteresTotal = ValorInteresCI + ValorInteresRA + InteresAplicar;
+                                                            InteresTotal = ValorInteresRA + InteresAplicar;
                                                             fchVtoAsignar = Convert.ToDateTime(UltVto);
                                                         }
                                                         else
@@ -1273,7 +1267,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                                             InteresCuotaAsignar = ValorInteresCI;
                                                             RecargoAbiertoAsignar = ValorInteresRA;
                                                             InteresMensualAsignar = InteresAplicar;
-                                                            InteresTotal = ValorInteresCI + ValorInteresRA + InteresAplicar;
+                                                            InteresTotal = ValorInteresCI + ValorInteresRA;
                                                             fchVtoAsignar = Convert.ToDateTime(UltVto);
                                                         }
                                                     }
@@ -1294,7 +1288,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                                             InteresCuotaAsignar = ValorInteresCI;
                                                             RecargoAbiertoAsignar = ValorInteresRA;
                                                             InteresMensualAsignar = InteresAplicar;
-                                                            InteresTotal = ValorInteresCI + ValorInteresRA + InteresAplicar;
+                                                            InteresTotal = ValorInteresRA + InteresAplicar;
                                                             fchVtoAsignar = Convert.ToDateTime(UltVto);
                                                         }
                                                         else
@@ -1302,7 +1296,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                                             InteresCuotaAsignar = ValorInteresCI;
                                                             RecargoAbiertoAsignar = ValorInteresRA;
                                                             InteresMensualAsignar = InteresAplicar;
-                                                            InteresTotal = ValorInteresCI + ValorInteresRA + InteresAplicar;
+                                                            InteresTotal = ValorInteresCI + ValorInteresRA;
                                                             fchVtoAsignar = Convert.ToDateTime(UltVto);
                                                         }
                                                     }
@@ -1327,7 +1321,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                                             InteresCuotaAsignar = ValorInteresCI;
                                                             RecargoAbiertoAsignar = ValorInteresRA;
                                                             InteresMensualAsignar = InteresAplicar;
-                                                            InteresTotal = ValorInteresCI + ValorInteresRA + InteresAplicar;
+                                                            InteresTotal = ValorInteresRA + InteresAplicar;
                                                             fchVtoAsignar = Convert.ToDateTime(UltVto);
 
                                                         }
@@ -1343,7 +1337,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                                             InteresCuotaAsignar = ValorInteresCI;
                                                             RecargoAbiertoAsignar = ValorInteresRA;
                                                             InteresMensualAsignar = InteresAplicar;
-                                                            InteresTotal = ValorInteresCI + ValorInteresRA + InteresAplicar;
+                                                            InteresTotal = ValorInteresCI + ValorInteresRA;
                                                             fchVtoAsignar = Convert.ToDateTime(UltVto);
                                                         }
                                                     }

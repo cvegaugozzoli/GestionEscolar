@@ -40,6 +40,278 @@
             width: 130px;
             height: 148px;
         }
+
+        /* --- ESTILOS PARA ESCRITORIO Y CENTRADO VERTICAL DEL NOMBRE --- */
+        /* Aplicados por defecto, luego sobrescritos en móvil si es necesario */
+        .row.wrapper.border-bottom.white-bg.page-heading {
+            display: flex;
+            align-items: center; /* Centra verticalmente */
+            /* En escritorio, queremos que el contenido del h2 esté a la izquierda */
+            justify-content: flex-start; /* Alinea a la izquierda */
+            min-height: 60px; /* Asegura una altura mínima para el centrado */
+            padding: 15px; /* Padding por defecto para desktop */
+            box-sizing: border-box;
+        }
+
+            .row.wrapper.border-bottom.white-bg.page-heading .col-lg-10 {
+                display: flex;
+                align-items: center; /* Centra el Label verticalmente */
+                justify-content: flex-start; /* Alinea a la izquierda en desktop */
+                height: 100%;
+                padding: 0;
+            }
+
+            .row.wrapper.border-bottom.white-bg.page-heading h2 {
+                margin: 0;
+                padding: 0;
+                text-align: left; /* Asegura alineación a la izquierda del texto */
+            }
+
+        /* Asegura que la etiqueta tenga un comportamiento de bloque para text-align */
+        #lblTituloDelFormulario {
+            display: block;
+            width: 100%;
+            text-align: left; /* Alinea el texto a la izquierda en desktop */
+        }
+
+        /* Nuevos*/
+        /* Estilos para el form-row principal (filtros) */
+        .form-row {
+            display: flex; /* Asegura que se comporte como flexbox */
+            flex-wrap: wrap;
+            align-items: flex-end; /* Para alinear los elementos a la parte inferior (útil para botones) */
+        }
+
+        div.form-row.form-row-transparent-bg {
+            background-color: transparent !important;
+        }
+
+        /* Ajustes para "Solo Adeudados" en escritorio */
+        .solo-adeudados-group {
+            padding-top: 25px; /* Ajusta este valor para alinear el checkbox con el textbox de Año Lectivo */
+            /* text-align: left; /* Asegúrate de que el texto no se alinee a la derecha por alguna regla global */
+        }
+
+        .solo-adeudados-label {
+            /* Por defecto en desktop: inline */
+            display: inline; /* Asegura que la etiqueta y el checkbox puedan estar en la misma línea */
+            margin-right: 5px; /* Pequeño espacio entre label y checkbox en desktop */
+        }
+
+
+
+        /* --- FIN ESTILOS PARA ESCRITORIO --- */
+
+
+        /* INICIO DE CAMBIOS PARA VISTA MÓVIL */
+        @media (max-width: 767px) { /* Este breakpoint es común, ajusta si es necesario */
+            /* Contenedor principal de la barra de navegación */
+
+
+            .navbar-static-top {
+                display: flex; /* Habilita Flexbox */
+                justify-content: space-between; /* Empuja los extremos (header a izq, menu a der) */
+                align-items: center; /* ALINEA VERTICALMENTE TODOS LOS ÍTEMS HIJOS AL CENTRO */
+                padding: 0 5px; /* Ajusta el padding general de la barra superior */
+                min-height: 50px; /* Asegura una altura mínima para la barra de navegación */
+            }
+
+            /* Oculta el Label del Botón de Barra de Menú si no lo necesitas en móvil */
+            .navbar-header #lblBotonBarraMenu {
+                display: none;
+            }
+
+            /* Estilos para el botón verde del menú lateral (izquierda) */
+            .navbar-header .navbar-minimalize {
+                display: flex; /* Haz que este botón también sea flex para centrar su contenido */
+                align-items: center; /* Centra verticalmente el ícono dentro del botón */
+                justify-content: center; /* Centra horizontalmente el ícono dentro del botón */
+                padding: 8px 10px; /* Ajusta el padding del botón para una altura consistente */
+                height: auto; /* Asegura que la altura se ajuste al contenido */
+                line-height: 1; /* Elimina alturas de línea que puedan causar desalineación */
+                min-width: 40px; /* Asegura un ancho mínimo para el botón */
+                text-decoration: none; /* Elimina el subrayado del enlace si aparece */
+            }
+
+                .navbar-header .navbar-minimalize i {
+                    font-size: 20px; /* Haz el ícono un poco más grande para que se vea bien */
+                    margin: 0; /* Elimina cualquier margin por defecto */
+                    padding: 0; /* Elimina cualquier padding por defecto */
+                }
+
+                .navbar-header .navbar-minimalize span { /* Si el texto "Inicio" está en un span aquí, ocúltalo */
+                    display: none;
+                }
+
+
+            /* Alinea los elementos del menú de la derecha */
+            .navbar-top-links.navbar-right {
+                display: flex; /* Habilita Flexbox para esta lista */
+                justify-content: flex-end; /* Alinea los elementos al final (derecha) */
+                align-items: center; /* Alinea verticalmente los ítems de la lista al centro */
+                width: auto;
+                margin-left: auto;
+                padding: 0; /* Reinicia padding si Bootstrap lo tiene por defecto */
+                list-style: none; /* Elimina los puntos de lista si aparecen */
+                height: 100%; /* Asegura que la UL ocupe la altura completa del nav */
+            }
+
+                .navbar-top-links.navbar-right li {
+                    align-items: center; /* Centra verticalmente el contenido dentro de cada <li> */
+                    padding: 0; /* Elimina padding aquí, lo daremos al enlace/botón directamente */
+                    height: 100%; /* Ocupa la altura completa de la UL */
+                    margin: 0 5px; /* **APLICAR MARGEN HORIZONTAL AQUÍ PARA ESPACIO UNIFORME ENTRE LI** */
+                }
+
+                    .navbar-top-links.navbar-right li a,
+                    .navbar-top-links.navbar-right li .btn-link { /* Aplica estilos uniformes a enlaces y botones */
+                        display: flex; /* Asegura que sean flex para centrar contenido */
+                        align-items: center; /* Centra verticalmente el ícono */
+                        justify-content: center; /* Centra horizontalmente el ícono */
+                        padding: 8px; /* **APLICAR PADDING UNIFORME AQUÍ PARA EL TAMAÑO DEL ÁREA CLICABLE** */
+                        line-height: 1; /* Asegura una altura de línea mínima y consistente */
+                        height: 100%; /* Ocupa la altura completa del LI */
+                        width: auto; /* Permite que el ancho se ajuste al contenido (el ícono) */
+                        min-width: 36px; /* Asegura un ancho mínimo para el área clicable del ícono */
+                        box-sizing: border-box; /* Incluye padding y border en el ancho/alto total */
+                        text-decoration: none; /* Elimina el subrayado de los enlaces */
+                        color: inherit; /* Hereda el color del texto para los enlaces */
+                        position: relative; /* Necesario para que el text-indent funcione en botones */
+                    }
+
+                    /* Esta regla oculta el texto dentro del span.nav-text para los enlaces */
+                    .navbar-top-links.navbar-right li .nav-text {
+                        display: none;
+                    }
+
+                    .navbar-top-links.navbar-right li .fa {
+                        font-size: 18px; /* Ajusta el tamaño del ícono */
+                        margin: 0; /* Asegura que no haya márgenes que afecten la alineación */
+                        padding: 0; /* Asegura que no haya padding que afecte la alineación */
+                        position: absolute; /* Usamos absoluto para un centrado fiable */
+                        left: 50%;
+                        top: 50%;
+                        transform: translate(-50%, -50%);
+                    }
+
+                    /* AJUSTE ESPECÍFICO PARA EL asp:Button "Inicio2" */
+                    .navbar-top-links.navbar-right li .btn-link {
+                        background-color: transparent;
+                        border: none;
+                        font-size: 0;
+                        line-height: 0;
+                        color: transparent;
+                        text-indent: -9999px;
+                        overflow: hidden;
+                        white-space: nowrap;
+                    }
+
+                        .navbar-top-links.navbar-right li .btn-link .fa-home {
+                            font-size: 18px;
+                            text-indent: 0;
+                            position: absolute;
+                            left: 50%;
+                            top: 50%;
+                            transform: translate(-50%, -50%);
+                        }
+
+            /* --- CAMBIOS PARA ANCHO TOTAL EN MÓVIL (col-lg-12) --- */
+            /* Contenedor del nombre (VEGA MIRANDA MILAGROS) */
+            .row.wrapper.border-bottom.white-bg.page-heading {
+                /* Eliminar max-width y margins automáticos para que ocupe todo el ancho */
+                max-width: none; /* Anula cualquier max-width anterior */
+                margin-left: 0; /* Anula margin auto */
+                margin-right: 0; /* Anula margin auto */
+                padding: 15px; /* Mantén el padding interno si lo deseas */
+                /* En móvil, lo queremos centrado horizontalmente */
+                justify-content: center; /* Centra horizontalmente el contenido */
+                text-align: center; /* Centra el texto */
+            }
+                /* El .col-lg-10 dentro ya está flex y centrado, lo mantendrá así */
+                .row.wrapper.border-bottom.white-bg.page-heading h2 {
+                    text-align: center; /* Centra el texto del h2 en móvil */
+                }
+
+            #lblTituloDelFormulario {
+                text-align: center; /* Centra el texto de la etiqueta en móvil */
+            }
+
+
+            /* Contenedor del ContentPlaceHolder (Alumnos, Estado de Cuenta) */
+            .wrapper.wrapper-content {
+                /* Eliminar max-width y margins automáticos para que ocupe todo el ancho */
+                max-width: none; /* Anula cualquier max-width anterior */
+                margin-left: 0; /* Anula margin auto */
+                margin-right: 0; /* Anula margin auto */
+                padding: 15px; /* Mantén el padding interno si lo deseas */
+            }
+            /* --- FIN CAMBIOS PARA ANCHO TOTAL EN MÓVIL --- */
+
+
+
+
+
+
+            /* Ajustes generales de columna en móvil (ya deberías tener algo similar) */
+            .form-row > .form-group {
+                flex: 0 0 100%; /* Cada columna ocupa el 100% en móvil */
+                max-width: 100%;
+                padding-left: 15px;
+                padding-right: 15px;
+                margin-bottom: 15px; /* Espacio entre los grupos de formulario */
+            }
+
+            /* Ajuste específico para el grupo "Solo Adeudados" en móvil */
+            .solo-adeudados-group {
+                padding-top: 0 !important; /* Elimina el padding-top en móvil */
+                text-align: left; /* Alinea el contenido a la izquierda */
+            }
+
+            /* Para la etiqueta "Solo Adeudados" en móvil */
+            .solo-adeudados-label {
+                display: block !important; /* Fuerza la etiqueta a ser un bloque */
+                margin-bottom: 5px; /* Espacio debajo de la etiqueta */
+                margin-right: 0 !important; /* Elimina el margen derecho si lo había */
+                font-weight: bold; /* Opcional: para que se vea como título de sección */
+            }
+
+            /* Para el checkbox de "Solo Adeudados" en móvil */
+            .solo-adeudados-group input[type="checkbox"] {
+                display: block !important; /* Fuerza el checkbox a ser un bloque */
+                margin-left: 0 !important; /* Asegura que no tenga margen izquierdo */
+            }
+
+            /* Ajustes para los botones de Cancelar y Pagar en móvil */
+            .botones-pago-movil {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                align-items: stretch; /* Estira los elementos para ocupar el ancho completo */
+                margin-top: 10px;
+            }
+
+                .botones-pago-movil .btn {
+                    width: 100%;
+                    margin-bottom: 10px;
+                }
+
+                    .botones-pago-movil .btn:last-child {
+                        margin-bottom: 0;
+                    }
+
+            /* Asegurar que la columna col-md-9 no tenga padding extra en móvil si es necesario */
+            .form-group.col-md-9 {
+                padding-left: 15px;
+                padding-right: 15px;
+                text-align: left;
+            }
+        }
+
+
+
+
+
+        /* FIN DE CAMBIOS PARA VISTA MÓVIL */
     </style>
 </head>
 <body onload="javascript:HideProgressBar()">
@@ -51,19 +323,17 @@
             <div  class="sidebar-collapse" >
                 <ul class="nav metismenu" id="side-menu">
                     <li class="nav-header">
-                        <div class="dropdown profile-element">                     
+                        <div class="dropdown profile-element">
                             <a href="../PaginasBasicas/inicioPadres.aspx">
                                 <asp:Image alt="image" id="ima" runat="server" class="auto-style1" Height="126px"/></a><br />
-&nbsp;<span class="clear"><span class="block m-t-xs"><br />
+&nbsp;<span class="clear"><span clakss="block m-t-xs"><br />
                             
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <strong class="font-bold"><asp:Label ID="lblUsuario" runat="server" Text=""></asp:Label></strong></span> 
+                                <strong class="font-bold"><asp:Label ID="lblUsuario" runat="server" Text=""></asp:Label></strong></span> 
                                     <span class="text-muted text-xs block"><asp:Label ID="lblPerfil" runat="server" Text=""></asp:Label> <b class="caret"></b></span> 
-                            </a>                            
+                            </a>
                                 </span> 
                             <ul id="MenuPerId" runat="server" class="dropdown-menu animated fadeInRight m-t-xs" >
-                             
-
                                 <li><a href="../PaginasBasicas/CerrarSesionPadres.aspx"><i class="fa fa-sign-out"></i>Cerrar Sesion</a></li>
                                 <li><a href="../PaginasBasicas/UsuarioCambiarClave.aspx"><i class="fa fa-key"></i> Cambiar Clave</a></li>
                             </ul>
@@ -91,15 +361,13 @@
                 <li>
                     <span class="m-r-sm text-muted welcome-message"><a href="#" class="style1"><asp:Label ID="lblInstitucion" runat="server" Font-Bold="True" BorderColor="#CC3300" Font-Size="Large" ForeColor="#CC0000"></asp:Label></a></span>
                 </li>
-          
                 <li>   <i class="fa fa-home"></i> 
                     <asp:Button  runat="server"  id="Inicio2" Text="Inicio" OnClick="A2_onclick"  Class="btn-link"  Font-Bold="True" Font-Size="11pt" Font-Italic="True" Font-Names="open sans" /> </li>
                 <li>
-                    <a href="../PaginasBasicas/CerrarSesionPadres.aspx"><i class="fa fa-sign-out"></i> Cerrar Sesion</a>
+                    <a href="../PaginasBasicas/CerrarSesionPadres.aspx"><i class="fa fa-sign-out"></i> <span class="nav-text">Cerrar Sesion</span></a>
                 </li>
-               
                 <li>
-                    <a href="../PaginasBasicas/UsuarioCambiarClavePadres.aspx"><i class="fa fa-key"></i> Cambiar Clave</a>
+                    <a href="../PaginasBasicas/UsuarioCambiarClavePadres.aspx"><i class="fa fa-key"></i> <span class="nav-text">Cambiar Clave</span></a>
                 </li>
                  <li runat="server" id="CambioInst" visible="false">
                     <a href="../PaginasBasicas/InstitucionElige.aspx"><i class="fa fa-university"></i> Cambiar Institución</a>
@@ -112,9 +380,9 @@
                     <div class="col-lg-12">
                         <div class="wrapper wrapper-content">
                             <div class="row wrapper border-bottom white-bg page-heading">
-                                <div class="col-lg-10">
-                                    <h2>
-                                        <asp:Label ID="lblTituloDelFormulario" runat="server" Text=""></asp:Label></h2>
+                                <div class="col-lg-12">
+                                    <h3>
+                                        <asp:Label ID="lblTituloDelFormulario" runat="server" Text=""></asp:Label></h3>
                                 </div>
                             </div>
                             <br />
@@ -126,9 +394,6 @@
                 </div>
             </div>
         </div>
-        <!-- Mainly scripts -->
-        <!-- Custom and plugin javascript -->
-        <!-- iCheck -->
         <script type="text/javascript" src="../js/plugins/iCheck/icheck.min.js"></script>
         <script type="text/javascript">
             $(document).ready(function () {
@@ -154,32 +419,23 @@
         <script type="text/javascript" src="../js/bootstrap.min.js"></script>
         <script type="text/javascript" src="../js/plugins/metisMenu/jquery.metisMenu.js"></script>
         <script type="text/javascript" src="../js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-        <!-- Flot -->
         <script type="text/javascript" src="../js/plugins/flot/jquery.flot.js"></script>
         <script type="text/javascript" src="../js/plugins/flot/jquery.flot.tooltip.min.js"></script>
         <script type="text/javascript" src="../js/plugins/flot/jquery.flot.spline.js"></script>
         <script type="text/javascript" src="../js/plugins/flot/jquery.flot.resize.js"></script>
         <script type="text/javascript" src="../js/plugins/flot/jquery.flot.pie.js"></script>
-        <!-- Peity -->
         <script type="text/javascript" src="../js/plugins/peity/jquery.peity.min.js"></script>
         <script type="text/javascript" src="../js/demo/peity-demo.js"></script>
-        <!-- Custom and plugin javascript -->
         <script type="text/javascript" src="../js/inspinia.js"></script>
         <script type="text/javascript" src="../js/plugins/pace/pace.min.js"></script>
-        <!-- jQuery UI -->
         <script type="text/javascript" src="../js/plugins/jquery-ui/jquery-ui.min.js"></script>
-        <!-- GITTER -->
         <script src="../js/bootstrap-datepicker.js"></script>
 
 
         <script type="text/javascript" src="../js/plugins/gritter/jquery.gritter.min.js"></script>
-        <!-- Sparkline -->
         <script type="text/javascript" src="../js/plugins/sparkline/jquery.sparkline.min.js"></script>
-        <!-- Sparkline demo data  -->
         <script type="text/javascript" src="../js/demo/sparkline-demo.js"></script>
-        <!-- ChartJS-->
         <script type="text/javascript" src="../js/plugins/chartJs/Chart.min.js"></script>
-        <!-- Toastr -->
         <script type="text/javascript" src="../js/plugins/toastr/toastr.min.js"></script>
     </form>
 </body>

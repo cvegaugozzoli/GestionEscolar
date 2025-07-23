@@ -22,6 +22,25 @@
             top: 34px;
             height: 0px;
         }
+
+        /* Estilos por defecto para desktop (se comporta como un h1) */
+        .brand-title {
+            font-size: 20px; /* O el tamaño que tenga por defecto un h1 en tu diseño, o el que desees */
+            text-align: left !important; /* Fuerza la alineación a la izquierda */
+            /* Puedes inspeccionar tu h1 para ver su tamaño de fuente por defecto y usarlo aquí */
+        }
+
+        /* Estilos para móvil (para que se vea como un h2) */
+        @media (max-width: 767px) { /* Este es el punto de quiebre común para móviles en Bootstrap */
+            .brand-title {
+                font-size: 22px; /* Tamaño de fuente típico para un h2 */
+                text-align: left !important; /* Fuerza la alineación a la izquierda */
+                /* Puedes ajustar este valor para que se parezca más a un h2 en tu diseño */
+                line-height: 1.2; /* Ajusta la altura de línea si es necesario */
+
+            }
+        }
+
     </style>
 </head>
 <body class="landing is-preload">
@@ -35,7 +54,7 @@
            <!-- Header -->
         <header id="header" >
 
-          <h1 ><a href="../PaginasBasicas/LoginPadres.aspx">Autogestión</a></h1>
+          <h1 class="brand-title"><a href="../PaginasBasicas/LoginPadres.aspx">Autogestión</a></h1>
          
             <nav id="nav">
                 <ul>

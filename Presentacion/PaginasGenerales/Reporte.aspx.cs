@@ -569,6 +569,19 @@ public partial class PaginasGenerales_Reporte : System.Web.UI.Page
             //throw oError;/
         }
 
+        try
+        {
+            String inp_IdReferenciaOperacion;
+            inp_IdReferenciaOperacion = Convert.ToString(Request.QueryString["inp_IdReferenciaOperacion"].ToString()); // System.Web.UI.Page.Request.Item["anio"];
+            Par.Value = inp_IdReferenciaOperacion;  // Asignando un Valor Discreto a nuestra variable jalando el valor de una caja de texto de tu formulario
+            Params.Add(Par);
+            cr.DataDefinition.ParameterFields["@inp_IdReferenciaOperacion"].ApplyCurrentValues(Params);
+        }
+        catch (Exception oError)
+        {
+            //   throw oError;
+        }
+
         //var crTableLogonInfos = new TableLogOnInfos();
         TableLogOnInfos crTableLogonInfo = new TableLogOnInfos();
         TableLogOnInfo crtablelogoninfo = new TableLogOnInfo();
@@ -579,16 +592,16 @@ public partial class PaginasGenerales_Reporte : System.Web.UI.Page
         //crConnectionInfo.UserID = "sa";
         //crConnectionInfo.Password = "racing01";
 
-        //crConnectionInfo.ServerName = "localhost";
-        //crConnectionInfo.DatabaseName = "GestionEscolar";
-        //crConnectionInfo.UserID = "sa";
-        //crConnectionInfo.Password = "ms2014";
-
-        String Servidor = "PC\\SQL2012";
-        crConnectionInfo.ServerName = Servidor;
+        crConnectionInfo.ServerName = "localhost";
         crConnectionInfo.DatabaseName = "GestionEscolar";
         crConnectionInfo.UserID = "sa";
-        crConnectionInfo.Password = "mds2013";
+        crConnectionInfo.Password = "ms2014";
+
+        //String Servidor = "PC\\SQL2012";
+        //crConnectionInfo.ServerName = Servidor;
+        //crConnectionInfo.DatabaseName = "GestionEscolar";
+        //crConnectionInfo.UserID = "sa";
+        //crConnectionInfo.Password = "mds2013";
 
         Tables CrTables;
         CrTables = cr.Database.Tables;

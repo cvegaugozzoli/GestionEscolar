@@ -1,111 +1,21 @@
-<%@ Page Title="" Language="C#" MasterPageFile="~/PaginasBasicas/Principal.master" AutoEventWireup="true" CodeFile="FacturacionPadres.aspx.cs" Inherits="FacturacionPadres" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/PaginasBasicas/PrincipalPadres.master" AutoEventWireup="true" CodeFile="FacturacionPadres.aspx.cs" Inherits="FacturacionPadres" %>
 
 <%@ Register Src="../Controles/Particulares/cuFecha.ascx" TagName="cuFecha" TagPrefix="tpDatePicker" %>
-<%@ MasterType TypeName="PaginasBasicas_Principal" %>
+<%@ MasterType TypeName="PrincipalPadres" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="cph" runat="Server">
-
-    <div class="row">
-        <div class="form-group">
-            <asp:Label ID="lblMensajeError" runat="server" Text=""></asp:Label>
-            <asp:Label ID="lblicuId" runat="server" Visible="false" Text=""></asp:Label>
-            <asp:Label ID="lblicoId" runat="server" Visible="false" Text=""></asp:Label>
-            <asp:Label ID="lblcpvId" runat="server" Visible="false" Text=""></asp:Label>
-            <asp:Label ID="lblcocId" runat="server" Visible="false" Text=""></asp:Label>
-            <asp:Label ID="lblinst" runat="server" Visible="false" Text=""></asp:Label>
-            <div class="form-row">
-                <div class="form-group col-md-4">
-                    <asp:DropDownList ID="CompTipoId" BorderColor="Silver" runat="server" class="form-control m-b" Enabled="true" Visible="false"></asp:DropDownList>
-                </div>
-                <div class="form-group col-md-4" align="center">
-                    <asp:Label ID="lblCompTipo" runat="server" Font-Size="X-Large" Font-Bold="True" ForeColor="#006699" Visible="False"></asp:Label>
-                    <asp:Label ID="lblNroPtoVta" runat="server" Font-Size="X-Large" Font-Bold="True" ForeColor="#006699" Visible="False"></asp:Label>
-                    <asp:Label ID="Label1" runat="server" Font-Size="X-Large" Font-Bold="True" ForeColor="#006699" Visible="False">-</asp:Label>
-                    <asp:Label ID="lblUltimoNro" runat="server" Font-Size="X-Large" Font-Bold="True" ForeColor="#006699" Visible="False"></asp:Label>
-
-                </div>
-
-                <div class="form-group col-md-4">
-                    <asp:DropDownList ID="DestinoId" BorderColor="Silver" runat="server" class="form-control m-b" Enabled="true" Visible="false"></asp:DropDownList>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
 
     <div class="form-group">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">Alumno</h3>
-            </div>
-            <div class="panel-body">
-
-
-<%--                <div class="form-row">
-                    <asp:Label ID="Label4" runat="server" Text="hash.." Visible="true"></asp:Label><br />
-                    <br />
-                    <asp:Label ID="Label5" runat="server" Text="idResultado.." Visible="true"><br /><br /></asp:Label><br />
-                    <br />
-                    <asp:Label ID="Label6" runat="server" Text="json.." Visible="true"></asp:Label><br />
-                    <br />
-                    <asp:Label ID="Label7" runat="server" Text="json.." Visible="true"></asp:Label><br />
-                    <br />
-                    <asp:Label ID="Label9" runat="server" Text="URL" Visible="true"></asp:Label><br />
-                    <br />
-                    <asp:Label ID="Label10" runat="server" Text="" Visible="true"></asp:Label><br />
-                    <br />
-                    <asp:Label ID="Label11" runat="server" Text="" Visible="true"></asp:Label><br />
-                    <br />
-                </div>--%>
-
-                <div class="form-row">
-                    <div class="form-group col-md-5">
-                        <label class="control-label ">Apellido y Nombre:</label>
-                        <asp:Label ID="lblNombre" runat="server" Font-Bold="True" Text=""></asp:Label>
-                    </div>
-                    <div class="form-group col-md-2">
-                        <label class="control-label ">DNI:</label> <asp:Label ID="lblaluid" Visible ="false" runat="server" Font-Bold="True"></asp:Label>
-                        <asp:Label ID="lblDni" runat="server" Font-Bold="True"></asp:Label>
-                    </div>
-<%--                    <div class="form-group col-md-5">
-                        <label class="control-label ">Dirección:</label>
-                        <asp:Label ID="lblDireccion" runat="server" Font-Bold="True"></asp:Label>
-                    </div>--%>
-                </div>
-
-<%--                <div class="form-row">
-                    <div class="form-group col-md-4">
-                        <label class="control-label ">Institución:</label>
-                        <asp:Label ID="lblInstitucion" runat="server" Font-Bold="True" Text=""></asp:Label>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label class="control-label ">Curso:</label>
-                        <asp:Label ID="lblCurso" runat="server" Font-Bold="True"></asp:Label>
-                    </div>
-                    <div class="form-group col-md-2">
-                        <label class="control-label ">Año Lectivo:</label>
-                        <asp:Label ID="lblanioLectivo" runat="server" Font-Bold="True"></asp:Label>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-4">
-                        <label class="control-label ">Tutor:</label>
-                        <asp:Label ID="lblTutor" runat="server" Font-Bold="True"></asp:Label>
-                    </div>
-                </div>--%>
+                <asp:Label ID="lblNombre" runat="server" Font-Bold="True" Text=""></asp:Label><br />
+                <asp:Label ID="lblDni" runat="server" Font-Bold="True"></asp:Label>
             </div>
         </div>
-    </div>
-    <div class="form-inline">
-        <label class="control-label ">Fecha de Pago:</label>
-        <asp:TextBox ID="txtFechaPago" type="DateTimePicker" class="form-control" runat="server" BorderColor="Silver" Enabled="false"></asp:TextBox>
-    </div>
 
 
-    <div class="row">
-        <div class="col-sm-12">
+        <div class="row">
+            <div class="col-sm-12">
 
-            <div class="ibox-content">
                 <div class="table-responsive">
                     <asp:GridView ID="GridConcepto" DataKeyNames="icoId,cntId,TipoConcepto,Concepto,NroCuota,Importe,FechaVto,Beca,InteresCuota,RecargoAbierto,InteresMensual,Dcto,InteresTotal"
                         runat="server" GridLines="None" CssClass="table table-striped" BackColor="#154F77"
@@ -113,13 +23,6 @@
                         PageSize="12" AllowPaging="True" OnPageIndexChanging="GridConcepto_PageIndexChanging">
 
                         <Columns>
-                            <%--                            <asp:TemplateField HeaderText="" ItemStyle-Width="50" FooterStyle-HorizontalAlign="Center">
-                                <ItemTemplate>
-                                    <asp:CheckBox ID="chkSeleccion" runat="server" Width="50" AutoPostBack="true" OnCheckedChanged="chkSeleccion_CheckedChanged" />
-                                </ItemTemplate>
-                                <FooterStyle HorizontalAlign="Center"></FooterStyle>
-                                <ItemStyle Width="50px" HorizontalAlign="Center"></ItemStyle>
-                            </asp:TemplateField>--%>
                             <asp:TemplateField HeaderText="icoId" Visible="false">
                                 <ItemTemplate>
                                     <asp:HyperLink ForeColor="Black" ID="icoId" Visible="false" runat="server" Text='<%# Eval("icoId") %>' />
@@ -151,54 +54,11 @@
                                     <asp:HyperLink ForeColor="Black" ID="Importe" runat="server" Text='<%# Eval("Importe") %>' />
                                 </ItemTemplate>
                             </asp:TemplateField>
-<%--                            <asp:TemplateField HeaderText="Fecha Vto">
-                                <ItemTemplate>
-                                    <asp:HyperLink ForeColor="Black" ID="FechaVto" runat="server" Text='<%# DateTime.Parse(Eval("FechaVto").ToString()).ToString("d") %>' />
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Beca">
-                                <ItemTemplate>
-                                    <asp:HyperLink ForeColor="Black" ID="Beca" runat="server" Text='<%# Eval("Beca") %>' />
-                                </ItemTemplate>
-                            </asp:TemplateField>--%>
-
-<%--                            <asp:TemplateField HeaderText="Interes Cuota">
-                                <ItemTemplate>
-                                    <asp:HyperLink ForeColor="Black" ID="InteresCuota" runat="server" Text='<%# Eval("InteresCuota") %>' />
-                                </ItemTemplate>
-                            </asp:TemplateField>--%>
-<%--                            <asp:TemplateField HeaderText="Recargo Abierto">
-                                <ItemTemplate>
-                                    <asp:HyperLink ForeColor="Black" ID="ImporteInteres" runat="server" Text='<%# Eval("RecargoAbierto","{0:n}") %>' />
-                                </ItemTemplate>
-                            </asp:TemplateField>--%>
-<%--                            <asp:TemplateField HeaderText="Interes Mensual">
-                                <ItemTemplate>
-                                    <asp:HyperLink ForeColor="Black" ID="InteresMensual" runat="server" Text='<%# Eval("InteresMensual","{0:n}") %>' />
-                                </ItemTemplate>
-                            </asp:TemplateField>--%>
-<%--                            <asp:TemplateField HeaderText="Dcto%">
-                                <ItemTemplate>
-                                    <asp:HyperLink ForeColor="Black" ID="Dcto" runat="server" Text='<%# Eval("Dcto","{0:n}") %>' />
-                                </ItemTemplate>
-                            </asp:TemplateField>--%>
-                            <asp:TemplateField HeaderText="Interes Total">
+                            <asp:TemplateField HeaderText="Intereses">
                                 <ItemTemplate>
                                     <asp:HyperLink ForeColor="Black" ID="InteresTotal" runat="server" Text='<%# Eval("InteresTotal","{0:n}") %>' />
                                 </ItemTemplate>
                             </asp:TemplateField>
-
-
-
-                            <%-- <asp:TemplateField HeaderText="">
-                                <ItemTemplate>
-                                    <asp:LinkButton ID="lbuEliminar" runat="server" OnClick="lbuEliminar_Click" ToolTip="Elimina de forma permanente el registro seleccionado">X</asp:LinkButton>
-                                    <asp:Button ID="btnEliminarAceptar" runat="server" Text="Si" Visible="False"
-                                        OnClick="btnEliminarAceptar_Click" />
-                                    <asp:Button ID="btnEliminarCancelar" runat="server" Text="No" Visible="False"
-                                        OnClick="btnEliminarCancelar_Click" />
-                                </ItemTemplate>
-                            </asp:TemplateField>--%>
                         </Columns>
                         <FooterStyle BackColor="#154F77" ForeColor="White" />
                         <PagerStyle BackColor="#154F77" ForeColor="White" HorizontalAlign="Center" />
@@ -209,31 +69,50 @@
                         <RowStyle BackColor="#EFF3FB" />
 
                     </asp:GridView>
+
+
+
+
                 </div>
 
-            </div>
-            <asp:Label ID="LblMjeGridConcepto" runat="server" Text="" Style="font-size: large; color: #1f2548"></asp:Label>
-        </div>
-        <div class="row">
-            <div class="form-group col-sm-10 " align="right">
-                &nbsp;&nbsp;&nbsp;&nbsp;
+
+
+                <div class="row">
+                    <div class="form-group col-sm-12 " align="right">
+                        &nbsp;&nbsp;&nbsp;&nbsp;
                         <label class="control-label " style="font-weight: bold; font-size: x-large; color: #1f2548">Total a Pagar:</label>
-                <asp:Label ID="lblSubTotal" runat="server" Font-Size="X-Large" Font-Bold="True" ForeColor="#1f2548"></asp:Label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="form-group col-sm-10 " align="right">
-                &nbsp;&nbsp;&nbsp;&nbsp;
+                        <asp:Label ID="lblSubTotal" runat="server" Font-Size="X-Large" Font-Bold="True" ForeColor="#1f2548"></asp:Label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-12 " align="right">
+                        &nbsp;&nbsp;&nbsp;&nbsp;
                         <label class="control-label " style="font-weight: bold; font-size: x-large; color: #FF0000;">Total Pagado:</label>
-                <asp:Label ID="lblTotal" runat="server" Font-Size="X-Large" Font-Bold="True" ForeColor="Red"></asp:Label>
+                        <asp:Label ID="lblTotal" runat="server" Font-Size="X-Large" Font-Bold="True" ForeColor="Red"></asp:Label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-12 " align="right">
+                        <asp:Label ID="EstadoPago" runat="server" Font-Size="Large" Font-Bold="True" ForeColor="Red" Text="" Visible="true"></asp:Label>
+                    </div>
+                </div>
 
-                    <br /><asp:Label ID="Label8" runat="server" Text="" Visible="true"></asp:Label><br />
+                <asp:Label ID="LblMjeGridConcepto" runat="server" Text="" Style="font-size: large; color: #1f2548"></asp:Label>
 
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="ibox-content">
+
+
+
+        <div class="row" style="margin-top: 20px;">
+            <div class="col-sm-12 text-center mobile-buttons-stack">
+                <asp:Button ID="btnPagar" class="btn btn-primary dim btn-lg" runat="server" Text="Pagar" OnClick="btnPagar_Click" />
+                <asp:Button ID="btnVolver" class="btn btn-white dim btn-lg" runat="server" Text="Volver" OnClick="btnGestion_Click" />
+                <asp:Button ID="btnImprimir" class="btn btn-info dim btn-lg" runat="server" Visible="false" Enabled="false" Text="Imprimir" OnClick="btnImprimir_Click" />
+            </div>
+        </div>
+
+        <div class="div.form-row.form-row-transparent-bg">
             <div id="alerError2" visible="false" runat="server" class="alert alert-danger  alert-dismissable">
                 <asp:Label ID="lblError2" runat="server" Font-Bold="True" Font-Size="Medium"></asp:Label>
             </div>
@@ -241,15 +120,9 @@
                 <asp:Label ID="lblalerInfo" runat="server" Font-Bold="True" Font-Size="Medium"></asp:Label>
             </div>
         </div>
-    </div>
 
-    <div class="row">
+        <%--    <div class="row">
         <div class="ibox-content">
-
-<%--                <div class="form-group">
-                    <asp:Button ID="Grabar" formnovalidate="formnovalidate " class="btn btn-w-m btn-primary" runat="server" Text="Grabar"
-                        OnClick="Grabar_Click" />
-                </div>--%>
             <div class="form-inline">
                 <div class="form-group">
                     <asp:Button ID="btnImprimir" formnovalidate="formnovalidate " Enabled="false" class="btn btn-w-m btn-primary" runat="server" Text="Imprimir"
@@ -263,23 +136,83 @@
                     <asp:Button ID="btnPagar" formnovalidate="formnovalidate " class="btn btn-w-m btn-primary" runat="server" Text="Pagar"
                         OnClick="btnPagar_Click" />
                 </div>
-
-                <div class="form-group col-md-2">
-                    <asp:Button ID="btnRecibirListado" class="btn btn-w-m btn-warning" runat="server" Text="Recibir Listado" Visible="true" OnClick="btnRecibirListadoClick" Width="100%" />
-                </div>
-
             </div>
         </div>
-    </div>
+    </div>--%>
 
 
+        <div class="div.form-row.form-row-transparent-bg">
+            <asp:Label ID="lblMensajeError" runat="server" Text=""></asp:Label>
+            <asp:Label ID="lblicuId" runat="server" Visible="false" Text=""></asp:Label>
+            <asp:Label ID="lblicoId" runat="server" Visible="false" Text=""></asp:Label>
+            <asp:Label ID="lblcpvId" runat="server" Visible="false" Text=""></asp:Label>
+            <asp:Label ID="lblcocId" runat="server" Visible="false" Text=""></asp:Label>
+            <asp:Label ID="lblinst" runat="server" Visible="false" Text=""></asp:Label>
+            <asp:DropDownList ID="CompTipoId" BorderColor="Silver" runat="server" class="form-control m-b" Enabled="true" Visible="false"></asp:DropDownList>
+            <asp:Label ID="lblCompTipo" runat="server" Font-Size="X-Large" Font-Bold="True" ForeColor="#006699" Visible="False"></asp:Label>
+            <asp:Label ID="lblNroPtoVta" runat="server" Font-Size="X-Large" Font-Bold="True" ForeColor="#006699" Visible="False"></asp:Label>
+            <asp:Label ID="Label1" runat="server" Font-Size="X-Large" Font-Bold="True" ForeColor="#006699" Visible="False">-</asp:Label>
+            <asp:Label ID="lblUltimoNro" runat="server" Font-Size="X-Large" Font-Bold="True" ForeColor="#006699" Visible="False"></asp:Label>
+            <asp:DropDownList ID="DestinoId" BorderColor="Silver" runat="server" class="form-control m-b" Enabled="true" Visible="false"></asp:DropDownList>
+
+            <asp:Label ID="lab_inp_IdReferenciaOperacion" runat="server" Text="" Visible="false"></asp:Label><br />
+            <asp:Label ID="lblidReferenciaOperacion" Visible="false" runat="server" Font-Bold="True"></asp:Label>
+            <asp:Label ID="lblaluid" Visible="false" runat="server" Font-Bold="True"></asp:Label>
+            <asp:Label ID="txtFechaPago" runat="server" Visible="false" Font-Bold="True"></asp:Label>
+        </div>
 
 
-    
+        <style type="text/css">
+            /* Estilos específicos para pantallas pequeñas */
 
+            div.form-row.form-row-transparent-bg {
+                background-color: transparent !important;
+            }
 
+            @media (max-width: 767px) {
+                /* ... Tus otras reglas de media query para filtros y grilla ... */
 
+                /* Reglas para apilar los botones Pagar, Volver, Imprimir en móvil */
+                .mobile-buttons-stack {
+                    display: flex; /* Habilitar Flexbox */
+                    flex-direction: column; /* Apilar los elementos verticalmente */
+                    align-items: stretch; /* Estira los elementos para ocupar el ancho completo del contenedor */
+                    gap: 10px; /* Espacio entre los botones (moderno, no todos los navegadores viejos lo soportan, si hay problemas usa margin-bottom) */
+                    padding-left: 15px; /* Asegura que no estén pegados a los bordes */
+                    padding-right: 15px;
+                }
 
+                    /* Asegura que los botones dentro del stack ocupen el 100% y tengan margen inferior si no usas gap */
+                    .mobile-buttons-stack .btn {
+                        width: 100% !important; /* Fuerza a cada botón a ocupar el 100% del ancho */
+                        margin-bottom: 10px; /* Espacio entre los botones */
+                    }
 
+                        /* Eliminar margen inferior del último botón para evitar espacio extra al final */
+                        .mobile-buttons-stack .btn:last-child {
+                            margin-bottom: 0;
+                        }
 
+                /* Para botones que ya tienen clases de Bootstrap como .btn-block, este ajuste no sería estrictamente necesario
+               ya que .btn-block ya da 100% de ancho, pero el flex-direction: column es el crucial para el apilamiento.
+               Sin embargo, es buena práctica ser explícito.
+            */
+            }
+
+            /* Opcional: Para escritorio, si quieres que los botones estén en línea, 
+           asegúrate de que no haya reglas de flexbox que los apilen */
+            @media (min-width: 768px) {
+                .mobile-buttons-stack {
+                    display: block; /* Vuelve al comportamiento normal de bloque para que los botones floten o se comporten según las reglas de .col-sm-X */
+                    text-align: center; /* Centra los botones en desktop */
+                }
+
+                    .mobile-buttons-stack .btn {
+                        width: auto; /* Permite que los botones tengan su ancho natural */
+                        margin-left: 5px; /* Espacio entre ellos en desktop */
+                        margin-right: 5px;
+                        margin-bottom: 0; /* Asegura que no haya margen inferior */
+                    }
+            }
+        </style>
 </asp:Content>

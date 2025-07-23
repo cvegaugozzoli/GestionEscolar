@@ -301,6 +301,19 @@ namespace GESTIONESCOLAR
             }
 
 
+            public void ActualizarIdReferenciaOperacion(Int32 icoId, String idReferenciaOperacion)
+            {
+                try
+                {
+                    ocdGestor.EjecutarNonQuery("[InscripcionConcepto.ActualizarReferenciaOperacion]", new object[,] { { "@icoId", icoId }, { "@idReferenciaOperacion", idReferenciaOperacion } });
+                }
+                catch (Exception oError)
+                {
+                    throw oError;
+                }
+            }
+
+
             public void ActualizarDcto(Int32 icoId, Int32 icoDcto, Int32 usuidUltimaModificacion, DateTime icoFechaHoraUltimaModificacion)
             {
                 try

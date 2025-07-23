@@ -28,7 +28,9 @@ public partial class InicioPadres : System.Web.UI.Page
                     dt = ocnAlumno.ObtenerUnoporDoc(DNIUSUARIO);
                     if (dt.Rows.Count > 0)
                     {
-                        this.Master.TituloDelFormulario = "Información del Alumno: " + dt.Rows[0]["Nombre"].ToString();
+                        this.Master.TituloDelFormulario = dt.Rows[0]["Nombre"].ToString();
+                        
+                        
                         //int usuario = Convert.ToInt32(Session["_usuId"].ToString());
                         //dt = ocnFamiliar.ObtenerUnoxUsuId(usuario);
                         //if (dt.Rows.Count != 0)
@@ -41,7 +43,7 @@ public partial class InicioPadres : System.Web.UI.Page
                 }
                 else
                 {
-                    this.Master.TituloDelFormulario = "Menu Inicio";
+                    //this.Master.TituloDelFormulario = "Menu Inicio";
                 }
                 if (this.Session["_Autenticado"] == null) Response.Redirect("LoginPadres.aspx", true);
                 if (this.Session["_Autenticado"] == null) Response.RedirectToRoute("sitio");

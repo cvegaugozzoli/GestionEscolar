@@ -316,6 +316,19 @@ namespace GESTIONESCOLAR
                 }
                 return IdMax;
             }
+            public Int32 InsertarConRefOpeTraerId(Int32 ctiId, String cocNroPtoVta, String cocNroCompbte, DateTime cocFechaPago, Decimal cocImporteRendido, Int32 lupId, String cocObs, Boolean cocActivo, Int32 usuIdCreacion, Int32 usuidUltimaModificacion, DateTime cocFechaHoraCreacion, DateTime cocFechaHoraUltimaModificacion, String IdReferenciaOperacion)
+            {
+                Int32 IdMax;
+                try
+                {
+                    IdMax = ocdGestor.EjecutarNonQueryRetornaId("[ComprobantesCabecera.InsertarConRefOpeTraerId]", new object[,] { { "@ctiId", ctiId }, { "@cocNroPtoVta", cocNroPtoVta }, { "@cocNroCompbte", cocNroCompbte }, { "@cocFechaPago", cocFechaPago }, { "@cocImporteRendido", cocImporteRendido }, { "@lupId", lupId }, { "@cocObs", cocObs }, { "@cocActivo", cocActivo }, { "@usuIdCreacion", usuIdCreacion }, { "@usuidUltimaModificacion", usuidUltimaModificacion }, { "@cocFechaHoraCreacion", cocFechaHoraCreacion }, { "@cocFechaHoraUltimaModificacion", cocFechaHoraUltimaModificacion }, { "@IdReferenciaOperacion", IdReferenciaOperacion }  });
+                }
+                catch (Exception oError)
+                {
+                    throw oError;
+                }
+                return IdMax;
+            }
 
             public void Actualizar()
             {
@@ -359,6 +372,38 @@ namespace GESTIONESCOLAR
                     throw oError;
                 }
                 return IdMax;
+            }
+
+
+
+            public DataTable ObtenerUnoxIdOperacion(String IdOperacion)
+            {
+                ocdGestor = new Datos.Gestor();
+                Tabla = new DataTable();
+
+                try
+                {
+                    Tabla = ocdGestor.EjecutarReader("[ComprobantesCabecera.ObtenerUnoxIdOperacion]", new object[,] { { "@IdOperacion", IdOperacion } });
+                }
+                catch (Exception oError)
+                {
+                    throw oError;
+                }
+
+                return Tabla;
+            }
+
+
+            public void ActualizarActivo(Int32 cocId, Int32 usuidUltimaModificacion, DateTime cocFechaHoraUltimaModificacion)
+            {
+                try
+                {
+                    ocdGestor.EjecutarNonQuery("[ComprobantesCabecera.ActualizarActivo]", new object[,] { { "@cocId", cocId }, { "@usuidUltimaModificacion", usuidUltimaModificacion }, { "@cocFechaHoraUltimaModificacion", cocFechaHoraUltimaModificacion } });
+                }
+                catch (Exception oError)
+                {
+                    throw oError;
+                }
             }
 
 

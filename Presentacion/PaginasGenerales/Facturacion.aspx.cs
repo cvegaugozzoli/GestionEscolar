@@ -466,7 +466,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                 Decimal ValorInteresCI = 0;
                 DateTime FchaVtofila;
                 int BanderaVto = 0;
-                if (dt4.Rows.Count > 0)//Existe en la Tabla ConceptoIneres
+                if (dt4.Rows.Count > 0)//Existe en la Tabla ConceptoInteres
                 {
                     String pFecha = "";
                     pFecha = dt4.Rows[0]["FechaVto"].ToString();
@@ -579,7 +579,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                         InteresCuotaAsignar = ValorInteresCI;
                                         RecargoAbiertoAsignar = ValorInteresRA;
                                         InteresMensualAsignar = InteresAplicar;
-                                        InteresTotal = ValorInteresCI + ValorInteresRA + InteresAplicar;
+                                        InteresTotal = ValorInteresRA + InteresAplicar;
                                         fchVtoAsignar = Convert.ToDateTime(UltVto);
                                     }
                                     else
@@ -587,7 +587,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                         InteresCuotaAsignar = ValorInteresCI;
                                         RecargoAbiertoAsignar = ValorInteresRA;
                                         InteresMensualAsignar = InteresAplicar;
-                                        InteresTotal = ValorInteresCI + ValorInteresRA + InteresAplicar;
+                                        InteresTotal = ValorInteresCI + ValorInteresRA;
                                         fchVtoAsignar = Convert.ToDateTime(UltVto);
                                     }
                                 }
@@ -607,7 +607,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                         InteresCuotaAsignar = ValorInteresCI;
                                         RecargoAbiertoAsignar = ValorInteresRA;
                                         InteresMensualAsignar = InteresAplicar;
-                                        InteresTotal = ValorInteresCI + ValorInteresRA + InteresAplicar;
+                                        InteresTotal = ValorInteresRA + InteresAplicar;
                                         fchVtoAsignar = Convert.ToDateTime(UltVto);
                                     }
                                     else
@@ -615,7 +615,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                         InteresCuotaAsignar = ValorInteresCI;
                                         RecargoAbiertoAsignar = ValorInteresRA;
                                         InteresMensualAsignar = InteresAplicar;
-                                        InteresTotal = ValorInteresCI + ValorInteresRA + InteresAplicar;
+                                        InteresTotal = ValorInteresCI + ValorInteresRA;
                                         fchVtoAsignar = Convert.ToDateTime(UltVto);
                                     }
                                 }
@@ -640,7 +640,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                         InteresCuotaAsignar = ValorInteresCI;
                                         RecargoAbiertoAsignar = ValorInteresRA;
                                         InteresMensualAsignar = InteresAplicar;
-                                        InteresTotal = ValorInteresCI + ValorInteresRA + InteresAplicar;
+                                        InteresTotal = ValorInteresRA + InteresAplicar;
                                         fchVtoAsignar = Convert.ToDateTime(UltVto);
 
                                     }
@@ -656,7 +656,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                         InteresAplicar = InteresMensualIM * Convert.ToDecimal(diff);
                                         RecargoAbiertoAsignar = ValorInteresRA;
                                         InteresMensualAsignar = InteresAplicar;
-                                        InteresTotal = ValorInteresCI + ValorInteresRA + InteresAplicar;
+                                        InteresTotal = ValorInteresCI + ValorInteresRA;
                                         fchVtoAsignar = Convert.ToDateTime(UltVto);
                                     }
                                 }
@@ -682,7 +682,13 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
             row1["TipoConcepto"] = Convert.ToString(row["TipoConcepto"].ToString());
             row1["Concepto"] = Convert.ToString(row["Concepto"].ToString());
             row1["Importe"] = Convert.ToDecimal(row["Importe"].ToString());
-            row1["InteresCuota"] = InteresCuotaAsignar;
+            if (InteresMensualAsignar > 0)
+            {
+                row1["InteresCuota"] = 0;
+            } else
+            {
+                row1["InteresCuota"] = InteresCuotaAsignar;
+            }        
             row1["RecargoAbierto"] = RecargoAbiertoAsignar;
             row1["InteresMensual"] = InteresMensualAsignar;
             row1["AnioLectivo"] = Convert.ToInt32(row["AnioLectivo"].ToString());
@@ -723,313 +729,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
 }
 
 
-    //    private void GrillaCargar(int PageIndex)
-    //    {
-    //        try
-    //        {
-    //            insId = Convert.ToInt32(lblinst.Text);
-    //            DataTable dt = new DataTable();
-    //            dt.Columns.Add("icoId", typeof(int));
-    //            dt.Columns.Add("conId", typeof(Int32));
-    //            dt.Columns.Add("cntId", typeof(Int32));
-    //            dt.Columns.Add("TipoConcepto", typeof(String));
-    //            dt.Columns.Add("Concepto", typeof(String));
-    //            dt.Columns.Add("Importe", typeof(Decimal));
 
-        //            dt.Columns.Add("InteresCuota", typeof(Decimal));
-        //            dt.Columns.Add("RecargoAbierto", typeof(Decimal));
-        //            dt.Columns.Add("InteresMensual", typeof(Decimal));
-        //            dt.Columns.Add("AnioLectivo", typeof(Decimal));
-        //            dt.Columns.Add("Beca", typeof(String));
-        //            dt.Columns.Add("BecId", typeof(Int32));
-        //            dt.Columns.Add("NroCuota", typeof(Int32));
-        //            dt.Columns.Add("FchInscripcion", typeof(String));
-        //            dt.Columns.Add("FechaVto", typeof(String));
-        //            dt.Columns.Add("InteresTotal", typeof(Decimal));
-        //            DataTable dt4 = new DataTable();
-        //            DataTable dt5 = new DataTable();
-        //            DataTable dt3 = new DataTable();
-        //            DataTable dt2 = new DataTable();
-        //            DataTable dt1 = new DataTable();
-        //            DataTable dt6 = new DataTable();
-        //            DataTable dt7 = new DataTable();
-        //            dt2 = Session["TablaPagar"] as DataTable;
-        //            String FchaInscripcionCon;
-        //            DateTime FechaPago;
-        //            string dateString = Convert.ToString(txtFechaPago.Text);
-        //            int NroCuotaCon;
-        //            int bcaIdCon;
-        //            FechaPago = DateTime.Parse(dateString);
-        //            int Bandera = 0;
-        //            decimal InteresCuotaAsignar = 0;
-        //            decimal InteresMensualAsignar = 0;
-        //            Decimal ValorInteres = 0;
-        //            string AplicaInteres;
-        //            decimal RecargoAbiertoAsignar = 0;
-        //            decimal InteresTotal = 0;
-        //            DateTime fchVtoAsignar = DateTime.Now;
-        //            LblMjeGridConcepto.Text = "";
-
-        //            foreach (DataRow row in dt2.Rows)
-        //            {
-        //                int ValorSeleccionado;
-        //                //obtengo incripcionConepto 
-        //                dt9 = ocnInscripcionConcepto.ObtenerUno(Convert.ToInt32(row["icoId"].ToString()));
-        //                int conId = Convert.ToInt32(row["conId"].ToString());
-        //                dt3 = ocnConceptos.ObtenerUno(Convert.ToInt32(row["conId"].ToString()));
-        //                DateTime UltVto;
-        //                if (dt9.Rows.Count > 0) //Inscripcion Concepto Existe
-        //                {
-        //                    FchaInscripcionCon = Convert.ToString(dt9.Rows[0]["FechaInscripcion"].ToString());
-        //                    NroCuotaCon = Convert.ToInt32(dt9.Rows[0]["NroCuota"].ToString());
-
-        //                    String BecaCon = Convert.ToString(dt9.Rows[0]["Becas"].ToString());
-
-        //                    //Busco si hay Vencimiento
-        //                    dt4 = ocnConceptosIntereses.ObtenerListaxconIdxNroCuota(Convert.ToInt32(Convert.ToInt32(row["conId"].ToString())), (Convert.ToInt32(row["NroCuota"].ToString())));
-
-        //                    Decimal ValorInteresCI = 0;
-        //                    DateTime FchaVtofila;
-        //                    int BanderaVto = 0;
-        //                    if (dt4.Rows.Count > 0)//Existe en la Tabla ConceptoIneres
-        //                    {
-
-        //                        String pFecha = "";
-        //                        pFecha = dt4.Rows[0]["FechaVto"].ToString();
-
-
-        //                        FchaVtofila = Convert.ToDateTime(dt4.Rows[0]["FechaVto"].ToString());//1° Vto
-
-        //                        if (FechaPago <= FchaVtofila) // Veo 1° Vencimiento asi no paga Interes
-        //                        {
-        //                            InteresCuotaAsignar = 0;
-        //                            RecargoAbiertoAsignar = 0;
-        //                            InteresMensualAsignar = 0;
-        //                            InteresTotal = 0;
-        //                            fchVtoAsignar = FchaVtofila;
-
-        //                        }
-        //                        else // Está atrasado, paga interés..
-        //                        {
-        //                            foreach (DataRow row4 in dt4.Rows)// Cant de vtos. para cada fila con fecha de vtos
-        //                            {
-        //                                FchaVtofila = Convert.ToDateTime(row4["FechaVto"].ToString());
-        //                                if (FechaPago < FchaVtofila)
-        //                                {
-        //                                    fchVtoAsignar = Convert.ToDateTime(row4["FechaVto"].ToString());
-        //                                    AplicaInteres = Convert.ToString(row4["AplicaInteres"].ToString());
-        //                                    ValorSeleccionado = Convert.ToInt32(dt3.Rows[0]["ValorSeleccionado"].ToString());
-
-        //                                    if (Convert.ToDecimal(row4["ValorInteres"].ToString()) > 0)
-        //                                    //if (AplicaInteres == "Si")// Se Cobra Interes
-        //                                    {
-        //                                        ValorInteresCI = Convert.ToDecimal(row4["ValorInteres"].ToString());
-        //                                    }
-        //                                    else
-        //                                    {
-        //                                        ValorInteresCI = 0;
-        //                                    }
-        //                                }
-        //                                {
-        //                                    fchVtoAsignar = Convert.ToDateTime(row4["FechaVto"].ToString());
-        //                                    AplicaInteres = Convert.ToString(row4["AplicaInteres"].ToString());
-        //                                    ValorSeleccionado = Convert.ToInt32(dt3.Rows[0]["ValorSeleccionado"].ToString());
-
-        //                                    if (Convert.ToDecimal(row4["ValorInteres"].ToString()) > 0)
-        //                                    //if (AplicaInteres == "Si")// Se Cobra Interes
-        //                                    {
-        //                                        ValorInteresCI = Convert.ToDecimal(row4["ValorInteres"].ToString());
-        //                                    }
-        //                                    else
-        //                                    {
-        //                                        ValorInteresCI = 0;
-        //                                    }
-        //                                }
-
-
-        //                            }
-        //                            InteresCuotaAsignar = ValorInteresCI;
-        //                            RecargoAbiertoAsignar = 0;
-        //                            InteresMensualAsignar = 0;
-        //                            InteresTotal = ValorInteresCI;
-        //                            fchVtoAsignar = Convert.ToDateTime(FchaVtofila);
-        //                            BanderaVto = 1;
-
-        //                            DataTable dt12 = ocnConceptosIntereses.ObtenerUltimoVencimiento(Convert.ToInt32(Convert.ToInt32(row["conId"].ToString())), (Convert.ToInt32(row["NroCuota"].ToString())));
-        //                            if (dt12.Rows.Count > 0)
-        //                            {
-        //                                UltVto = Convert.ToDateTime(dt12.Rows[0]["FechaVto"].ToString());
-
-        //                                if (FechaPago > UltVto)
-        //                                {
-        //                                    Decimal InteresMensualIM;
-        //                                    Decimal InteresAplicar = 0;
-        //                                    Decimal ValorInteresRA = 0;
-        //                                    ValorSeleccionado = Convert.ToInt32(dt3.Rows[0]["ValorSeleccionado"].ToString());
-        //                                    if (Convert.ToString(dt3.Rows[0]["TieneVtoAbierto"]) == "Si")
-        //                                    {
-
-        //                                        if (ValorSeleccionado == 0)// Interés con Monto Fijo
-        //                                        {
-        //                                            ValorInteresRA = Convert.ToDecimal(dt3.Rows[0]["RecargoVtoAbierto"].ToString());
-
-        //                                            if (Convert.ToInt32(dt3.Rows[0]["InteresMensual"]) != 0)
-        //                                            {
-        //                                                Decimal diff = Math.Abs((FechaPago.Month - UltVto.Month) + 12 * (FechaPago.Year - UltVto.Year));
-
-        //                                                InteresMensualIM = Convert.ToInt32(dt3.Rows[0]["InteresMensual"]) * Convert.ToDecimal(diff);
-        //                                                InteresAplicar = InteresMensualIM;
-
-        //                                                InteresCuotaAsignar = ValorInteresCI;
-        //                                                RecargoAbiertoAsignar = ValorInteresRA;
-        //                                                InteresMensualAsignar = InteresAplicar;
-        //                                                InteresTotal = ValorInteresCI + ValorInteresRA + InteresAplicar;
-        //                                                fchVtoAsignar = Convert.ToDateTime(UltVto);
-        //                                            }
-        //                                            else
-        //                                            {
-        //                                                InteresCuotaAsignar = ValorInteresCI;
-        //                                                RecargoAbiertoAsignar = ValorInteresRA;
-        //                                                InteresMensualAsignar = InteresAplicar;
-        //                                                InteresTotal = ValorInteresCI + ValorInteresRA + InteresAplicar;
-        //                                                fchVtoAsignar = Convert.ToDateTime(UltVto);
-        //                                            }
-        //                                        }
-        //                                        else// Porcentaje
-        //                                        {
-        //                                            ValorInteresRA = (Convert.ToDecimal(dt3.Rows[0]["Importe"].ToString()) * Convert.ToDecimal(dt3.Rows[0]["RecargoVtoAbierto"].ToString())) / 100;
-
-        //                                            if (Convert.ToInt32(dt3.Rows[0]["InteresMensual"]) != 0)
-        //                                            {
-        //                                                //DateTime MesSiguienteVto = UltVto.AddDays(30);
-        //                                                //return Math.Abs((FechaPago.Month - UltVto.Month) + 12 * (FechaPago.Year - UltVto.Year));
-        //                                                Decimal diff = Math.Abs((FechaPago.Month - UltVto.Month) + 12 * (FechaPago.Year - UltVto.Year));
-        //                                                //Math.Abs((FechaPago.Month - MesSiguienteVto.Month) + 12 * (FechaPago.Year - MesSiguienteVto.Year));
-
-        //                                                InteresMensualIM = (Convert.ToDecimal(row["Importe"].ToString()) * Convert.ToInt32(dt3.Rows[0]["InteresMensual"])) / 100;
-        //                                                InteresAplicar = InteresMensualIM * Convert.ToDecimal(diff);
-
-        //                                                InteresCuotaAsignar = ValorInteresCI;
-        //                                                RecargoAbiertoAsignar = ValorInteresRA;
-        //                                                InteresMensualAsignar = InteresAplicar;
-        //                                                InteresTotal = ValorInteresCI + ValorInteresRA + InteresAplicar;
-        //                                                fchVtoAsignar = Convert.ToDateTime(UltVto);
-        //                                            }
-        //                                            else
-        //                                            {
-        //                                                InteresCuotaAsignar = ValorInteresCI;
-        //                                                RecargoAbiertoAsignar = ValorInteresRA;
-        //                                                InteresMensualAsignar = InteresAplicar;
-        //                                                InteresTotal = ValorInteresCI + ValorInteresRA + InteresAplicar;
-        //                                                fchVtoAsignar = Convert.ToDateTime(UltVto);
-        //                                            }
-        //                                        }
-        //                                    }
-        //                                    else
-        //                                    {
-        //                                        if (Convert.ToInt32(dt3.Rows[0]["InteresMensual"]) != 0)
-        //                                        {
-        //                                            if (ValorSeleccionado == 0)// Interés con Monto Fijo
-        //                                            {
-        //                                                //DateTime MesSiguienteVto = UltVto.AddDays(30);
-
-        //                                                Decimal diff = Math.Abs((FechaPago.Month - UltVto.Month) + 12 * (FechaPago.Year - UltVto.Year));
-
-        //                                                //Math.Abs((FechaPago.Month - MesSiguienteVto.Month) + 12 * (FechaPago.Year - MesSiguienteVto.Year));
-
-        //                                                InteresMensualIM = Convert.ToInt32(dt3.Rows[0]["InteresMensual"]) * Convert.ToDecimal(diff);
-        //                                                InteresAplicar = InteresMensualIM;
-
-        //                                                InteresCuotaAsignar = ValorInteresCI;
-        //                                                RecargoAbiertoAsignar = ValorInteresRA;
-        //                                                InteresMensualAsignar = InteresAplicar;
-        //                                                InteresTotal = ValorInteresCI + ValorInteresRA + InteresAplicar;
-        //                                                fchVtoAsignar = Convert.ToDateTime(UltVto);
-
-        //                                            }
-        //                                            else
-        //                                            {
-        //                                                //DateTime MesSiguienteVto = UltVto.AddDays(30);
-        //                                                //Decimal diff = Math.Abs((FechaPago.Month - MesSiguienteVto.Month) + 12 * (FechaPago.Year - MesSiguienteVto.Year));
-        //                                                Decimal diff = Math.Abs((FechaPago.Month - UltVto.Month) + 12 * (FechaPago.Year - UltVto.Year));
-
-        //                                                InteresMensualIM = (Convert.ToDecimal(row["Importe"].ToString()) * Convert.ToInt32(dt3.Rows[0]["InteresMensual"])) / 100;
-        //                                                InteresAplicar = InteresMensualIM * Convert.ToDecimal(diff);
-
-        //                                                InteresCuotaAsignar = ValorInteresCI;
-        //                                                RecargoAbiertoAsignar = ValorInteresRA;
-        //                                                InteresMensualAsignar = InteresAplicar;
-        //                                                InteresTotal = ValorInteresCI + ValorInteresRA + InteresAplicar;
-        //                                                fchVtoAsignar = Convert.ToDateTime(UltVto);
-        //                                            }
-        //                                        }
-        //                                        else
-        //                                        {
-        //                                            InteresCuotaAsignar = ValorInteresCI;
-        //                                            RecargoAbiertoAsignar = ValorInteresRA;
-        //                                            InteresMensualAsignar = 0;
-        //                                            InteresTotal = ValorInteresCI + ValorInteresRA;
-        //                                            fchVtoAsignar = Convert.ToDateTime(UltVto);
-        //                                        }
-        //                                    }
-        //                                }
-        //                            }
-        //                        }
-        //                    }
-        //                }
-
-        //                DataRow row1 = dt.NewRow();
-        //                row1["icoId"] = Convert.ToInt32(row["icoId"].ToString());
-        //                row1["conId"] = Convert.ToInt32(row["conId"].ToString());
-        //                row1["TipoConcepto"] = Convert.ToInt32(row["cntId"].ToString());
-        //                row1["Concepto"] = Convert.ToString(row["Concepto"].ToString());
-        //                row1["Importe"] = Convert.ToDecimal(row["Importe"].ToString());
-        //                row1["InteresCuota"] = InteresCuotaAsignar;
-        //                row1["RecargoAbierto"] = RecargoAbiertoAsignar;
-        //                row1["InteresMensual"] = InteresMensualAsignar;
-        //                row1["AnioLectivo"] = Convert.ToInt32(row["AnioLectivo"].ToString());
-        //                row1["Beca"] = Convert.ToString(row["Beca"].ToString());
-        //                row1["BecId"] = Convert.ToInt32(row["BecId"].ToString());
-        //                row1["FchInscripcion"] = Convert.ToString(row["FchInscripcion"].ToString());
-        //                row1["FechaVto"] = Convert.ToString(fchVtoAsignar);
-        //                row1["NroCuota"] = Convert.ToInt32(row["NroCuota"].ToString());
-        //                row1["InteresTotal"] = InteresTotal;
-        //                dt.Rows.Add(row1);
-        //                Bandera = 1;
-        //            }
-
-        //            GridConcepto.DataSource = dt;
-        //            GridConcepto.DataBind();
-        //            Session["GrillaFinal"] = dt;
-
-
-        //            if (dt.Rows.Count > 0)
-        //            {
-        //                Decimal sumatoria = 0;// Saco TOTAL
-        //                                      //Decimal ImporteBecado = 0;
-        //                Int32 BanderaBeca = 0;
-        //                foreach (DataRow row in dt.Rows)
-        //                {
-
-        //                    sumatoria += (Convert.ToDecimal(row["Importe"].ToString())) + (Convert.ToDecimal(row["InteresTotal"].ToString()));
-
-        //                }
-
-        //                lblSubTotal.Text = Convert.ToString(sumatoria);
-        //                lblSaldo.Text = Convert.ToString(sumatoria);
-        //            }
-        //        }
-
-        //        catch (Exception oError)
-        //        {
-        //            lblMensajeError.Text = @"<div class=""alert alert-danger alert-dismissable"">
-        //<button aria-hidden=""true"" data-dismiss=""alert"" class=""close"" type=""button"">x</button>
-        //<a class=""alert-link"" href=""#"">Error de Sistema</a><br/>
-        //Se ha producido el siguiente error:<br/>
-        //MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerException + "<br><br>TRACE:<br>" + oError.StackTrace + "<br><br>TARGET:<br>" + oError.TargetSite +
-        //    "</div>";
-        //        }
-        //    }
 
     private void GrillaCargar(int PageIndex)
     {
@@ -1228,7 +928,8 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                                 InteresCuotaAsignar = ValorInteresCI;
                                                 RecargoAbiertoAsignar = ValorInteresRA;
                                                 InteresMensualAsignar = InteresAplicar;
-                                                InteresTotal = ValorInteresCI + ValorInteresRA + InteresAplicar;
+                                                //InteresTotal = ValorInteresCI + ValorInteresRA + InteresAplicar;
+                                                InteresTotal = ValorInteresRA + InteresAplicar;
                                                 fchVtoAsignar = Convert.ToDateTime(UltVto);
                                             }
                                             else
@@ -1236,7 +937,8 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                                 InteresCuotaAsignar = ValorInteresCI;
                                                 RecargoAbiertoAsignar = ValorInteresRA;
                                                 InteresMensualAsignar = InteresAplicar;
-                                                InteresTotal = ValorInteresCI + ValorInteresRA + InteresAplicar;
+                                                //InteresTotal = ValorInteresCI + ValorInteresRA + InteresAplicar;
+                                                InteresTotal = ValorInteresCI + ValorInteresRA;
                                                 fchVtoAsignar = Convert.ToDateTime(UltVto);
                                             }
                                         }
@@ -1256,7 +958,8 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                                 InteresCuotaAsignar = ValorInteresCI;
                                                 RecargoAbiertoAsignar = ValorInteresRA;
                                                 InteresMensualAsignar = InteresAplicar;
-                                                InteresTotal = ValorInteresCI + ValorInteresRA + InteresAplicar;
+                                                //InteresTotal = ValorInteresCI + ValorInteresRA + InteresAplicar;
+                                                InteresTotal = ValorInteresRA + InteresAplicar;
                                                 fchVtoAsignar = Convert.ToDateTime(UltVto);
                                             }
                                             else
@@ -1264,7 +967,8 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                                 InteresCuotaAsignar = ValorInteresCI;
                                                 RecargoAbiertoAsignar = ValorInteresRA;
                                                 InteresMensualAsignar = InteresAplicar;
-                                                InteresTotal = ValorInteresCI + ValorInteresRA + InteresAplicar;
+                                                //InteresTotal = ValorInteresCI + ValorInteresRA + InteresAplicar;
+                                                InteresTotal = ValorInteresCI + ValorInteresRA;
                                                 fchVtoAsignar = Convert.ToDateTime(UltVto);
                                             }
                                         }
@@ -1289,7 +993,8 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                                 InteresCuotaAsignar = ValorInteresCI;
                                                 RecargoAbiertoAsignar = ValorInteresRA;
                                                 InteresMensualAsignar = InteresAplicar;
-                                                InteresTotal = ValorInteresCI + ValorInteresRA + InteresAplicar;
+                                                //InteresTotal = ValorInteresCI + ValorInteresRA + InteresAplicar;
+                                                InteresTotal = ValorInteresRA + InteresAplicar;
                                                 fchVtoAsignar = Convert.ToDateTime(UltVto);
 
                                             }
@@ -1305,7 +1010,8 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                                                 InteresAplicar = InteresMensualIM * Convert.ToDecimal(diff);
                                                 RecargoAbiertoAsignar = ValorInteresRA;
                                                 InteresMensualAsignar = InteresAplicar;
-                                                InteresTotal = ValorInteresCI + ValorInteresRA + InteresAplicar;
+                                                //InteresTotal = ValorInteresCI + ValorInteresRA + InteresAplicar;
+                                                InteresTotal = ValorInteresCI + ValorInteresRA;
                                                 fchVtoAsignar = Convert.ToDateTime(UltVto);
                                             }
                                         }
@@ -1331,7 +1037,13 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                     row1["TipoConcepto"] = Convert.ToString(row["TipoConcepto"].ToString());
                     row1["Concepto"] = Convert.ToString(row["Concepto"].ToString());
                     row1["Importe"] = Convert.ToDecimal(row["Importe"].ToString());
-                    row1["InteresCuota"] = InteresCuotaAsignar;
+                    if (InteresMensualAsignar > 0)
+                    {
+                        row1["InteresCuota"] = 0;
+                    } else
+                    {
+                        row1["InteresCuota"] = InteresCuotaAsignar;
+                    }                
                     row1["RecargoAbierto"] = RecargoAbiertoAsignar;
                     row1["InteresMensual"] = InteresMensualAsignar;
                     row1["AnioLectivo"] = Convert.ToInt32(row["AnioLectivo"].ToString());

@@ -338,6 +338,21 @@ namespace GESTIONESCOLAR
             }
 
 
+
+            public void ActualizarFormadePago(Int32 cfpId, Int32 fopId, Int32 usuidUltimaModificacion, DateTime cfpFechaHoraUltimaModificacion)
+            {
+                try
+                {
+                    ocdGestor.EjecutarNonQuery("[ComprobantesFormasPago.ActualizarFormadePago]", new object[,] { { "@cfpId", cfpId }, { "@fopId", fopId }, { "@usuidUltimaModificacion", usuidUltimaModificacion }, { "@cfpFechaHoraUltimaModificacion", cfpFechaHoraUltimaModificacion } });
+                }
+                catch (Exception oError)
+                {
+                    throw oError;
+                }
+            }
+
+
+
             #endregion
         }
     }

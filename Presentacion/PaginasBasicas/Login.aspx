@@ -42,6 +42,29 @@
             font-size: 11pt;
             font-weight: 700;
         }
+
+        /* Estilos para el contenedor del campo de contraseña y el icono */
+        .password-container {
+            position: relative; /* Esencial para posicionar el icono absolutamente dentro de este div */
+        }
+
+        /* Estilos para el icono de mostrar/ocultar contraseña */
+        .password-toggle {
+            position: absolute; /* Posiciona el icono de forma absoluta */
+            right: 15px; /* Ajusta la distancia desde el borde derecho */
+            top: 50%; /* Centra verticalmente */
+            transform: translateY(-50%); /* Ajuste fino para centrado vertical */
+            cursor: pointer; /* Cambia el cursor a una manita para indicar que es clicable */
+            color: #999; /* Color del icono */
+            font-size: 1.2em; /* Tamaño del icono */
+            z-index: 10; /* Asegura que esté por encima del input */
+        }
+
+        /* Opcional: Estilo para cuando el icono se cambia a ojo tachado (si quieres esa animación) */
+        .password-toggle .fa-eye-slash {
+            color: #555; /* Un color un poco más oscuro cuando está "escondiendo" */
+        }
+
     </style>
 </head>
 <body class="gray-bg" background="../Imagenes/FondoPrincipal.jpg">
@@ -69,9 +92,10 @@
                 <asp:TextBox ID="txtUsuario" runat="server" class="form-control" placeholder="Usuario"
                     required=""></asp:TextBox>
             </div>
-            <div class="form-group">
-                <asp:TextBox ID="txtClave" runat="server" type="password" class="form-control" placeholder="Clave"
-                    required=""></asp:TextBox>
+            <div class="form-group password-container">
+                <asp:TextBox ID="txtClave" runat="server" TextMode="Password" CssClass="form-control" placeholder="Clave"></asp:TextBox>
+                <span class="password-toggle" id="togglePassword">
+                    <i class="fa fa-eye"></i> </span>
             </div>
             <div class="form-group">
                 <asp:DropDownList ID="ColegioId" runat="server" Visible="false" BorderColor="Silver" class="form-control m-b" Enabled="true" AutoPostBack="True" OnSelectedIndexChanged="ColegioId_SelectedIndexChanged" AppendDataBoundItems="true"></asp:DropDownList>
@@ -107,6 +131,29 @@
         <!-- Mainly scripts -->
         <script type="text/javascript" src="../js/jquery-2.1.1.js"></script>
         <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+
+        <script type="text/javascript">
+            // Espera a que el DOM esté completamente cargado
+            document.addEventListener('DOMContentLoaded', function () {
+                const togglePassword = document.getElementById('togglePassword');
+                const passwordInput = document.getElementById('<%= txtClave.ClientID %>'); // Usa ClientID para ASP.NET
+
+                if (togglePassword && passwordInput) { // Asegura que los elementos existen
+                    togglePassword.addEventListener('click', function () {
+                        // Alterna el tipo de input entre 'password' y 'text'
+                        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                        passwordInput.setAttribute('type', type);
+
+                        // Alterna el icono de ojo visible/tachado
+                        this.querySelector('i').classList.toggle('fa-eye');
+                        this.querySelector('i').classList.toggle('fa-eye-slash');
+                    });
+                } else {
+                    console.warn("Elementos para mostrar/ocultar contraseña no encontrados.");
+                }
+            });
+        </script>
+
     </form>
 </body>
 </html>

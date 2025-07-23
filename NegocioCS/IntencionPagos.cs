@@ -363,6 +363,24 @@ namespace GESTIONESCOLAR
                 return Tabla;
             }
 
+
+            public DataTable ObtenerEstado(String IdReferenciaOperacion)
+            {
+                ocdGestor = new Datos.Gestor();
+                Tabla = new DataTable();
+
+                try
+                {
+                    Tabla = ocdGestor.EjecutarReader("[IntencionPagos.ObtenerEstado]", new object[,] { { "@IdReferenciaOperacion", IdReferenciaOperacion } });
+                }
+                catch (Exception oError)
+                {
+                    throw oError;
+                }
+
+                return Tabla;
+            }
+
             //public DataTable ObtenerUno(Int32 becId)
             //{
             //    ocdGestor = new Datos.Gestor();
@@ -382,12 +400,12 @@ namespace GESTIONESCOLAR
 
 
             //  public IntencionPagos(Int32 inpId, String inp_IdReferenciaOperacion, String inp_Hash, DateTime inp_FechaCreacion, String inp_Estado, Decimal _inp_Monto, Int32 inp_UsuId)
-
-            public void Actualizar(Int32 aluid, String inp_bearerToken, String inp_hash, String inp_ResultadoPago)
+            public void Actualizar(Int32 aluid, String inp_bearerToken, String inp_hash)
             {
                 try
                 {
-                    ocdGestor.EjecutarNonQuery("[IntencionPagos.Actualizar]", new object[,] {{ "@aluid", aluid }, { "@inp_bearerToken", inp_bearerToken }, { "@inp_hash", inp_hash }, { "@inp_ResultadoPago", inp_ResultadoPago } }); 
+                    //ocdGestor.EjecutarNonQuery("[IntencionPagos.Actualizar]", new object[,] {{ "@aluid", aluid }, { "@inp_bearerToken", inp_bearerToken }, { "@inp_hash", inp_hash }, { "@inp_ResultadoPago", inp_ResultadoPago } }); 
+                    ocdGestor.EjecutarNonQuery("[IntencionPagos.Actualizar]", new object[,] { { "@aluid", aluid }, { "@inp_bearerToken", inp_bearerToken }, { "@inp_hash", inp_hash } });
                 }
                 catch (Exception oError)
                 {
@@ -395,33 +413,17 @@ namespace GESTIONESCOLAR
                 }
             }
 
-            //public void ActualizarResultado_pago(String resultado_pago)
-            //{
-            //    try
-            //    {
-            //        if (this.becId != 0)
-            //        {
-            //            ocdGestor.EjecutarNonQuery("[IntencionPagos.Actualizar]", new object[,] { { "@resultado_pago", resultado_pago }, { "@resultado_pago", resultado_pago } });
-            //        }
-            //    }
-            //    catch (Exception oError)
-            //    {
-            //        throw oError;
-            //    }
-            //}
-
-
-            //public void Eliminar(Int32 becId)
-            //{
-            //    try
-            //    {
-            //        ocdGestor.EjecutarNonQuery("[Becas.Eliminar]", new object[,] {{"@becId", becId}});
-            //    }
-            //    catch (Exception oError)
-            //    {
-            //    	throw oError;
-            //    }
-            //}
+            public void ActualizarEstado(String IdReferenciaOperacion, String estado) 
+            {
+                try
+                {
+                    ocdGestor.EjecutarNonQuery("[IntencionPagos.ActualizarEstado]", new object[,] { { "@IdReferenciaOperacion", IdReferenciaOperacion }, { "@estado", estado } });
+                }
+                catch (Exception oError)
+                {
+                    throw oError;
+                }
+            }
 
             public Int32 Insertar()
             {
@@ -436,6 +438,37 @@ namespace GESTIONESCOLAR
                 }
                 return IdMax;
             }
+
+
+
+            public void Actualizarobervacionimputacion(String inp_IdReferenciaOperacion, String Observacion)
+            {
+                try
+                {
+
+                    ocdGestor.EjecutarNonQuery("[IntencionPagos.Actualizarobervacionimputacion]", new object[,] { { "@inp_IdReferenciaOperacion", inp_IdReferenciaOperacion }, { "@Observacion", Observacion } });
+                }
+                catch (Exception oError)
+                {
+                    throw oError;
+                }
+            }
+
+            public void ActualizarRegistros(String inp_IdReferenciaOperacion, String inp_CanalCobro, String inp_CodRechazo, String inp_DescripcionRechazo, Int32 inp_Cuotas, String inp_Tarjetas,
+                          Decimal inp_ImportePagado, DateTime inp_fechaacreditacion, DateTime inp_fechapago)
+            {
+                try
+                {
+                    ocdGestor.EjecutarNonQuery("[IntencionPagos.ActualizarRegistros]", new object[,] { { "@inp_IdReferenciaOperacion", inp_IdReferenciaOperacion },{ "@inp_CanalCobro", inp_CanalCobro }, { "@inp_CodRechazo", inp_CodRechazo },  { "@inp_DescripcionRechazo", inp_DescripcionRechazo },{ "@inp_Cuotas", inp_Cuotas },{ "@inp_Tarjetas", inp_Tarjetas },
+                            { "@inp_ImportePagado", inp_ImportePagado }, { "@inp_fechaacreditacion", inp_fechaacreditacion }, { "@inp_fechapago", inp_fechapago }});
+
+                }
+                catch (Exception oError)
+                {
+                    throw oError;
+                }
+            }
+
 
 
             #endregion
