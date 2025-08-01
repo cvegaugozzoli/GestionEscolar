@@ -215,7 +215,7 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
 
     private void GenerarPDF()
     {
-        string fileName = "RecibodeSueldo.pdf";
+        string fileName = "RecibodeSueldo.pdf";  
         string ruta = "~/PaginasGenerales" + fileName;
         string filePath = Server.MapPath(fileName);
 
@@ -224,10 +224,6 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
             // Crear el documento PDF
             Document pdfDoc = new Document(PageSize.A4, 25, 25, 50, 50);
             PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
-
-            // Agregar encabezado y pie de página personalizados
-            //writer.PageEvent = new CustomHeaderFooter();
-
             pdfDoc.Open();
 
             Int32 liq_id = Convert.ToInt32(liqid.SelectedValue);
@@ -239,21 +235,11 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
                 foreach (DataRow row in DT_ListarporCargo.Rows)
                 {
                     Int32 ECLC_EMC_ID = Convert.ToInt32(row["ECLC_EMC_ID"].ToString()); // Convert.ToInt32(DT_ListarporCargo.Rows[0]["ECLC_EMC_ID"].ToString());
-
-                    //PdfPTable tableE = CrearTablaEncabezado();
-                    //pdfDoc.Add(tableE);
-
                     // Agregar contenido en formato de tabla
                     PdfPTable table = CrearTablaGrilla(ECLC_EMC_ID);
-                    //pdfDoc.Add(table);
-
-                    //pdfDoc.Add(tableE);
-                    //pdfDoc.Add(new Paragraph(" Espacio Blanco ")); // Espacio entre tablas
                     pdfDoc.Add(table);
-
                     //Nueva Página por cada cargo
                     pdfDoc.NewPage();
-
                 }
             }
             // Cerrar el documento
@@ -261,26 +247,25 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
         }
         
         // Descargar el archivo PDF
-        Response.ContentType = "application/pdf";
-        Response.AppendHeader("Content-Disposition", string.Format("attachment; filename={0}", fileName));
-        Response.WriteFile(filePath);
-
-        //Response.End();
-        //string script = string.Format("<script>window.open(" + url + ", '_blank');</script>");
-        //Response.Write(script);
-
-        //string url = "https://obramisericordista.com.ar/PaginasGenerales/RecibodeSueldo.pdf"; // Genera tu URL aquí
-        //string script = string.Format("<script>window.open(" + url + ", '_blank');</script>");
-        //ClientScript.RegisterStartupScript(this.GetType(), "OpenNewTab", script, true);
-        //ScriptManager.RegisterStartupScript(this, this.GetType(), "OpenNewTab", script, true);
-
-        //string script = "window.open('https://obramisericordista.com.ar/PaginasGenerales/RecibodeSueldo.pdf', '_blank');";
-        //ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString(), script, true);
-
-        Response.Redirect("../PaginasGenerales/RecibodeSueldo.pdf", false);
-
+        //Response.ContentType = "application/pdf";
+        //Response.AppendHeader("Content-Disposition", string.Format("attachment; filename={0}", fileName));
+        //Response.WriteFile(filePath);
+        //Response.Redirect("../PaginasGenerales/RecibodeSueldo.pdf", false);
 
     }
+
+    //Response.End();
+    //string script = string.Format("<script>window.open(" + url + ", '_blank');</script>");
+    //Response.Write(script);
+
+    //string url = "https://obramisericordista.com.ar/PaginasGenerales/RecibodeSueldo.pdf"; // Genera tu URL aquí
+    //string script = string.Format("<script>window.open(" + url + ", '_blank');</script>");
+    //ClientScript.RegisterStartupScript(this.GetType(), "OpenNewTab", script, true);
+    //ScriptManager.RegisterStartupScript(this, this.GetType(), "OpenNewTab", script, true);
+
+    //string script = "window.open('https://obramisericordista.com.ar/PaginasGenerales/RecibodeSueldo.pdf', '_blank');";
+    //ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString(), script, true);
+
 
 
 
@@ -1001,6 +986,15 @@ MESSAGE:<br>" + oError.Message + "<br><br>EXCEPTION:<br>" + oError.InnerExceptio
         CargarITS();
 
         GenerarPDF();
+
+        //Response.Redirect("../PaginasGenerales/RecibodeSueldo.pdf", false);
+
+        // Generar URL con timestamp para evitar caché
+        string url = "../PaginasGenerales/RecibodeSueldo.pdf?ts=" + DateTime.Now.Ticks;
+
+        // Abrir el PDF en una nueva pestaña (más compatible y más limpio)
+        string script = string.Format("window.open('{0}', '_blank');", url);
+        ScriptManager.RegisterStartupScript(this, GetType(), "AbrirPDF", script, true);
 
     }
 }

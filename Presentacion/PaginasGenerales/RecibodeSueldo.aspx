@@ -51,7 +51,6 @@
                     <br />
                     <asp:Button ID="btnActualizar" class="btn btn-w-m btn-primary" runat="server" data-toggle="collapse" data-target="#collapseExample"
                         aria-expanded="false" aria-controls="collapseExample" Text="Imprimir" OnClick="btnActualizar_Click" />
-
                 </div>
             </div>
         </div>
